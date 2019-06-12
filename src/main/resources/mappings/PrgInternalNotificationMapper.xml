@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.insideInformation.dao.PrgInternalNotificationDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.insideInformation.pojo.PrgInternalNotification">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="IMAGE" jdbcType="VARCHAR" property="image" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="RELEASE_SCOPE" jdbcType="VARCHAR" property="releaseScope" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="ROOF_PLACEMENT" jdbcType="CHAR" property="roofPlacement" />
+    <result column="PUBLISHER" jdbcType="VARCHAR" property="publisher" />
+    <result column="PUBLISH_DATE" jdbcType="TIMESTAMP" property="publishDate" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="TENANTID" jdbcType="VARCHAR" property="tenantid" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="ORGANIZATION_ID" jdbcType="VARCHAR" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="RM_USER_ID" jdbcType="VARCHAR" property="rmUserId" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+     <result column="customer_name" jdbcType="VARCHAR" property="customer_name" />
+     <result column="customer_id" jdbcType="BIGINT" property="customer_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TITLE, IMAGE, URL, RELEASE_SCOPE, CONTENT, ROOF_PLACEMENT, PUBLISHER, PUBLISH_DATE, 
+    LAST_UPDATE_DATE, STATE, TENANTID, DR, ORGANIZATION_ID, ORGANIZATION_NAME, CREATOR_ID, 
+    CREATOR_NAME, BILL_STATUS, RM_USER_ID, TYPE,customer_name,customer_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_internal_notification
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_internal_notification
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.insideInformation.pojo.PrgInternalNotification">
+    insert into prg_internal_notification (ID, TITLE, IMAGE, 
+      URL, RELEASE_SCOPE, CONTENT, 
+      ROOF_PLACEMENT, PUBLISHER, PUBLISH_DATE, 
+      LAST_UPDATE_DATE, STATE, TENANTID, 
+      DR, ORGANIZATION_ID, ORGANIZATION_NAME, 
+      CREATOR_ID, CREATOR_NAME, BILL_STATUS, 
+      RM_USER_ID, TYPE,customer_name,customer_id)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{releaseScope,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{roofPlacement,jdbcType=CHAR}, #{publisher,jdbcType=VARCHAR}, #{publishDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR}, #{tenantid,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=CHAR}, #{organizationId,jdbcType=VARCHAR}, #{organizationName,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR}, 
+      #{rmUserId,jdbcType=VARCHAR}, #{type,jdbcType=CHAR},#{customer_name,jdbcType=VARCHAR},#{customer_id,jdbcType=BIGINT}) 
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.insideInformation.pojo.PrgInternalNotification">
+    insert into prg_internal_notification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="image != null">
+        IMAGE,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="releaseScope != null">
+        RELEASE_SCOPE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="roofPlacement != null">
+        ROOF_PLACEMENT,
+      </if>
+      <if test="publisher != null">
+        PUBLISHER,
+      </if>
+      <if test="publishDate != null">
+        PUBLISH_DATE,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="rmUserId != null">
+        RM_USER_ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="customer_name != null">
+        customer_name,
+      </if>
+      <if test="customer_id != null">
+        customer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseScope != null">
+        #{releaseScope,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="roofPlacement != null">
+        #{roofPlacement,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rmUserId != null">
+        #{rmUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="customer_name != null">
+        #{customer_name,jdbcType=VARCHAR},
+      </if>
+      <if test="customer_id != null">
+        #{customer_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.insideInformation.pojo.PrgInternalNotification">
+    update prg_internal_notification
+    <set>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        IMAGE = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseScope != null">
+        RELEASE_SCOPE = #{releaseScope,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="roofPlacement != null">
+        ROOF_PLACEMENT = #{roofPlacement,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null">
+        PUBLISHER = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rmUserId != null">
+        RM_USER_ID = #{rmUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="customer_name != null">
+       customer_name = #{customer_name,jdbcType=VARCHAR},
+      </if>
+      <if test="customer_id != null">
+       customer_id = #{customer_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.insideInformation.pojo.PrgInternalNotification">
+    update prg_internal_notification
+    set TITLE = #{title,jdbcType=VARCHAR},
+      IMAGE = #{image,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      RELEASE_SCOPE = #{releaseScope,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      ROOF_PLACEMENT = #{roofPlacement,jdbcType=CHAR},
+      PUBLISHER = #{publisher,jdbcType=VARCHAR},
+      PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=VARCHAR},
+      DR = #{dr,jdbcType=CHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      RM_USER_ID = #{rmUserId,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      customer_name = #{customer_name,jdbcType=VARCHAR},
+      customer_id = #{customer_id,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 服务消息 -->
+  <select id="serveDetails" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_internal_notification
+    where RM_USER_ID = #{0}
+    and TENANTID= #{1}
+    and TYPE= 1
+    and TITLE LIKE #{2}
+    ORDER BY STATE
+  </select>
+  <!-- 获取服务消息未读个数 -->
+  <select id="getserveNumber"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_internal_notification
+    where RM_USER_ID = #{0}
+    and TENANTID= #{1}
+    and TYPE= 1
+    and STATE =0 
+  </select>
+  <!-- 消息类消息 -->
+  <select id="messageDetails"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_internal_notification
+    where RM_USER_ID = #{0}
+    and TENANTID= #{1}
+    and TYPE= 2
+    and TITLE LIKE #{2}
+    ORDER BY STATE
+  </select>
+  <!-- 消息类消息未读个数 -->
+  <select id="getmessageNumber"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_internal_notification
+    where RM_USER_ID = #{0}
+    and TENANTID= #{1}
+    and TYPE= 2
+    and STATE =0 
+  </select>
+  
+  <!--修改状态  -->
+  <update id="updateState">
+  	UPDATE  prg_internal_notification SET STATE = 1 WHERE ID = #{0}
+  </update>
+</mapper>

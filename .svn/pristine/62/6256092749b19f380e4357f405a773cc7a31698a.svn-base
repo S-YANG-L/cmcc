@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.billAndPay.dao.BillAndPayDao">
+	
+	<!-- 输出字段列 -->
+	<sql id="BillAndPayColums">
+	 	a.id AS "id",
+	 	a.tenantId AS "tenantId",
+		a.bill_number AS "billNumber",
+		a.open_date AS "openDate",
+		a.amount_received AS "amountReceived",
+		a.leasehold_name AS "leaseholdName",
+		a.customer_name AS "customerName",
+		a.customer_id AS "customerId",
+		a.planned_receipt_amount AS "plannedReceiptAmount",
+		a.unpaid_amount AS "unpaidAmount",
+		a.sign_lease_date AS "signLeaseDate",
+		a.payment_deadline AS "paymentDeadline",
+		a.bill_type AS "billType",
+		a.lease_bill_status AS "leaseBillStatus",
+	 	a.dR AS "dR"
+	</sql>
+	
+	<!-- 输出字段列 -->
+	<sql id="RentLeaseBillDetailColums">
+		b.id AS "id",
+		b.money_name AS "moneyName",
+		b.money_type AS "moneyType",
+		b.actual_receipt_amount AS "actualReceiptAmount",
+		b.planned_receipt_amount AS "plannedReceiptAmount",
+		b.bill_id AS "billId",
+		b.tenantId AS "tenantId" ,
+		b.dR AS "dR"
+	</sql>
+	<!-- 主子表联查之主表查询 -->
+	<select id="list" resultType="BillAndPay">
+		SELECT 
+		<include refid="BillAndPayColums" />
+		FROM rent_lease_bill a
+		<where>
+			a.dR !=1
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="customerId != null and customerId != ''">
+				AND a.customer_id = #{customerId}
+			</if>
+			<if test="leaseBillStatus != null and leaseBillStatus != ''">
+				AND a.lease_bill_status = #{leaseBillStatus}
+			</if>
+		</where>
+	</select>
+	<!-- 主子表联查之子表查询 -->
+	<select id="listDtl" resultType="BillAndPayDetail">
+		SELECT 
+		<include refid="RentLeaseBillDetailColums" />
+		FROM rent_lease_bill_detail b
+		<where>
+			b.dR != 1
+			<if test="billId != null and billId != ''">
+				AND b.bill_id = #{billId}
+			</if>
+		</where>
+	</select>
+	<!-- 子表查询 -->
+	<select id="billListDtl" resultType="BillAndPayDetail">
+		SELECT 
+		<include refid="RentLeaseBillDetailColums" />
+		FROM rent_lease_bill_detail b
+		<where>			
+			b.dR != 1
+			<if test="billId != null and billId != ''">
+				AND b.bill_id = #{billId}
+			</if>
+		</where>
+	</select>
+</mapper>

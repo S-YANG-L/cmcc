@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.PrgInstrumentInfoDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentInfo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="INSTRUMENT_NUMBER" jdbcType="VARCHAR" property="instrumentNumber" />
+    <result column="INSTRUMENT_NAME" jdbcType="VARCHAR" property="instrumentName" />
+    <result column="INSTRUMENT_TYPE_ID" jdbcType="BIGINT" property="instrumentTypeId" />
+    <result column="INSTRUMENT_TYPE" jdbcType="CHAR" property="instrumentType" />
+    <result column="INSTRUMENT_TYPE_NAME" jdbcType="VARCHAR" property="instrumentTypeName" />
+    <result column="HOUSING_RESOURCES_ID" jdbcType="BIGINT" property="housingResourcesId" />
+    <result column="HOUSING_RESOURCES" jdbcType="VARCHAR" property="housingResources" />
+    <result column="METER_READING_CYCLE" jdbcType="VARCHAR" property="meterReadingCycle" />
+    <result column="INSTRUMENT_STATUS" jdbcType="VARCHAR" property="instrumentStatus" />
+    <result column="SCALE_NAME" jdbcType="VARCHAR" property="scaleName" />
+    <result column="INITIAL_READING_HISTORY" jdbcType="DOUBLE" property="initialReadingHistory" />
+    <result column="INITIAL_READING" jdbcType="DOUBLE" property="initialReading" />
+    <result column="OLD_OR_NEW" jdbcType="CHAR" property="oldOrNew" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="UNIT_PRICE" jdbcType="DECIMAL" property="unitPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, INSTRUMENT_NUMBER, INSTRUMENT_NAME, INSTRUMENT_TYPE_ID, INSTRUMENT_TYPE, INSTRUMENT_TYPE_NAME, 
+    HOUSING_RESOURCES_ID, HOUSING_RESOURCES, METER_READING_CYCLE, INSTRUMENT_STATUS, 
+    SCALE_NAME, INITIAL_READING_HISTORY, INITIAL_READING, OLD_OR_NEW, TENANTID, DR, ORGANIZATION_ID, 
+    ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, BILL_STATUS , UNIT_PRICE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_instrument_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_instrument_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentInfo">
+    insert into prg_instrument_info (ID, INSTRUMENT_NUMBER, INSTRUMENT_NAME, 
+      INSTRUMENT_TYPE_ID, INSTRUMENT_TYPE, INSTRUMENT_TYPE_NAME, 
+      HOUSING_RESOURCES_ID, HOUSING_RESOURCES, METER_READING_CYCLE, 
+      INSTRUMENT_STATUS, SCALE_NAME, INITIAL_READING_HISTORY, 
+      INITIAL_READING, OLD_OR_NEW, TENANTID, 
+      DR, ORGANIZATION_ID, ORGANIZATION_NAME, 
+      CREATOR_ID, CREATOR_NAME, BILL_STATUS,UNIT_PRICE
+      )
+    values (#{id,jdbcType=BIGINT}, #{instrumentNumber,jdbcType=VARCHAR}, #{instrumentName,jdbcType=VARCHAR}, 
+      #{instrumentTypeId,jdbcType=BIGINT}, #{instrumentType,jdbcType=CHAR}, #{instrumentTypeName,jdbcType=VARCHAR}, 
+      #{housingResourcesId,jdbcType=BIGINT}, #{housingResources,jdbcType=VARCHAR}, #{meterReadingCycle,jdbcType=VARCHAR}, 
+      #{instrumentStatus,jdbcType=VARCHAR}, #{scaleName,jdbcType=VARCHAR}, #{initialReadingHistory,jdbcType=DOUBLE}, 
+      #{initialReading,jdbcType=DOUBLE}, #{oldOrNew,jdbcType=CHAR}, #{tenantid,jdbcType=BIGINT}, 
+      #{dr,jdbcType=CHAR}, #{organizationId,jdbcType=BIGINT}, #{organizationName,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR},
+      #{unitPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentInfo">
+    insert into prg_instrument_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="instrumentNumber != null">
+        INSTRUMENT_NUMBER,
+      </if>
+      <if test="instrumentName != null">
+        INSTRUMENT_NAME,
+      </if>
+      <if test="instrumentTypeId != null">
+        INSTRUMENT_TYPE_ID,
+      </if>
+      <if test="instrumentType != null">
+        INSTRUMENT_TYPE,
+      </if>
+      <if test="instrumentTypeName != null">
+        INSTRUMENT_TYPE_NAME,
+      </if>
+      <if test="housingResourcesId != null">
+        HOUSING_RESOURCES_ID,
+      </if>
+      <if test="housingResources != null">
+        HOUSING_RESOURCES,
+      </if>
+      <if test="meterReadingCycle != null">
+        METER_READING_CYCLE,
+      </if>
+      <if test="instrumentStatus != null">
+        INSTRUMENT_STATUS,
+      </if>
+      <if test="scaleName != null">
+        SCALE_NAME,
+      </if>
+      <if test="initialReadingHistory != null">
+        INITIAL_READING_HISTORY,
+      </if>
+      <if test="initialReading != null">
+        INITIAL_READING,
+      </if>
+      <if test="oldOrNew != null">
+        OLD_OR_NEW,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="instrumentNumber != null">
+        #{instrumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentName != null">
+        #{instrumentName,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentTypeId != null">
+        #{instrumentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="instrumentType != null">
+        #{instrumentType,jdbcType=CHAR},
+      </if>
+      <if test="instrumentTypeName != null">
+        #{instrumentTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="housingResourcesId != null">
+        #{housingResourcesId,jdbcType=BIGINT},
+      </if>
+      <if test="housingResources != null">
+        #{housingResources,jdbcType=VARCHAR},
+      </if>
+      <if test="meterReadingCycle != null">
+        #{meterReadingCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentStatus != null">
+        #{instrumentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="scaleName != null">
+        #{scaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="initialReadingHistory != null">
+        #{initialReadingHistory,jdbcType=DOUBLE},
+      </if>
+      <if test="initialReading != null">
+        #{initialReading,jdbcType=DOUBLE},
+      </if>
+      <if test="oldOrNew != null">
+        #{oldOrNew,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentInfo">
+    update prg_instrument_info
+    <set>
+      <if test="instrumentNumber != null">
+        INSTRUMENT_NUMBER = #{instrumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentName != null">
+        INSTRUMENT_NAME = #{instrumentName,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentTypeId != null">
+        INSTRUMENT_TYPE_ID = #{instrumentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="instrumentType != null">
+        INSTRUMENT_TYPE = #{instrumentType,jdbcType=CHAR},
+      </if>
+      <if test="instrumentTypeName != null">
+        INSTRUMENT_TYPE_NAME = #{instrumentTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="housingResourcesId != null">
+        HOUSING_RESOURCES_ID = #{housingResourcesId,jdbcType=BIGINT},
+      </if>
+      <if test="housingResources != null">
+        HOUSING_RESOURCES = #{housingResources,jdbcType=VARCHAR},
+      </if>
+      <if test="meterReadingCycle != null">
+        METER_READING_CYCLE = #{meterReadingCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentStatus != null">
+        INSTRUMENT_STATUS = #{instrumentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="scaleName != null">
+        SCALE_NAME = #{scaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="initialReadingHistory != null">
+        INITIAL_READING_HISTORY = #{initialReadingHistory,jdbcType=DOUBLE},
+      </if>
+      <if test="initialReading != null">
+        INITIAL_READING = #{initialReading,jdbcType=DOUBLE},
+      </if>
+      <if test="oldOrNew != null">
+        OLD_OR_NEW = #{oldOrNew,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentInfo">
+    update prg_instrument_info
+    set INSTRUMENT_NUMBER = #{instrumentNumber,jdbcType=VARCHAR},
+      INSTRUMENT_NAME = #{instrumentName,jdbcType=VARCHAR},
+      INSTRUMENT_TYPE_ID = #{instrumentTypeId,jdbcType=BIGINT},
+      INSTRUMENT_TYPE = #{instrumentType,jdbcType=CHAR},
+      INSTRUMENT_TYPE_NAME = #{instrumentTypeName,jdbcType=VARCHAR},
+      HOUSING_RESOURCES_ID = #{housingResourcesId,jdbcType=BIGINT},
+      HOUSING_RESOURCES = #{housingResources,jdbcType=VARCHAR},
+      METER_READING_CYCLE = #{meterReadingCycle,jdbcType=VARCHAR},
+      INSTRUMENT_STATUS = #{instrumentStatus,jdbcType=VARCHAR},
+      SCALE_NAME = #{scaleName,jdbcType=VARCHAR},
+      INITIAL_READING_HISTORY = #{initialReadingHistory,jdbcType=DOUBLE},
+      INITIAL_READING = #{initialReading,jdbcType=DOUBLE},
+      OLD_OR_NEW = #{oldOrNew,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      DR = #{dr,jdbcType=CHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      UNIT_PRICE = #{unitPrice,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 查询旧刻度 -->
+  <select id="getParticulars"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_instrument_info
+    where HOUSING_RESOURCES_ID = #{0}
+    and INSTRUMENT_TYPE_ID = #{1}
+  </select>
+  <!-- 查询详细信息 -->
+  <select id="getOddDetail"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_instrument_info
+    where HOUSING_RESOURCES_ID = #{0}
+    and INSTRUMENT_TYPE = #{1}
+  </select>
+  <!-- 查询日期 -->
+  <select id="getExamineTime"  resultType="String">
+     SELECT
+	READING_DATE
+FROM
+	prg_copy_form  
+WHERE
+	ID IN
+	(
+SELECT
+	PARENT_ID 
+FROM
+	prg_meter_reding 
+WHERE
+	INSTRUMENT_NUMBER IN 
+	( SELECT INSTRUMENT_NUMBER FROM prg_instrument_info WHERE HOUSING_RESOURCES_ID = #{0} AND INSTRUMENT_TYPE_ID = #{1} )
+	) ORDER BY READING_DATE DESC LIMIT 0,1 
+  </select>
+  
+</mapper>

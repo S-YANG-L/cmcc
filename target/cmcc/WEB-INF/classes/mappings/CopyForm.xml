@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.CopyFormMapper">
+	<select id="copyList" resultType="CopyFormType">
+		select
+		a.ID as ID,
+		a.INSTRUMENT_NUMBER as INSTRUMENTNUMBER,
+		a.INSTRUMENT_NAME as INSTRUMENTNAME,
+		a.INSTRUMENT_TYPE_ID as INSTRUMENTTYPEID,
+		a.INSTRUMENT_TYPE as INSTRUMENTTYPE,
+		a.INSTRUMENT_TYPE_NAME as INSTRUMENTTYPENAME,
+		a.HOUSING_RESOURCES_ID as HOUSINGRESOURCESID,
+		a.HOUSING_RESOURCES as HOUSINGRESOURCES,
+		a.METER_READING_CYCLE as METERREADINGCYCLE,
+		a.INITIAL_READING_HISTORY as INITIALREADINGHISTORY,
+		a.TENANTID as TENANTID,
+		a.DR as dr
+		from
+		prg_instrument_info a
+		where a.dr = 0
+	</select>
+	<select id="record" resultType="com.htyw.app.engineeringPolling.pojo.CopyForm.CopyFormRecord">
+		SELECT
+		READING_DATE as readingDate,RECEIPTS_NAME as receiptsName
+		FROM
+		prg_copy_form
+		WHERE
+		ID IN
+		(
+		SELECT
+		PARENT_ID
+		FROM
+		prg_meter_reding
+		WHERE
+		INSTRUMENT_NUMBER IN
+		( SELECT INSTRUMENT_NUMBER FROM prg_instrument_info WHERE
+		HOUSING_RESOURCES_ID = #{0})
+		)
+	</select>
+	<insert id="save" parameterType="CopyForm">
+		insert into prg_instrument_info(
+		ID,
+		TENANTID,
+		HOUSING_RESOURCES_ID,
+		INSTRUMENT_TYPE_ID,
+		INSTRUMENT_STATUS,
+		SCALE_NAME,
+		INITIAL_READING,
+		OLD_OR_NEW
+		)VALUES(
+		#{id},
+		#{tenantId},
+		#{housingResourcesId},
+		#{instrumentTypeId},
+		#{instrumentStatus},
+		#{scaleName},
+		#{initialReading},
+		#{oldOrNew}
+		)
+	</insert>
+	<!-- 查询社区 -->
+	<select id="communityList" resultType="Object">
+		SELECT ID ,COMMUNITY_NAME FROM base_community WHERE TENANTID = #{0}
+	</select>
+</mapper>

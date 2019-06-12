@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.appointment.dao.AppointmentDao">
+	<select id="listAppointment" resultType="Appointment">
+		SELECT
+		a.id as id,
+		a.house_id as houseId,
+		a.house_name as houseName,
+		a.applicant_id as applicantId,
+		a.applicant_name as applicantName,
+		a.applicant_sex as applicantSex,
+		a.applicant_phone as applicantPhone,
+		a.applicant_date as applicantDate,
+		a.leaving_message as leavingMessage,
+		a.reason as reason,
+		a.receiver_id as receiverId,
+		a.receiver_name as
+		receiverName,
+		a.bill_status as billStatus,
+		a.tenantid as tenantId,
+		a.dr
+		as dr
+		FROM
+		rent_looking_house a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="billStatus != null and billStatus != ''">
+				AND a.bill_status = #{billStatus}
+			</if>
+			<if test="applicantName != null and applicantName !=''">
+				AND a.applicant_name like concat('%',
+				#{applicantName},'%')
+			</if>
+			<if
+				test="startDate != null and startDate != ''and endDate != null and endDate != '' ">
+				AND a.applicant_date between #{startDate} and
+				#{endDate}
+			</if>
+		</where>
+		order by a.applicant_date
+	</select>
+	<select id="listAppointmentRec" resultType="Appointment">
+		SELECT
+		a.id as id,
+		a.house_id as houseId,
+		a.house_name as houseName,
+		a.applicant_id as applicantId,
+		a.applicant_name as applicantName,
+		a.applicant_sex as applicantSex,
+		a.applicant_phone as applicantPhone,
+		a.applicant_date as applicantDate,
+		a.leaving_message as leavingMessage,
+		a.reason as reason,
+		a.receiver_id as receiverId,
+		a.receiver_name as
+		receiverName,
+		a.bill_status as billStatus,
+		a.tenantid as tenantId,
+		a.dr
+		as dr
+		FROM
+		rent_looking_house a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			and a.bill_status in (1,2)
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="billStatus != null and billStatus != ''">
+				AND a.bill_status = #{billStatus}
+			</if>
+			<if test="applicantName != null and applicantName !=''">
+				AND a.applicant_name like concat('%',
+				#{applicantName},'%')
+			</if>
+			<if
+				test="startDate != null and startDate != ''and endDate != null and endDate != '' ">
+				AND a.applicant_date between #{startDate} and
+				#{endDate}
+			</if>
+		</where>
+		order by a.applicant_date
+	</select>
+	<!--save -->
+	<update id="agree">
+		UPDATE rent_looking_house SET
+		bill_status =
+		#{billStatus},
+		receiver_id =
+		#{receiverId},
+		receiver_name =
+		#{receiverName}
+		WHERE id = #{id}
+	</update>
+	<!--save -->
+	<update id="refuse">
+		UPDATE rent_looking_house SET
+		bill_status =
+		#{billStatus},
+		reason =
+		#{reason}
+		WHERE id = #{id}
+	</update>
+	<!--save -->
+	<update id="save">
+		UPDATE rent_looking_house SET
+		reason =
+		#{reason}
+		WHERE
+		id = #{id}
+	</update>
+</mapper>
+

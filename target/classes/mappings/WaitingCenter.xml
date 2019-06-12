@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.waitingCenter.dao.WaitingCenterDao">
+	<!-- 待办列表 -->
+	<select id="listTodo" resultType="WaitingCenter">
+		SELECT
+		a.id as id,
+		a.title as title,
+		a.need_user_id as needUserId,
+		a.need_user_name as needUserName,
+		a.need_start_time as needStartTime,
+		a.need_state as needState,
+		a.bus_id as busId,
+		a.next_users as nextUsers
+		from wd_need_handle a
+		<where>
+			a.need_state="1"
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="busId != null and busId != '' ">
+				AND a.bus_id =#{busId}
+			</if>
+			<if test="needUserId != null and needUserId != '' ">
+				AND a.need_user_id =#{needUserId}
+			</if>
+			<if test="nextUsers != null and nextUsers != '' ">
+				AND a.next_users =#{nextUsers}
+			</if>
+		</where>
+		ORDER BY
+		a.need_start_time DESC
+		LIMIT 0,10
+	</select>
+	<!-- 已办列表 -->
+	<select id="listDone" resultType="WaitingCenter">
+		SELECT
+		a.id as id,
+		a.title as title,
+		a.need_user_id as needUserId,
+		a.need_user_name as needUserName,
+		a.need_start_time as needStartTime,
+		a.bus_id as busId,
+		a.next_users as nextUsers
+		from wd_need_handle a
+		<where>
+			a.need_state="0"
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="busId != null and busId != '' ">
+				AND a.bus_id =#{busId}
+			</if>
+			<if test="needUserId != null and needUserId != '' ">
+				AND a.need_user_id =#{needUserId}
+			</if>
+			<if test="nextUsers != null and nextUsers != '' ">
+				AND a.next_users =#{nextUsers}
+			</if>
+		</where>
+		ORDER BY
+		a.need_start_time DESC
+		LIMIT 0,10
+	</select>
+	<update id="saveToDo">
+		UPDATE wd_need_handle SET
+		need_state =
+		#{needState},
+		need_state =
+		#{needState}
+		WHERE id = #{id}
+	</update>
+</mapper>
+

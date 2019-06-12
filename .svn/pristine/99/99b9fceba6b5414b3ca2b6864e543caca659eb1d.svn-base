@@ -1,0 +1,66 @@
+package com.htyw.app.aboutAppointment.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.htyw.app.aboutAppointment.pojo.AboutAppointment;
+import com.htyw.app.aboutAppointment.service.AboutAppointmentService;
+
+@RestController
+@RequestMapping("aboutAppointmentController")
+public class AboutAppointmentController {
+
+	@Autowired
+	private AboutAppointmentService aboutAppointmentService;
+	
+	
+
+	/**
+	 * 
+	 * @param billAndPay
+	 * @author lshao
+	 * 约看查询
+	 */
+	@RequestMapping(value = "list")
+	public Map<String, Object>list(AboutAppointment aboutAppointment,HttpServletRequest request,HttpServletResponse response)
+			throws Exception{
+		Map<String,Object> result = new HashMap<String,Object>();
+		try{
+			List<AboutAppointment> list =  aboutAppointmentService.list(aboutAppointment);
+			List<AboutAppointment> listAppoint1 = new ArrayList<>();
+			List<AboutAppointment> listAppoint2 = new ArrayList<>();	
+			for (AboutAppointment aboutAppointment2 : list) {
+				if("0".equals(aboutAppointment2.getBillStatus()) ){
+					listAppoint1.add(aboutAppointment2);
+					String photo = aboutAppointmentService.getPhoto(aboutAppointment2.getApartmentPhoto());
+					aboutAppointment2.setImgUrl(photo);
+				}else if("1".equals(aboutAppointment2.getBillStatus()) ){
+					listAppoint2.add(aboutAppointment2);
+					String photo = aboutAppointmentService.getPhoto(aboutAppointment2.getApartmentPhoto());
+					aboutAppointment2.setImgUrl(photo);
+				}
+				
+			}
+			result.put("listAppoint1", listAppoint1);
+			result.put("listAppoint2", listAppoint2);
+			result.put("code", 200);
+			result.put("message", "success!");	
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed");
+		}
+		return result;
+	}
+	
+	
+}

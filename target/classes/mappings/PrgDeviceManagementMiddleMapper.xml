@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.pollingDetails.dao.PrgDeviceManagementMiddleDao">
+	<resultMap id="BaseResultMap"
+		type="com.htyw.app.pollingDetails.pojo.PrgDeviceManagementMiddle">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+		<result column="REF_ID" jdbcType="VARCHAR" property="refId" />
+		<result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+		<result column="DEVICE_NAME" jdbcType="VARCHAR" property="deviceName" />
+		<result column="DEVICE_TYPE" jdbcType="VARCHAR" property="deviceType" />
+		<result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+		<result column="ORGANIZATION_ID" jdbcType="VARCHAR" property="organizationId" />
+		<result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+		<result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+		<result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+		<result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+		<result column="TENANTID" jdbcType="VARCHAR" property="tenantid" />
+		<result column="DR" jdbcType="VARCHAR" property="dr" />
+		<result column="finish_number" jdbcType="VARCHAR" property="finish_number" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, PARENT_ID, REF_ID, DEVICE_ID, DEVICE_NAME, DEVICE_TYPE, REMARKS,
+		ORGANIZATION_ID,
+		ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, BILL_STATUS, TENANTID, DR,finish_number,status
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from prg_device_management_middle
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from prg_device_management_middle
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.htyw.app.pollingDetails.pojo.PrgDeviceManagementMiddle">
+		insert into prg_device_management_middle (ID, PARENT_ID, REF_ID,
+		DEVICE_ID, DEVICE_NAME, DEVICE_TYPE,
+		REMARKS, ORGANIZATION_ID, ORGANIZATION_NAME,
+		CREATOR_ID, CREATOR_NAME, BILL_STATUS,
+		TENANTID, DR,finish_number)
+		values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR},
+		#{refId,jdbcType=VARCHAR},
+		#{deviceId,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR}, #{organizationId,jdbcType=VARCHAR},
+		#{organizationName,jdbcType=VARCHAR},
+		#{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR},
+		#{tenantid,jdbcType=VARCHAR}, #{dr,jdbcType=VARCHAR},#{finish_number,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.htyw.app.pollingDetails.pojo.PrgDeviceManagementMiddle">
+		insert into prg_device_management_middle
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="refId != null">
+				REF_ID,
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID,
+			</if>
+			<if test="deviceName != null">
+				DEVICE_NAME,
+			</if>
+			<if test="deviceType != null">
+				DEVICE_TYPE,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="organizationName != null">
+				ORGANIZATION_NAME,
+			</if>
+			<if test="creatorId != null">
+				CREATOR_ID,
+			</if>
+			<if test="creatorName != null">
+				CREATOR_NAME,
+			</if>
+			<if test="billStatus != null">
+				BILL_STATUS,
+			</if>
+			<if test="tenantid != null">
+				TENANTID,
+			</if>
+			<if test="dr != null">
+				DR,
+			</if>
+			<if test="finish_number != null">
+				finish_number,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="refId != null">
+				#{refId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceName != null">
+				#{deviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceType != null">
+				#{deviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId,jdbcType=VARCHAR},
+			</if>
+			<if test="organizationName != null">
+				#{organizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorName != null">
+				#{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="billStatus != null">
+				#{billStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantid != null">
+				#{tenantid,jdbcType=VARCHAR},
+			</if>
+			<if test="dr != null">
+				#{dr,jdbcType=VARCHAR},
+			</if>
+			<if test="finish_number != null">
+				#{finish_number,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.htyw.app.pollingDetails.pojo.PrgDeviceManagementMiddle">
+		update prg_device_management_middle
+		<set>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="refId != null">
+				REF_ID = #{refId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceName != null">
+				DEVICE_NAME = #{deviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceType != null">
+				DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+			</if>
+			<if test="organizationName != null">
+				ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorId != null">
+				CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorName != null">
+				CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="billStatus != null">
+				BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantid != null">
+				TENANTID = #{tenantid,jdbcType=VARCHAR},
+			</if>
+			<if test="dr != null">
+				DR = #{dr,jdbcType=VARCHAR},
+			</if>
+			<if test="finish_number != null">
+				finish_number = #{finish_number,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.htyw.app.pollingDetails.pojo.PrgDeviceManagementMiddle">
+		update prg_device_management_middle
+		set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+		REF_ID = #{refId,jdbcType=VARCHAR},
+		DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+		DEVICE_NAME = #{deviceName,jdbcType=VARCHAR},
+		DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR},
+		REMARKS = #{remarks,jdbcType=VARCHAR},
+		ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+		ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+		CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+		CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+		BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+		TENANTID = #{tenantid,jdbcType=VARCHAR},
+		DR = #{dr,jdbcType=VARCHAR},
+		finish_number = #{finish_number,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 获取详细设备列表 -->
+	<select id="getByparentId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from prg_device_management_middle
+		where PARENT_ID = #{0}
+	</select>
+</mapper>

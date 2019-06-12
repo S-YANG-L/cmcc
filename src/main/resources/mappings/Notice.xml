@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.notice.dao.NoticeDao">
+	<!-- 通知列表 -->
+	<select id="listNotice" resultType="Notice">
+		SELECT
+		a.id AS id,
+		a.title as title,
+		a.url as url,
+		a.release_scope as
+		releaseScope,
+		a.content as content,
+		a.roof_placement as roofPlacement,
+		a.publisher as publisher,
+		a.publish_date as publishDate,
+		a.customer_id
+		as customerId,
+		a.rm_user_id as
+		rmUserId,
+		a.tenantid as
+		tenantId,
+		a.image as
+		image,
+		a.type as type,
+		a.dr
+		as
+		dr
+		FROM
+		prg_internal_notification a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			and a.type=#{type}
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="StartTime != null and StartTime != ''and EndTime != null and EndTime != '' ">
+				AND a.publish_date between #{StartTime} and #{EndTime}
+			</if>
+			<if test="title != null and title != ''">
+				AND (a.title like concat('%'
+				,#{title},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!--save -->
+	<insert id="saveNotice">
+		INSERT INTO prg_internal_notification(
+		id,
+		title,
+		url,
+		release_scope,
+		content,
+		roof_placement,
+		publish_date,
+		publisher,
+		type,
+		tenantid,
+		customer_id,
+		image,
+		dr
+		)
+		VALUES (
+		#{id},
+		#{title},
+		#{url},
+		#{releaseScope},
+		#{content},
+		#{roofPlacement},
+		#{publishDate},
+		#{publisher},
+		#{type},
+		#{tenantId},
+		#{customerId},
+		#{image},
+		#{dr}
+		)
+	</insert>
+</mapper>
+

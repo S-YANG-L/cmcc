@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.pollingDetails.dao.PrgHouseMiddleDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.pollingDetails.pojo.PrgHouseMiddle">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="HOUSING_RESOURCES_ID" jdbcType="BIGINT" property="housingResourcesId" />
+    <result column="HOUSING_RESOURCES_NAME" jdbcType="VARCHAR" property="housingResourcesName" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="finish_number" jdbcType="VARCHAR" property="finish_number" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PARENT_ID, HOUSING_RESOURCES_ID, HOUSING_RESOURCES_NAME, TENANTID, DR, ORGANIZATION_ID, 
+    ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, BILL_STATUS,finish_number,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_house_middle
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_house_middle
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.pollingDetails.pojo.PrgHouseMiddle">
+    insert into prg_house_middle (ID, PARENT_ID, HOUSING_RESOURCES_ID, 
+      HOUSING_RESOURCES_NAME, TENANTID, DR, 
+      ORGANIZATION_ID, ORGANIZATION_NAME, CREATOR_ID, 
+      CREATOR_NAME, BILL_STATUS,finish_number,status)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=VARCHAR}, #{housingResourcesId,jdbcType=BIGINT}, 
+      #{housingResourcesName,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, #{dr,jdbcType=CHAR}, 
+      #{organizationId,jdbcType=BIGINT}, #{organizationName,jdbcType=VARCHAR}, #{creatorId,jdbcType=BIGINT}, 
+      #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR},#{finish_number,jdbcType=VARCHAR},#{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgHouseMiddle">
+    insert into prg_house_middle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="housingResourcesId != null">
+        HOUSING_RESOURCES_ID,
+      </if>
+      <if test="housingResourcesName != null">
+        HOUSING_RESOURCES_NAME,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="finish_number != null">
+        finish_number,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="housingResourcesId != null">
+        #{housingResourcesId,jdbcType=BIGINT},
+      </if>
+      <if test="housingResourcesName != null">
+        #{housingResourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_number != null">
+        #{finish_number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgHouseMiddle">
+    update prg_house_middle
+    <set>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="housingResourcesId != null">
+        HOUSING_RESOURCES_ID = #{housingResourcesId,jdbcType=BIGINT},
+      </if>
+      <if test="housingResourcesName != null">
+        HOUSING_RESOURCES_NAME = #{housingResourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_number != null">
+        finish_number = #{finish_number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.pollingDetails.pojo.PrgHouseMiddle">
+    update prg_house_middle
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      HOUSING_RESOURCES_ID = #{housingResourcesId,jdbcType=BIGINT},
+      HOUSING_RESOURCES_NAME = #{housingResourcesName,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      DR = #{dr,jdbcType=CHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      finish_number = #{finish_number	,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 获取空关 -->
+  <select id="houseOff" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_house_middle
+    where PARENT_ID = #{0}
+  </select>
+</mapper>

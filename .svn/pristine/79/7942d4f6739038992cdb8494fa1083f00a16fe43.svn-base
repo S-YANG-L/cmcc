@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.user.dao.RmUserDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.user.pojo.RmUser">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="LOCK_STATUS" jdbcType="CHAR" property="lockStatus" />
+    <result column="LOGIN_ID" jdbcType="VARCHAR" property="loginId" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="AUTHEN_TYPE" jdbcType="VARCHAR" property="authenType" />
+    <result column="ORGANIZATION_ID" jdbcType="VARCHAR" property="organizationId" />
+    <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="ADMIN_TYPE" jdbcType="VARCHAR" property="adminType" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="AGENT_STATUS" jdbcType="CHAR" property="agentStatus" />
+    <result column="LOGIN_STATUS" jdbcType="CHAR" property="loginStatus" />
+    <result column="LAST_LOGIN_DATE" jdbcType="TIMESTAMP" property="lastLoginDate" />
+    <result column="LAST_LOGIN_IP" jdbcType="VARCHAR" property="lastLoginIp" />
+    <result column="LOGIN_SUM" jdbcType="DECIMAL" property="loginSum" />
+    <result column="LAST_CUSTOM_CSS" jdbcType="VARCHAR" property="lastCustomCss" />
+    <result column="IS_AFFIX" jdbcType="CHAR" property="isAffix" />
+    <result column="FUNCTION_PERMISSION" jdbcType="VARCHAR" property="functionPermission" />
+    <result column="DATA_PERMISSION" jdbcType="VARCHAR" property="dataPermission" />
+    <result column="CUSTOM1" jdbcType="VARCHAR" property="custom1" />
+    <result column="CUSTOM2" jdbcType="VARCHAR" property="custom2" />
+    <result column="CUSTOM3" jdbcType="VARCHAR" property="custom3" />
+    <result column="CUSTOM4" jdbcType="VARCHAR" property="custom4" />
+    <result column="CUSTOM5" jdbcType="VARCHAR" property="custom5" />
+    <result column="CUSTOM_XML" jdbcType="VARCHAR" property="customXml" />
+    <result column="USABLE_STATUS" jdbcType="CHAR" property="usableStatus" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_IP" jdbcType="VARCHAR" property="modifyIp" />
+    <result column="MODIFY_USER_ID" jdbcType="DECIMAL" property="modifyUserId" />
+    <result column="LINK_CALLUSER" jdbcType="VARCHAR" property="linkCalluser" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="IS_UPD_PASSWORD" jdbcType="CHAR" property="isUpdPassword" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="TENANTID" jdbcType="VARCHAR" property="tenantid" />
+    <result column="MERCHANT_ID" jdbcType="VARCHAR" property="merchantId" />
+    <result column="PERSONNO" jdbcType="VARCHAR" property="personno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, LOCK_STATUS, LOGIN_ID, PASSWORD, AUTHEN_TYPE, ORGANIZATION_ID, EMPLOYEE_ID, 
+    EMAIL, ADMIN_TYPE, DESCRIPTION, AGENT_STATUS, LOGIN_STATUS, LAST_LOGIN_DATE, LAST_LOGIN_IP, 
+    LOGIN_SUM, LAST_CUSTOM_CSS, IS_AFFIX, FUNCTION_PERMISSION, DATA_PERMISSION, CUSTOM1, 
+    CUSTOM2, CUSTOM3, CUSTOM4, CUSTOM5, CUSTOM_XML, USABLE_STATUS, MODIFY_DATE, MODIFY_IP, 
+    MODIFY_USER_ID, LINK_CALLUSER, VERSION, DR, IS_UPD_PASSWORD, organization_name, TENANTID, 
+    MERCHANT_ID, PERSONNO
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rm_user
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rm_user
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.user.pojo.RmUser">
+    insert into rm_user (ID, NAME, LOCK_STATUS, 
+      LOGIN_ID, PASSWORD, AUTHEN_TYPE, 
+      ORGANIZATION_ID, EMPLOYEE_ID, EMAIL, 
+      ADMIN_TYPE, DESCRIPTION, AGENT_STATUS, 
+      LOGIN_STATUS, LAST_LOGIN_DATE, LAST_LOGIN_IP, 
+      LOGIN_SUM, LAST_CUSTOM_CSS, IS_AFFIX, 
+      FUNCTION_PERMISSION, DATA_PERMISSION, CUSTOM1, 
+      CUSTOM2, CUSTOM3, CUSTOM4, 
+      CUSTOM5, CUSTOM_XML, USABLE_STATUS, 
+      MODIFY_DATE, MODIFY_IP, MODIFY_USER_ID, 
+      LINK_CALLUSER, VERSION, DR, 
+      IS_UPD_PASSWORD, organization_name, TENANTID, 
+      MERCHANT_ID, PERSONNO)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{lockStatus,jdbcType=CHAR}, 
+      #{loginId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{authenType,jdbcType=VARCHAR}, 
+      #{organizationId,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{adminType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{agentStatus,jdbcType=CHAR}, 
+      #{loginStatus,jdbcType=CHAR}, #{lastLoginDate,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, 
+      #{loginSum,jdbcType=DECIMAL}, #{lastCustomCss,jdbcType=VARCHAR}, #{isAffix,jdbcType=CHAR}, 
+      #{functionPermission,jdbcType=VARCHAR}, #{dataPermission,jdbcType=VARCHAR}, #{custom1,jdbcType=VARCHAR}, 
+      #{custom2,jdbcType=VARCHAR}, #{custom3,jdbcType=VARCHAR}, #{custom4,jdbcType=VARCHAR}, 
+      #{custom5,jdbcType=VARCHAR}, #{customXml,jdbcType=VARCHAR}, #{usableStatus,jdbcType=CHAR}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{modifyIp,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=DECIMAL}, 
+      #{linkCalluser,jdbcType=VARCHAR}, #{version,jdbcType=DECIMAL}, #{dr,jdbcType=CHAR}, 
+      #{isUpdPassword,jdbcType=CHAR}, #{organizationName,jdbcType=VARCHAR}, #{tenantid,jdbcType=VARCHAR}, 
+      #{merchantId,jdbcType=VARCHAR}, #{personno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.user.pojo.RmUser">
+    insert into rm_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="lockStatus != null">
+        LOCK_STATUS,
+      </if>
+      <if test="loginId != null">
+        LOGIN_ID,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="authenType != null">
+        AUTHEN_TYPE,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="employeeId != null">
+        EMPLOYEE_ID,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="adminType != null">
+        ADMIN_TYPE,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="agentStatus != null">
+        AGENT_STATUS,
+      </if>
+      <if test="loginStatus != null">
+        LOGIN_STATUS,
+      </if>
+      <if test="lastLoginDate != null">
+        LAST_LOGIN_DATE,
+      </if>
+      <if test="lastLoginIp != null">
+        LAST_LOGIN_IP,
+      </if>
+      <if test="loginSum != null">
+        LOGIN_SUM,
+      </if>
+      <if test="lastCustomCss != null">
+        LAST_CUSTOM_CSS,
+      </if>
+      <if test="isAffix != null">
+        IS_AFFIX,
+      </if>
+      <if test="functionPermission != null">
+        FUNCTION_PERMISSION,
+      </if>
+      <if test="dataPermission != null">
+        DATA_PERMISSION,
+      </if>
+      <if test="custom1 != null">
+        CUSTOM1,
+      </if>
+      <if test="custom2 != null">
+        CUSTOM2,
+      </if>
+      <if test="custom3 != null">
+        CUSTOM3,
+      </if>
+      <if test="custom4 != null">
+        CUSTOM4,
+      </if>
+      <if test="custom5 != null">
+        CUSTOM5,
+      </if>
+      <if test="customXml != null">
+        CUSTOM_XML,
+      </if>
+      <if test="usableStatus != null">
+        USABLE_STATUS,
+      </if>
+      <if test="modifyDate != null">
+        MODIFY_DATE,
+      </if>
+      <if test="modifyIp != null">
+        MODIFY_IP,
+      </if>
+      <if test="modifyUserId != null">
+        MODIFY_USER_ID,
+      </if>
+      <if test="linkCalluser != null">
+        LINK_CALLUSER,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="isUpdPassword != null">
+        IS_UPD_PASSWORD,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="merchantId != null">
+        MERCHANT_ID,
+      </if>
+      <if test="personno != null">
+        PERSONNO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null">
+        #{lockStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginId != null">
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="authenType != null">
+        #{authenType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adminType != null">
+        #{adminType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="agentStatus != null">
+        #{agentStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginStatus != null">
+        #{loginStatus,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginDate != null">
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginSum != null">
+        #{loginSum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastCustomCss != null">
+        #{lastCustomCss,jdbcType=VARCHAR},
+      </if>
+      <if test="isAffix != null">
+        #{isAffix,jdbcType=CHAR},
+      </if>
+      <if test="functionPermission != null">
+        #{functionPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPermission != null">
+        #{dataPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="custom1 != null">
+        #{custom1,jdbcType=VARCHAR},
+      </if>
+      <if test="custom2 != null">
+        #{custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="custom3 != null">
+        #{custom3,jdbcType=VARCHAR},
+      </if>
+      <if test="custom4 != null">
+        #{custom4,jdbcType=VARCHAR},
+      </if>
+      <if test="custom5 != null">
+        #{custom5,jdbcType=VARCHAR},
+      </if>
+      <if test="customXml != null">
+        #{customXml,jdbcType=VARCHAR},
+      </if>
+      <if test="usableStatus != null">
+        #{usableStatus,jdbcType=CHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyIp != null">
+        #{modifyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="linkCalluser != null">
+        #{linkCalluser,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="isUpdPassword != null">
+        #{isUpdPassword,jdbcType=CHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="personno != null">
+        #{personno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.user.pojo.RmUser">
+    update rm_user
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null">
+        LOCK_STATUS = #{lockStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginId != null">
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="authenType != null">
+        AUTHEN_TYPE = #{authenType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adminType != null">
+        ADMIN_TYPE = #{adminType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="agentStatus != null">
+        AGENT_STATUS = #{agentStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginStatus != null">
+        LOGIN_STATUS = #{loginStatus,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginDate != null">
+        LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginSum != null">
+        LOGIN_SUM = #{loginSum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastCustomCss != null">
+        LAST_CUSTOM_CSS = #{lastCustomCss,jdbcType=VARCHAR},
+      </if>
+      <if test="isAffix != null">
+        IS_AFFIX = #{isAffix,jdbcType=CHAR},
+      </if>
+      <if test="functionPermission != null">
+        FUNCTION_PERMISSION = #{functionPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPermission != null">
+        DATA_PERMISSION = #{dataPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="custom1 != null">
+        CUSTOM1 = #{custom1,jdbcType=VARCHAR},
+      </if>
+      <if test="custom2 != null">
+        CUSTOM2 = #{custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="custom3 != null">
+        CUSTOM3 = #{custom3,jdbcType=VARCHAR},
+      </if>
+      <if test="custom4 != null">
+        CUSTOM4 = #{custom4,jdbcType=VARCHAR},
+      </if>
+      <if test="custom5 != null">
+        CUSTOM5 = #{custom5,jdbcType=VARCHAR},
+      </if>
+      <if test="customXml != null">
+        CUSTOM_XML = #{customXml,jdbcType=VARCHAR},
+      </if>
+      <if test="usableStatus != null">
+        USABLE_STATUS = #{usableStatus,jdbcType=CHAR},
+      </if>
+      <if test="modifyDate != null">
+        MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyIp != null">
+        MODIFY_IP = #{modifyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        MODIFY_USER_ID = #{modifyUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="linkCalluser != null">
+        LINK_CALLUSER = #{linkCalluser,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="isUpdPassword != null">
+        IS_UPD_PASSWORD = #{isUpdPassword,jdbcType=CHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="personno != null">
+        PERSONNO = #{personno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.user.pojo.RmUser">
+    update rm_user
+    set NAME = #{name,jdbcType=VARCHAR},
+      LOCK_STATUS = #{lockStatus,jdbcType=CHAR},
+      LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      AUTHEN_TYPE = #{authenType,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADMIN_TYPE = #{adminType,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      AGENT_STATUS = #{agentStatus,jdbcType=CHAR},
+      LOGIN_STATUS = #{loginStatus,jdbcType=CHAR},
+      LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+      LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+      LOGIN_SUM = #{loginSum,jdbcType=DECIMAL},
+      LAST_CUSTOM_CSS = #{lastCustomCss,jdbcType=VARCHAR},
+      IS_AFFIX = #{isAffix,jdbcType=CHAR},
+      FUNCTION_PERMISSION = #{functionPermission,jdbcType=VARCHAR},
+      DATA_PERMISSION = #{dataPermission,jdbcType=VARCHAR},
+      CUSTOM1 = #{custom1,jdbcType=VARCHAR},
+      CUSTOM2 = #{custom2,jdbcType=VARCHAR},
+      CUSTOM3 = #{custom3,jdbcType=VARCHAR},
+      CUSTOM4 = #{custom4,jdbcType=VARCHAR},
+      CUSTOM5 = #{custom5,jdbcType=VARCHAR},
+      CUSTOM_XML = #{customXml,jdbcType=VARCHAR},
+      USABLE_STATUS = #{usableStatus,jdbcType=CHAR},
+      MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP},
+      MODIFY_IP = #{modifyIp,jdbcType=VARCHAR},
+      MODIFY_USER_ID = #{modifyUserId,jdbcType=DECIMAL},
+      LINK_CALLUSER = #{linkCalluser,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=DECIMAL},
+      DR = #{dr,jdbcType=CHAR},
+      IS_UPD_PASSWORD = #{isUpdPassword,jdbcType=CHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=VARCHAR},
+      MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+      PERSONNO = #{personno,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 通过用户名密码获取用户 -->
+  <select id="selectByPassword"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rm_user
+    where LOGIN_ID = #{0}
+    and PASSWORD = #{1}
+  </select>
+  <!-- 通过id获取单个用户 -->
+  <select id="getUser" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rm_user
+    where ID = #{0}
+  </select>
+  <!-- 修改密码 -->
+  <update id="updatePass">
+  	update rm_user
+  	set PASSWORD = #{1}
+  	where
+  	LOGIN_ID = #{0}
+  </update>
+</mapper>

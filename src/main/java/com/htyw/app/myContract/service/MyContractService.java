@@ -1,0 +1,50 @@
+package com.htyw.app.myContract.service;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.htyw.app.myContract.dao.MyContractDao;
+import com.htyw.app.myContract.pojo.DocumentFiles;
+import com.htyw.app.myContract.pojo.MyContract;
+
+@Service
+public class MyContractService {
+
+	@Autowired
+	private MyContractDao myContractDao;
+	/**
+	 * 
+	 * @param myContract
+	 * @author lshao
+	 * 保存，添加我的合同
+	 */
+/*	public void save(MyContract myContract) {
+		myContract.setId(new Date().getTime());
+		myContractDao.save(myContract);
+		
+	}*/
+
+	/**
+	 * 
+	 * @param myContract
+	 * @author lshao
+	 * 合同列表查询
+	 */
+	public List<MyContract> listMyContract(MyContract myContract) {
+		return myContractDao.list(myContract);
+
+	}
+
+	public String getPhoto(String apartmentPhoto) {
+		return myContractDao.getPhoto(apartmentPhoto);
+	}
+
+	public List<DocumentFiles> filesList(DocumentFiles documentFiles) {
+		// TODO Auto-generated method stub
+		return myContractDao.filesList(documentFiles);
+	}
+
+}

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.copyForm.dao.RentLeasebillDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.copyForm.pojo.RentLeasebill">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="BILL_NUMBER" jdbcType="VARCHAR" property="billNumber" />
+    <result column="LEASEHOLD_NAME" jdbcType="VARCHAR" property="leaseholdName" />
+    <result column="SIGN_LEASE_DATE" jdbcType="DATE" property="signLeaseDate" />
+    <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName" />
+    <result column="CUSTOMER_ID" jdbcType="BIGINT" property="customerId" />
+    <result column="PLANNED_RECEIPT_AMOUNT" jdbcType="DECIMAL" property="plannedReceiptAmount" />
+    <result column="AMOUNT_RECEIVED" jdbcType="DECIMAL" property="amountReceived" />
+    <result column="UNPAID_AMOUNT" jdbcType="DECIMAL" property="unpaidAmount" />
+    <result column="REDUCTION_AMOUNT" jdbcType="DECIMAL" property="reductionAmount" />
+    <result column="OPEN_DATE" jdbcType="VARCHAR" property="openDate" />
+    <result column="PAYMENT_DEADLINE" jdbcType="VARCHAR" property="paymentDeadline" />
+    <result column="BILL_TYPE" jdbcType="CHAR" property="billType" />
+    <result column="LEASE_BILL_STATUS" jdbcType="CHAR" property="leaseBillStatus" />
+    <result column="CONTRACT_ID" jdbcType="BIGINT" property="contractId" />
+    <result column="BILL_STATUS" jdbcType="CHAR" property="billStatus" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BILL_NUMBER, LEASEHOLD_NAME, SIGN_LEASE_DATE, CUSTOMER_NAME, CUSTOMER_ID, PLANNED_RECEIPT_AMOUNT, 
+    AMOUNT_RECEIVED, UNPAID_AMOUNT, REDUCTION_AMOUNT, OPEN_DATE, PAYMENT_DEADLINE, BILL_TYPE, 
+    LEASE_BILL_STATUS, CONTRACT_ID, BILL_STATUS, VERSION, DR, TENANTID, CREATOR_NAME, 
+    CREATOR_ID, ORGANIZATION_NAME, ORGANIZATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_lease_bill
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rent_lease_bill
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.copyForm.pojo.RentLeasebill">
+    insert into rent_lease_bill (ID, BILL_NUMBER, LEASEHOLD_NAME, 
+      SIGN_LEASE_DATE, CUSTOMER_NAME, CUSTOMER_ID, 
+      PLANNED_RECEIPT_AMOUNT, AMOUNT_RECEIVED, UNPAID_AMOUNT, 
+      REDUCTION_AMOUNT, OPEN_DATE, PAYMENT_DEADLINE, 
+      BILL_TYPE, LEASE_BILL_STATUS, CONTRACT_ID, 
+      BILL_STATUS, VERSION, DR, 
+      TENANTID, CREATOR_NAME, CREATOR_ID, 
+      ORGANIZATION_NAME, ORGANIZATION_ID)
+    values (#{id,jdbcType=BIGINT}, #{billNumber,jdbcType=VARCHAR}, #{leaseholdName,jdbcType=VARCHAR}, 
+      #{signLeaseDate,jdbcType=DATE}, #{customerName,jdbcType=VARCHAR}, #{customerId,jdbcType=BIGINT}, 
+      #{plannedReceiptAmount,jdbcType=DECIMAL}, #{amountReceived,jdbcType=DECIMAL}, #{unpaidAmount,jdbcType=DECIMAL}, 
+      #{reductionAmount,jdbcType=DECIMAL}, #{openDate,jdbcType=VARCHAR}, #{paymentDeadline,jdbcType=VARCHAR}, 
+      #{billType,jdbcType=CHAR}, #{leaseBillStatus,jdbcType=CHAR}, #{contractId,jdbcType=BIGINT}, 
+      #{billStatus,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}, #{dr,jdbcType=CHAR}, 
+      #{tenantid,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, #{creatorId,jdbcType=BIGINT}, 
+      #{organizationName,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.copyForm.pojo.RentLeasebill">
+    insert into rent_lease_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="billNumber != null">
+        BILL_NUMBER,
+      </if>
+      <if test="leaseholdName != null">
+        LEASEHOLD_NAME,
+      </if>
+      <if test="signLeaseDate != null">
+        SIGN_LEASE_DATE,
+      </if>
+      <if test="customerName != null">
+        CUSTOMER_NAME,
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID,
+      </if>
+      <if test="plannedReceiptAmount != null">
+        PLANNED_RECEIPT_AMOUNT,
+      </if>
+      <if test="amountReceived != null">
+        AMOUNT_RECEIVED,
+      </if>
+      <if test="unpaidAmount != null">
+        UNPAID_AMOUNT,
+      </if>
+      <if test="reductionAmount != null">
+        REDUCTION_AMOUNT,
+      </if>
+      <if test="openDate != null">
+        OPEN_DATE,
+      </if>
+      <if test="paymentDeadline != null">
+        PAYMENT_DEADLINE,
+      </if>
+      <if test="billType != null">
+        BILL_TYPE,
+      </if>
+      <if test="leaseBillStatus != null">
+        LEASE_BILL_STATUS,
+      </if>
+      <if test="contractId != null">
+        CONTRACT_ID,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="billNumber != null">
+        #{billNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="leaseholdName != null">
+        #{leaseholdName,jdbcType=VARCHAR},
+      </if>
+      <if test="signLeaseDate != null">
+        #{signLeaseDate,jdbcType=DATE},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="plannedReceiptAmount != null">
+        #{plannedReceiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReceived != null">
+        #{amountReceived,jdbcType=DECIMAL},
+      </if>
+      <if test="unpaidAmount != null">
+        #{unpaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="reductionAmount != null">
+        #{reductionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="openDate != null">
+        #{openDate,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDeadline != null">
+        #{paymentDeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=CHAR},
+      </if>
+      <if test="leaseBillStatus != null">
+        #{leaseBillStatus,jdbcType=CHAR},
+      </if>
+      <if test="contractId != null">
+        #{contractId,jdbcType=BIGINT},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.copyForm.pojo.RentLeasebill">
+    update rent_lease_bill
+    <set>
+      <if test="billNumber != null">
+        BILL_NUMBER = #{billNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="leaseholdName != null">
+        LEASEHOLD_NAME = #{leaseholdName,jdbcType=VARCHAR},
+      </if>
+      <if test="signLeaseDate != null">
+        SIGN_LEASE_DATE = #{signLeaseDate,jdbcType=DATE},
+      </if>
+      <if test="customerName != null">
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="plannedReceiptAmount != null">
+        PLANNED_RECEIPT_AMOUNT = #{plannedReceiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReceived != null">
+        AMOUNT_RECEIVED = #{amountReceived,jdbcType=DECIMAL},
+      </if>
+      <if test="unpaidAmount != null">
+        UNPAID_AMOUNT = #{unpaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="reductionAmount != null">
+        REDUCTION_AMOUNT = #{reductionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="openDate != null">
+        OPEN_DATE = #{openDate,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDeadline != null">
+        PAYMENT_DEADLINE = #{paymentDeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        BILL_TYPE = #{billType,jdbcType=CHAR},
+      </if>
+      <if test="leaseBillStatus != null">
+        LEASE_BILL_STATUS = #{leaseBillStatus,jdbcType=CHAR},
+      </if>
+      <if test="contractId != null">
+        CONTRACT_ID = #{contractId,jdbcType=BIGINT},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.copyForm.pojo.RentLeasebill">
+    update rent_lease_bill
+    set BILL_NUMBER = #{billNumber,jdbcType=VARCHAR},
+      LEASEHOLD_NAME = #{leaseholdName,jdbcType=VARCHAR},
+      SIGN_LEASE_DATE = #{signLeaseDate,jdbcType=DATE},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUSTOMER_ID = #{customerId,jdbcType=BIGINT},
+      PLANNED_RECEIPT_AMOUNT = #{plannedReceiptAmount,jdbcType=DECIMAL},
+      AMOUNT_RECEIVED = #{amountReceived,jdbcType=DECIMAL},
+      UNPAID_AMOUNT = #{unpaidAmount,jdbcType=DECIMAL},
+      REDUCTION_AMOUNT = #{reductionAmount,jdbcType=DECIMAL},
+      OPEN_DATE = #{openDate,jdbcType=VARCHAR},
+      PAYMENT_DEADLINE = #{paymentDeadline,jdbcType=VARCHAR},
+      BILL_TYPE = #{billType,jdbcType=CHAR},
+      LEASE_BILL_STATUS = #{leaseBillStatus,jdbcType=CHAR},
+      CONTRACT_ID = #{contractId,jdbcType=BIGINT},
+      BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=DECIMAL},
+      DR = #{dr,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

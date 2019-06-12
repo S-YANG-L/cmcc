@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.house.dao.HouseDao">
+	<!-- 社区列表 -->
+	<select id="communityList" resultType="Community">
+		SELECT
+		a.id as id,
+		a.community_name as communityName,
+		a.tenantid as
+		tenantId,
+		a.dr as dr
+		FROM base_community a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="communityName != null and communityName != '' ">
+				AND a.community_name =#{communityName}
+			</if>
+		</where>
+	</select>
+	<!-- 小区列表 -->
+	<select id="villageList" resultType="Village">
+		SELECT
+		a.id as id,
+		a.village_name as villageName,
+		a.community_id as
+		communityId,
+		a.community_name as communityName,
+		a.tenantid as tenantId,
+		a.dr as dr
+		FROM base_village a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="communityId != null and communityId != '' ">
+				AND a.community_id =#{communityId}
+			</if>
+			<if test="communityName != null and communityName != '' ">
+				AND a.community_name =#{communityName}
+			</if>
+		</where>
+	</select>
+	<!-- 楼栋列表 -->
+	<select id="buildingList" resultType="Building">
+		SELECT
+		a.id as id,
+		a.building_name as buildingName,
+		a.village_id as
+		villageId,
+		a.village_name as villageName,
+		a.tenantid as tenantId,
+		a.dr as
+		dr
+		FROM base_building a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="villageId != null and villageId != '' ">
+				AND a.village_id =#{villageId}
+			</if>
+			<if test="villageName != null and villageName != '' ">
+				AND a.village_name =#{villageName}
+			</if>
+		</where>
+	</select>
+	<!-- 单元列表 -->
+	<select id="unitList" resultType="House">
+		SELECT
+		a.building_id as buildingId,
+		a.building_name as buildingName,
+		a.unit_number as unitNumber,
+		a.tenantid as
+		tenantId,
+		a.dr as dr
+		FROM
+		base_house a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="buildingId != null and buildingId != '' ">
+				AND a.building_id =#{buildingId}
+			</if>
+			<if test="buildingName != null and buildingName != '' ">
+				AND a.building_name =#{buildingName}
+			</if>
+		</where>
+	</select>
+	<!-- 房屋列表 -->
+	<select id="houseList" resultType="House">
+		SELECT
+		a.id as id,
+		a.community_id as communityId,
+		a.community_name as
+		communityName,
+		a.village_id as villageId,
+		a.village_name as villageName,
+		a.building_id as buildingId,
+		a.building_name as buildingName,
+		a.unit_number as unitNumber,
+		a.house_name as houseName,
+		a.apartment_id
+		as apartmentId,
+		a.apartment_name as apartmentName,
+		a.floor_number
+		as
+		floorNumber,
+		a.built_area
+		as builtArea,
+		a.in_jacket_area as
+		inJacketArea,
+		a.table_price as
+		tablePrice,
+		a.table_price_mode as
+		tablePriceMode,
+		a.bottom_price as
+		bottomPrice,
+		a.bottom_price_mode as
+		bottomPriceMode,
+		a.property_ct_price as
+		propertyCtPrice,
+		a.property_ct_price_mode as
+		propertyCtPriceMode,
+		a.house_remark as
+		houseRemark,
+		a.house_photo_video
+		as
+		housePhotoVideo,
+		a.apartment_photo as
+		apartmentPhoto,
+		a.current_tenant
+		as
+		currentTenant,
+		a.room_status as
+		roomStatus,
+		a.tenantid as
+		tenantId,
+		a.dr
+		as dr
+		FROM
+		base_house a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+			<if test="roomStatus != null and roomStatus != '' ">
+				AND a.room_status =#{roomStatus}
+			</if>
+			<if test="buildingId != null and buildingId != '' ">
+				AND a.building_id =#{buildingId}
+			</if>
+			<if test="unitNumber != null and unitNumber != '' ">
+				AND a.unit_number =#{unitNumber}
+			</if>
+			<if test="communityName != null and communityName !=''">
+				AND a.community_name like concat('%',
+				#{communityName},'%')
+			</if>
+			<if test="buildingName != null and buildingName !=''">
+				AND a.building_name like concat('%', #{buildingName},'%')
+			</if>
+			<if test="villageName != null and villageName !=''">
+				AND a.villageName like concat('%', #{villageName},'%')
+			</if>
+			<if test="houseName != null and houseName !=''">
+				AND a.house_name like concat('%', #{houseName},'%')
+			</if>
+			<if test="paixu == 0">
+				order by a.id
+			</if>
+			<if test="paixu == 1">
+				order by a.table_price
+			</if>
+			<if test="paixu == 2">
+				order by a.table_price desc
+			</if>
+			<if test="paixu == 3">
+				order by a.in_jacket_area
+			</if>
+			<if test="paixu == 4">
+				order by a.in_jacket_area desc
+			</if>
+		</where>
+	</select>
+	<!-- 房屋图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		a.service_path
+		AS
+		servicePath
+		FROM
+		doc_document a
+		where
+		a.batch_no=#{apartmentPhoto}
+		limit
+		0,1
+	</select>
+	<!-- 房屋租客信息 -->
+	<select id="rentpeople" resultType="RentPeople">
+		SELECT
+		a.id as id,
+		a.customer_id as customerId,
+		a.customer_name as
+		customerName,
+		a.certificate_number as certificateNumber,
+		a.base_house_id as baseHouseId,
+		a.lease_end_date as leaseEndDate,
+		a.lease_start_date as leaseStartDate
+		FROM
+		rent_contract_management a
+		<where>
+			<if test="id != null and id != '' ">
+				a.id =#{id}
+			</if>
+			<if test="baseHouseId != null and baseHouseId != '' ">
+				AND a.base_house_id =#{baseHouseId}
+			</if>
+		</where>
+	</select>
+</mapper>
+

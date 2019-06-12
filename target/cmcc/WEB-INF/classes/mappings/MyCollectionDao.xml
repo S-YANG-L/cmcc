@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.myCollection.dao.MyCollectionDao">
+	<!-- 收藏表输出字段列 -->
+	<sql id="MyCollectionColums">
+	 	a.id AS "id",
+	 	a.tenantId as "tenantId",
+	 	a.house_id as "houseId",
+	 	a.collector_id as "collectorId",
+	 	a.collector_name as "collectorName",
+	 	a.house_name as "houseName",
+	 	a.community_id as "communityId",
+	 	a.community_name as "communityName",
+		a.village_id as "villageId",
+	 	a.village_name as "villageName",
+	 	a.building_id as "buildingId",
+	 	a.building_name as "buildingName",
+	 	a.apartment_id as "apartmentId",
+		a.apartment_name as "apartmentName",
+		a.collection_status as "collectionStatus",
+	 	a.dR as "dR",
+	</sql>
+	<!-- 社区档案数据字段 -->
+	<sql id="BaseCommunityColums">
+		b.id as "idOne",
+		b.community_name as "communityName",
+		b.built_date as "builtDate",
+	</sql>
+	<!-- 小区档案数据字段 -->
+	<sql id="BaseVillageColems">
+		c.id as "idTwo",
+		c.village_name as "villageName",
+		c.community_id as "communityId",
+		c.community_name as "communityName",
+		c.afforested_area as "afforestedArea",
+	</sql>
+	<!-- 楼栋档案数据字段 -->
+	<sql id="BaseBuildingColums">
+		d.id as "idThree",
+		d.building_name as "buildingName",
+		d.village_id as "villageId",
+		d.village_name as "villageName",
+		d.floor_number as "floorNumber",
+		d.is_elevator as "elevator",
+	</sql>
+	<!-- 户型档案数据字段 -->
+	<sql id="BaseApartmentColums">
+		e.id as "idFour",
+		e.apartment_name as "apartmentName",
+		e.room_composition as "roomComposition",	
+	</sql>
+	<!-- 房间档案数据字段 -->
+	<sql id="BaseHouseColums">
+		f.id as "idFive",
+		f.table_price as "tablePrice",
+		f.in_jacket_area as "inJacketArea",
+		f.apartment_photo as "apartmentPhoto",
+		f.house_photo_video as "housePhotoVideo",
+		f.room_status as "roomStatus",
+		f.floor_number as "theFloorNumber",
+		f.unit_number as "unitNumber",
+		f.house_remark as "houseRemark"
+	</sql>
+
+	<!-- 查询收藏内容 -->
+	<select id="collectionList" resultType="MyCollection">
+		SELECT
+		<include refid="MyCollectionColums" />
+		<include refid="BaseCommunityColums" />
+		<include refid="BaseVillageColems" />
+		<include refid="BaseBuildingColums" />
+		<include refid="BaseApartmentColums" />
+		<include refid="BaseHouseColums" />
+		FROM rent_house_collection a
+		LEFT JOIN base_community b ON b.id = a.community_id
+		LEFT JOIN base_village c ON c.id = a.village_id
+		LEFT JOIN base_building d ON d.id = a.building_id
+		LEFT JOIN base_apartment e ON e.id = a.apartment_id
+		LEFT JOIN base_house f ON f.id = a.house_id
+		<where>
+		a.dR !=1 AND a.collection_status = 1		
+		<if test="collectorId != null and collectorId != ''">
+		AND a.collector_id = #{collectorId}
+		</if>
+		<if test="houseId != null and houseId != ''">
+		AND a.house_id = #{houseId}
+		</if>
+		</where>	
+			 		
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="save">
+		INSERT INTO rent_house_collection(
+			id,
+			house_id,
+			house_name,
+			tenantId,
+			collector_id,
+			collector_name,					
+			community_id,
+			community_name,
+			village_id,
+			village_name,
+			building_id,
+			building_name,
+			apartment_id,
+			apartment_name,
+			table_price,
+			in_jacket_area,
+			house_remark
+		)VALUES(
+			#{id},
+			#{houseId},
+			#{houseName},
+			#{tenantId},
+			#{collectorId},
+			#{collectorName},		
+			#{communityId},
+			#{communityName},
+			#{villageId},
+			#{villageName},
+			#{buildingId},
+			#{buildingName},
+			#{apartmentId},
+			#{apartmentName},
+			#{tablePrice},
+			#{inJacketArea},
+			#{houseRemark}
+		)
+	</insert>
+
+	<!-- 获取房屋图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		k.service_path
+		AS
+		servicePath
+		FROM
+		doc_document k
+		where
+		k.batch_no=#{apartmentPhoto}
+		limit
+		0,1
+	</select>
+	
+	<!-- 取消房屋收藏 -->
+	  <update id="updateInfo" >
+  		update rent_house_collection
+  		set
+  		COLLECTION_STATUS = #{1}
+  		where
+  		ID = #{0}
+  </update>
+</mapper>

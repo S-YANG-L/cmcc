@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.order.dao.OrderBusinessDraftDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.order.pojo.OrderBusinessDraft">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="REAL_ESTATE_CUSTOMER_ID" jdbcType="BIGINT" property="realEstateCustomerId" />
+    <result column="REAL_ESTATE_CUSTOMER" jdbcType="VARCHAR" property="realEstateCustomer" />
+    <result column="HOUSE_NAME" jdbcType="VARCHAR" property="houseName" />
+    <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+    <result column="CONTACT_NUMBER" jdbcType="BIGINT" property="contactNumber" />
+    <result column="CONTACT_ADDRESS" jdbcType="VARCHAR" property="contactAddress" />
+    <result column="CHARGING_OBJECT" jdbcType="VARCHAR" property="chargingObject" />
+    <result column="APPOINTMENT_DATE" jdbcType="DATE" property="appointmentDate" />
+    <result column="CUSTOMER_EVENT_SOURCE" jdbcType="VARCHAR" property="customerEventSource" />
+    <result column="CUSTOMER_EVENT" jdbcType="VARCHAR" property="customerEvent" />
+    <result column="COMPLAINT_PEOPLE" jdbcType="VARCHAR" property="complaintPeople" />
+    <result column="COMPLAINT_PHONE" jdbcType="BIGINT" property="complaintPhone" />
+    <result column="COMPLAINT_SEX" jdbcType="VARCHAR" property="complaintSex" />
+    <result column="COMPLAINT_CONTENT" jdbcType="VARCHAR" property="complaintContent" />
+    <result column="REPAIR_PEOPLE" jdbcType="VARCHAR" property="repairPeople" />
+    <result column="REPAIR_DATE" jdbcType="DATE" property="repairDate" />
+    <result column="REPAIR_POSITION" jdbcType="VARCHAR" property="repairPosition" />
+    <result column="REPAIR_CONTENT" jdbcType="VARCHAR" property="repairContent" />
+    <result column="SERVICE_ADDRESS" jdbcType="VARCHAR" property="serviceAddress" />
+    <result column="SERVICE_CONTENT" jdbcType="VARCHAR" property="serviceContent" />
+    <result column="SINGLE_PERSON" jdbcType="VARCHAR" property="singlePerson" />
+    <result column="DRAFT_DATE" jdbcType="TIMESTAMP" property="draftDate" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="BILL_STATUS" jdbcType="CHAR" property="billStatus" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+    <result column="BILL_NUMBER" jdbcType="VARCHAR" property="billNumber" />
+    <result column="RECEIVE_ORDER" jdbcType="VARCHAR" property="receiveOrder" />
+    <result column="ORDER_TYPE" jdbcType="CHAR" property="orderType" />
+    <result column="ORDER_CONTENT" jdbcType="VARCHAR" property="orderContent" />
+    <result column="ORDER_STATUS" jdbcType="CHAR" property="orderStatus" />
+    <result column="LOCK_STATUS" jdbcType="CHAR" property="lockStatus" />
+    <result column="FEEDBACK_PEOPLE" jdbcType="VARCHAR" property="feedbackPeople" />
+    <result column="FEEDBACK_TYPE" jdbcType="VARCHAR" property="feedbackType" />
+    <result column="FEEDBACK_CIRCUMSTANCES" jdbcType="VARCHAR" property="feedbackCircumstances" />
+    <result column="FEEDBACK_FRACTION" jdbcType="CHAR" property="feedbackFraction" />
+    <result column="SEND_PEOPLE" jdbcType="VARCHAR" property="sendPeople" />
+    <result column="SEND_PEOPLE_ID" jdbcType="BIGINT" property="sendPeopleId" />
+    <result column="SINGLE_ID" jdbcType="BIGINT" property="singleId" />
+    <result column="IS_AUTO" jdbcType="CHAR" property="isAuto" />
+    <result column="REDISPATCH_TIMES" jdbcType="INTEGER" property="redispatchTimes" />
+    <result column="HANDLING_SITUATION" jdbcType="VARCHAR" property="handlingSituation" />
+    <result column="PROCESS_PICTURE" jdbcType="VARCHAR" property="processPicture" />
+    <result column="CANCELLATION_WAY" jdbcType="VARCHAR" property="cancellationWay" />
+    <result column="SERVICE_TYPE" jdbcType="VARCHAR" property="serviceType" />
+    <result column="SERVICE_TYPE_ID" jdbcType="BIGINT" property="serviceTypeId" />
+    <result column="DISPOSE_STATE" jdbcType="CHAR" property="disposeState" />
+    <result column="USER_FRACTION" jdbcType="CHAR" property="userFraction" />
+    <result column="USER_EVALUATE" jdbcType="VARCHAR" property="userEvaluate" />
+    <result column="HOUSE_ID" jdbcType="BIGINT" property="houseId" />
+    <result column="ACCOMPLISH_TIME" jdbcType="VARCHAR" property="accomplishTime" />
+    <result column="REPAIR_IMAGE" jdbcType="VARCHAR" property="repairImage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REAL_ESTATE_CUSTOMER_ID, REAL_ESTATE_CUSTOMER, HOUSE_NAME, CONTACTS, CONTACT_NUMBER, 
+    CONTACT_ADDRESS, CHARGING_OBJECT, APPOINTMENT_DATE, CUSTOMER_EVENT_SOURCE, CUSTOMER_EVENT, 
+    COMPLAINT_PEOPLE, COMPLAINT_PHONE, COMPLAINT_SEX, COMPLAINT_CONTENT, REPAIR_PEOPLE, 
+    REPAIR_DATE, REPAIR_POSITION, REPAIR_CONTENT, SERVICE_ADDRESS, SERVICE_CONTENT, SINGLE_PERSON, 
+    DRAFT_DATE, REMARK, TENANTID, CREATOR_ID, CREATOR_NAME, ORGANIZATION_ID, ORGANIZATION_NAME, 
+    BILL_STATUS, DR, VERSION, BILL_NUMBER, RECEIVE_ORDER, ORDER_TYPE, ORDER_CONTENT, 
+    ORDER_STATUS, LOCK_STATUS, FEEDBACK_PEOPLE, FEEDBACK_TYPE, FEEDBACK_CIRCUMSTANCES, 
+    FEEDBACK_FRACTION, SEND_PEOPLE, SEND_PEOPLE_ID, SINGLE_ID, IS_AUTO, REDISPATCH_TIMES, 
+    HANDLING_SITUATION, PROCESS_PICTURE, CANCELLATION_WAY, SERVICE_TYPE, SERVICE_TYPE_ID, 
+    DISPOSE_STATE, USER_FRACTION, USER_EVALUATE, HOUSE_ID, ACCOMPLISH_TIME,REPAIR_IMAGE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where ID = #{id,jdbcType=BIGINT}
+    ORDER BY ID DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_business_draft
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.order.pojo.OrderBusinessDraft">
+    insert into order_business_draft (ID, REAL_ESTATE_CUSTOMER_ID, REAL_ESTATE_CUSTOMER, 
+      HOUSE_NAME, CONTACTS, CONTACT_NUMBER, 
+      CONTACT_ADDRESS, CHARGING_OBJECT, APPOINTMENT_DATE, 
+      CUSTOMER_EVENT_SOURCE, CUSTOMER_EVENT, COMPLAINT_PEOPLE, 
+      COMPLAINT_PHONE, COMPLAINT_SEX, COMPLAINT_CONTENT, 
+      REPAIR_PEOPLE, REPAIR_DATE, REPAIR_POSITION, 
+      REPAIR_CONTENT, SERVICE_ADDRESS, SERVICE_CONTENT, 
+      SINGLE_PERSON, DRAFT_DATE, REMARK, 
+      TENANTID, CREATOR_ID, CREATOR_NAME, 
+      ORGANIZATION_ID, ORGANIZATION_NAME, BILL_STATUS, 
+      DR, VERSION, BILL_NUMBER, 
+      RECEIVE_ORDER, ORDER_TYPE, ORDER_CONTENT, 
+      ORDER_STATUS, LOCK_STATUS, FEEDBACK_PEOPLE, 
+      FEEDBACK_TYPE, FEEDBACK_CIRCUMSTANCES, FEEDBACK_FRACTION, 
+      SEND_PEOPLE, SEND_PEOPLE_ID, SINGLE_ID, 
+      IS_AUTO, REDISPATCH_TIMES, HANDLING_SITUATION, 
+      PROCESS_PICTURE, CANCELLATION_WAY, SERVICE_TYPE, 
+      SERVICE_TYPE_ID, DISPOSE_STATE, USER_FRACTION, 
+      USER_EVALUATE, HOUSE_ID, ACCOMPLISH_TIME,REPAIR_IMAGE
+      )
+    values (#{id,jdbcType=BIGINT}, #{realEstateCustomerId,jdbcType=BIGINT}, #{realEstateCustomer,jdbcType=VARCHAR}, 
+      #{houseName,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{contactNumber,jdbcType=BIGINT}, 
+      #{contactAddress,jdbcType=VARCHAR}, #{chargingObject,jdbcType=VARCHAR}, #{appointmentDate,jdbcType=DATE}, 
+      #{customerEventSource,jdbcType=VARCHAR}, #{customerEvent,jdbcType=VARCHAR}, #{complaintPeople,jdbcType=VARCHAR}, 
+      #{complaintPhone,jdbcType=BIGINT}, #{complaintSex,jdbcType=VARCHAR}, #{complaintContent,jdbcType=VARCHAR}, 
+      #{repairPeople,jdbcType=VARCHAR}, #{repairDate,jdbcType=DATE}, #{repairPosition,jdbcType=VARCHAR}, 
+      #{repairContent,jdbcType=VARCHAR}, #{serviceAddress,jdbcType=VARCHAR}, #{serviceContent,jdbcType=VARCHAR}, 
+      #{singlePerson,jdbcType=VARCHAR}, #{draftDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{tenantid,jdbcType=BIGINT}, #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, 
+      #{organizationId,jdbcType=BIGINT}, #{organizationName,jdbcType=VARCHAR}, #{billStatus,jdbcType=CHAR}, 
+      #{dr,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}, #{billNumber,jdbcType=VARCHAR}, 
+      #{receiveOrder,jdbcType=VARCHAR}, #{orderType,jdbcType=CHAR}, #{orderContent,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=CHAR}, #{lockStatus,jdbcType=CHAR}, #{feedbackPeople,jdbcType=VARCHAR}, 
+      #{feedbackType,jdbcType=VARCHAR}, #{feedbackCircumstances,jdbcType=VARCHAR}, #{feedbackFraction,jdbcType=CHAR}, 
+      #{sendPeople,jdbcType=VARCHAR}, #{sendPeopleId,jdbcType=BIGINT}, #{singleId,jdbcType=BIGINT}, 
+      #{isAuto,jdbcType=CHAR}, #{redispatchTimes,jdbcType=INTEGER}, #{handlingSituation,jdbcType=VARCHAR}, 
+      #{processPicture,jdbcType=VARCHAR}, #{cancellationWay,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR}, 
+      #{serviceTypeId,jdbcType=BIGINT}, #{disposeState,jdbcType=CHAR}, #{userFraction,jdbcType=CHAR}, 
+      #{userEvaluate,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT}, #{accomplishTime,jdbcType=VARCHAR},
+      #{repairImage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.order.pojo.OrderBusinessDraft">
+    insert into order_business_draft
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="realEstateCustomerId != null">
+        REAL_ESTATE_CUSTOMER_ID,
+      </if>
+      <if test="realEstateCustomer != null">
+        REAL_ESTATE_CUSTOMER,
+      </if>
+      <if test="houseName != null">
+        HOUSE_NAME,
+      </if>
+      <if test="contacts != null">
+        CONTACTS,
+      </if>
+      <if test="contactNumber != null">
+        CONTACT_NUMBER,
+      </if>
+      <if test="contactAddress != null">
+        CONTACT_ADDRESS,
+      </if>
+      <if test="chargingObject != null">
+        CHARGING_OBJECT,
+      </if>
+      <if test="appointmentDate != null">
+        APPOINTMENT_DATE,
+      </if>
+      <if test="customerEventSource != null">
+        CUSTOMER_EVENT_SOURCE,
+      </if>
+      <if test="customerEvent != null">
+        CUSTOMER_EVENT,
+      </if>
+      <if test="complaintPeople != null">
+        COMPLAINT_PEOPLE,
+      </if>
+      <if test="complaintPhone != null">
+        COMPLAINT_PHONE,
+      </if>
+      <if test="complaintSex != null">
+        COMPLAINT_SEX,
+      </if>
+      <if test="complaintContent != null">
+        COMPLAINT_CONTENT,
+      </if>
+      <if test="repairPeople != null">
+        REPAIR_PEOPLE,
+      </if>
+      <if test="repairDate != null">
+        REPAIR_DATE,
+      </if>
+      <if test="repairPosition != null">
+        REPAIR_POSITION,
+      </if>
+      <if test="repairContent != null">
+        REPAIR_CONTENT,
+      </if>
+      <if test="serviceAddress != null">
+        SERVICE_ADDRESS,
+      </if>
+      <if test="serviceContent != null">
+        SERVICE_CONTENT,
+      </if>
+      <if test="singlePerson != null">
+        SINGLE_PERSON,
+      </if>
+      <if test="draftDate != null">
+        DRAFT_DATE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="billNumber != null">
+        BILL_NUMBER,
+      </if>
+      <if test="receiveOrder != null">
+        RECEIVE_ORDER,
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE,
+      </if>
+      <if test="orderContent != null">
+        ORDER_CONTENT,
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS,
+      </if>
+      <if test="lockStatus != null">
+        LOCK_STATUS,
+      </if>
+      <if test="feedbackPeople != null">
+        FEEDBACK_PEOPLE,
+      </if>
+      <if test="feedbackType != null">
+        FEEDBACK_TYPE,
+      </if>
+      <if test="feedbackCircumstances != null">
+        FEEDBACK_CIRCUMSTANCES,
+      </if>
+      <if test="feedbackFraction != null">
+        FEEDBACK_FRACTION,
+      </if>
+      <if test="sendPeople != null">
+        SEND_PEOPLE,
+      </if>
+      <if test="sendPeopleId != null">
+        SEND_PEOPLE_ID,
+      </if>
+      <if test="singleId != null">
+        SINGLE_ID,
+      </if>
+      <if test="isAuto != null">
+        IS_AUTO,
+      </if>
+      <if test="redispatchTimes != null">
+        REDISPATCH_TIMES,
+      </if>
+      <if test="handlingSituation != null">
+        HANDLING_SITUATION,
+      </if>
+      <if test="processPicture != null">
+        PROCESS_PICTURE,
+      </if>
+      <if test="cancellationWay != null">
+        CANCELLATION_WAY,
+      </if>
+      <if test="serviceType != null">
+        SERVICE_TYPE,
+      </if>
+      <if test="serviceTypeId != null">
+        SERVICE_TYPE_ID,
+      </if>
+      <if test="disposeState != null">
+        DISPOSE_STATE,
+      </if>
+      <if test="userFraction != null">
+        USER_FRACTION,
+      </if>
+      <if test="userEvaluate != null">
+        USER_EVALUATE,
+      </if>
+      <if test="houseId != null">
+        HOUSE_ID,
+      </if>
+      <if test="accomplishTime != null">
+        ACCOMPLISH_TIME,
+      </if>
+      <if test="repairImage != null">
+        REPAIR_IMAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realEstateCustomerId != null">
+        #{realEstateCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="realEstateCustomer != null">
+        #{realEstateCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        #{contactNumber,jdbcType=BIGINT},
+      </if>
+      <if test="contactAddress != null">
+        #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingObject != null">
+        #{chargingObject,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="customerEventSource != null">
+        #{customerEventSource,jdbcType=VARCHAR},
+      </if>
+      <if test="customerEvent != null">
+        #{customerEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintPeople != null">
+        #{complaintPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintPhone != null">
+        #{complaintPhone,jdbcType=BIGINT},
+      </if>
+      <if test="complaintSex != null">
+        #{complaintSex,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintContent != null">
+        #{complaintContent,jdbcType=VARCHAR},
+      </if>
+      <if test="repairPeople != null">
+        #{repairPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="repairDate != null">
+        #{repairDate,jdbcType=DATE},
+      </if>
+      <if test="repairPosition != null">
+        #{repairPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="repairContent != null">
+        #{repairContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAddress != null">
+        #{serviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null">
+        #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePerson != null">
+        #{singlePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="draftDate != null">
+        #{draftDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="billNumber != null">
+        #{billNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrder != null">
+        #{receiveOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=CHAR},
+      </if>
+      <if test="orderContent != null">
+        #{orderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="lockStatus != null">
+        #{lockStatus,jdbcType=CHAR},
+      </if>
+      <if test="feedbackPeople != null">
+        #{feedbackPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackType != null">
+        #{feedbackType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackCircumstances != null">
+        #{feedbackCircumstances,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackFraction != null">
+        #{feedbackFraction,jdbcType=CHAR},
+      </if>
+      <if test="sendPeople != null">
+        #{sendPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPeopleId != null">
+        #{sendPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="singleId != null">
+        #{singleId,jdbcType=BIGINT},
+      </if>
+      <if test="isAuto != null">
+        #{isAuto,jdbcType=CHAR},
+      </if>
+      <if test="redispatchTimes != null">
+        #{redispatchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="handlingSituation != null">
+        #{handlingSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="processPicture != null">
+        #{processPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="cancellationWay != null">
+        #{cancellationWay,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTypeId != null">
+        #{serviceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="disposeState != null">
+        #{disposeState,jdbcType=CHAR},
+      </if>
+      <if test="userFraction != null">
+        #{userFraction,jdbcType=CHAR},
+      </if>
+      <if test="userEvaluate != null">
+        #{userEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="accomplishTime != null">
+        #{accomplishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repairImage != null">
+        #{repairImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.order.pojo.OrderBusinessDraft">
+    update order_business_draft
+    <set>
+      <if test="realEstateCustomerId != null">
+        REAL_ESTATE_CUSTOMER_ID = #{realEstateCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="realEstateCustomer != null">
+        REAL_ESTATE_CUSTOMER = #{realEstateCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        HOUSE_NAME = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        CONTACT_NUMBER = #{contactNumber,jdbcType=BIGINT},
+      </if>
+      <if test="contactAddress != null">
+        CONTACT_ADDRESS = #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingObject != null">
+        CHARGING_OBJECT = #{chargingObject,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentDate != null">
+        APPOINTMENT_DATE = #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="customerEventSource != null">
+        CUSTOMER_EVENT_SOURCE = #{customerEventSource,jdbcType=VARCHAR},
+      </if>
+      <if test="customerEvent != null">
+        CUSTOMER_EVENT = #{customerEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintPeople != null">
+        COMPLAINT_PEOPLE = #{complaintPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintPhone != null">
+        COMPLAINT_PHONE = #{complaintPhone,jdbcType=BIGINT},
+      </if>
+      <if test="complaintSex != null">
+        COMPLAINT_SEX = #{complaintSex,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintContent != null">
+        COMPLAINT_CONTENT = #{complaintContent,jdbcType=VARCHAR},
+      </if>
+      <if test="repairPeople != null">
+        REPAIR_PEOPLE = #{repairPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="repairDate != null">
+        REPAIR_DATE = #{repairDate,jdbcType=DATE},
+      </if>
+      <if test="repairPosition != null">
+        REPAIR_POSITION = #{repairPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="repairContent != null">
+        REPAIR_CONTENT = #{repairContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAddress != null">
+        SERVICE_ADDRESS = #{serviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null">
+        SERVICE_CONTENT = #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePerson != null">
+        SINGLE_PERSON = #{singlePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="draftDate != null">
+        DRAFT_DATE = #{draftDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="billNumber != null">
+        BILL_NUMBER = #{billNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrder != null">
+        RECEIVE_ORDER = #{receiveOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE = #{orderType,jdbcType=CHAR},
+      </if>
+      <if test="orderContent != null">
+        ORDER_CONTENT = #{orderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="lockStatus != null">
+        LOCK_STATUS = #{lockStatus,jdbcType=CHAR},
+      </if>
+      <if test="feedbackPeople != null">
+        FEEDBACK_PEOPLE = #{feedbackPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackType != null">
+        FEEDBACK_TYPE = #{feedbackType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackCircumstances != null">
+        FEEDBACK_CIRCUMSTANCES = #{feedbackCircumstances,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackFraction != null">
+        FEEDBACK_FRACTION = #{feedbackFraction,jdbcType=CHAR},
+      </if>
+      <if test="sendPeople != null">
+        SEND_PEOPLE = #{sendPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPeopleId != null">
+        SEND_PEOPLE_ID = #{sendPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="singleId != null">
+        SINGLE_ID = #{singleId,jdbcType=BIGINT},
+      </if>
+      <if test="isAuto != null">
+        IS_AUTO = #{isAuto,jdbcType=CHAR},
+      </if>
+      <if test="redispatchTimes != null">
+        REDISPATCH_TIMES = #{redispatchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="handlingSituation != null">
+        HANDLING_SITUATION = #{handlingSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="processPicture != null">
+        PROCESS_PICTURE = #{processPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="cancellationWay != null">
+        CANCELLATION_WAY = #{cancellationWay,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTypeId != null">
+        SERVICE_TYPE_ID = #{serviceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="disposeState != null">
+        DISPOSE_STATE = #{disposeState,jdbcType=CHAR},
+      </if>
+      <if test="userFraction != null">
+        USER_FRACTION = #{userFraction,jdbcType=CHAR},
+      </if>
+      <if test="userEvaluate != null">
+        USER_EVALUATE = #{userEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        HOUSE_ID = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="accomplishTime != null">
+        ACCOMPLISH_TIME = #{accomplishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repairImage != null">
+        REPAIR_IMAGE = #{repairImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.order.pojo.OrderBusinessDraft">
+    update order_business_draft
+    set REAL_ESTATE_CUSTOMER_ID = #{realEstateCustomerId,jdbcType=BIGINT},
+      REAL_ESTATE_CUSTOMER = #{realEstateCustomer,jdbcType=VARCHAR},
+      HOUSE_NAME = #{houseName,jdbcType=VARCHAR},
+      CONTACTS = #{contacts,jdbcType=VARCHAR},
+      CONTACT_NUMBER = #{contactNumber,jdbcType=BIGINT},
+      CONTACT_ADDRESS = #{contactAddress,jdbcType=VARCHAR},
+      CHARGING_OBJECT = #{chargingObject,jdbcType=VARCHAR},
+      APPOINTMENT_DATE = #{appointmentDate,jdbcType=DATE},
+      CUSTOMER_EVENT_SOURCE = #{customerEventSource,jdbcType=VARCHAR},
+      CUSTOMER_EVENT = #{customerEvent,jdbcType=VARCHAR},
+      COMPLAINT_PEOPLE = #{complaintPeople,jdbcType=VARCHAR},
+      COMPLAINT_PHONE = #{complaintPhone,jdbcType=BIGINT},
+      COMPLAINT_SEX = #{complaintSex,jdbcType=VARCHAR},
+      COMPLAINT_CONTENT = #{complaintContent,jdbcType=VARCHAR},
+      REPAIR_PEOPLE = #{repairPeople,jdbcType=VARCHAR},
+      REPAIR_DATE = #{repairDate,jdbcType=DATE},
+      REPAIR_POSITION = #{repairPosition,jdbcType=VARCHAR},
+      REPAIR_CONTENT = #{repairContent,jdbcType=VARCHAR},
+      SERVICE_ADDRESS = #{serviceAddress,jdbcType=VARCHAR},
+      SERVICE_CONTENT = #{serviceContent,jdbcType=VARCHAR},
+      SINGLE_PERSON = #{singlePerson,jdbcType=VARCHAR},
+      DRAFT_DATE = #{draftDate,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      DR = #{dr,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=DECIMAL},
+      BILL_NUMBER = #{billNumber,jdbcType=VARCHAR},
+      RECEIVE_ORDER = #{receiveOrder,jdbcType=VARCHAR},
+      ORDER_TYPE = #{orderType,jdbcType=CHAR},
+      ORDER_CONTENT = #{orderContent,jdbcType=VARCHAR},
+      ORDER_STATUS = #{orderStatus,jdbcType=CHAR},
+      LOCK_STATUS = #{lockStatus,jdbcType=CHAR},
+      FEEDBACK_PEOPLE = #{feedbackPeople,jdbcType=VARCHAR},
+      FEEDBACK_TYPE = #{feedbackType,jdbcType=VARCHAR},
+      FEEDBACK_CIRCUMSTANCES = #{feedbackCircumstances,jdbcType=VARCHAR},
+      FEEDBACK_FRACTION = #{feedbackFraction,jdbcType=CHAR},
+      SEND_PEOPLE = #{sendPeople,jdbcType=VARCHAR},
+      SEND_PEOPLE_ID = #{sendPeopleId,jdbcType=BIGINT},
+      SINGLE_ID = #{singleId,jdbcType=BIGINT},
+      IS_AUTO = #{isAuto,jdbcType=CHAR},
+      REDISPATCH_TIMES = #{redispatchTimes,jdbcType=INTEGER},
+      HANDLING_SITUATION = #{handlingSituation,jdbcType=VARCHAR},
+      PROCESS_PICTURE = #{processPicture,jdbcType=VARCHAR},
+      CANCELLATION_WAY = #{cancellationWay,jdbcType=VARCHAR},
+      SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      SERVICE_TYPE_ID = #{serviceTypeId,jdbcType=BIGINT},
+      DISPOSE_STATE = #{disposeState,jdbcType=CHAR},
+      USER_FRACTION = #{userFraction,jdbcType=CHAR},
+      USER_EVALUATE = #{userEvaluate,jdbcType=VARCHAR},
+      HOUSE_ID = #{houseId,jdbcType=BIGINT},
+      ACCOMPLISH_TIME = #{accomplishTime,jdbcType=VARCHAR},
+      REPAIR_IMAGE = #{repairImage,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 查询代办 -->
+   <select id="selectBacklog" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS =7
+          AND DR = 0
+          AND TENANTID = #{1}
+          ORDER BY DRAFT_DATE DESC
+  </select>
+  <!-- 模糊查询代办 -->
+   <select id="obscure"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS =7
+          AND DR = 0
+          AND TENANTID = #{1}
+          AND ORDER_CONTENT LIKE #{2}
+          ORDER BY DRAFT_DATE DESC
+  </select>
+  <!-- 模糊查询已接单 -->
+   <select id="takeOrders"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS =1
+          AND DR = 0
+          AND TENANTID = #{1}
+          AND ORDER_CONTENT LIKE #{2}
+          ORDER BY RECEIVE_ORDER DESC
+  </select>
+  <!-- 模糊查询已完成 -->
+   <select id="endOrders"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS in (5,3,9)
+          AND DR = 0
+          AND TENANTID = #{1}
+          AND ORDER_CONTENT LIKE #{2}
+          ORDER BY ACCOMPLISH_TIME DESC
+  </select>
+  <!-- 模糊查询拒接 -->
+   <select id="refuseOrders"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS = 4
+          AND DR = 0
+          AND TENANTID = #{1}
+          AND ORDER_CONTENT LIKE #{2}
+          ORDER BY ID DESC
+  </select>
+  
+  <!-- 查询已接单 -->
+   <select id="selectTakeOrders" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS =1
+          AND DR = 0
+          AND TENANTID = #{1}
+          ORDER BY RECEIVE_ORDER DESC
+  </select>
+  
+  <!-- 查询已完成 -->
+   <select id="selectAccomplish" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS in (5,3,9)
+          AND DR = 0
+          AND TENANTID = #{1}
+          ORDER BY ACCOMPLISH_TIME DESC
+  </select>
+  
+  <!-- 查询已完成 -->
+   <select id="GetHaveFinished" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS in (5,3,9)
+          AND DR = 0
+          AND TENANTID = #{1}
+          ORDER BY ID DESC
+  </select>
+  
+  <!-- 查询拒接 -->
+   <select id="getRefusing" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_business_draft
+    where SINGLE_ID = #{0}
+          AND ORDER_STATUS =4
+          AND DR = 0
+          AND TENANTID = #{1}
+          ORDER BY ID DESC
+  </select>
+</mapper>

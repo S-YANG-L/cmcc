@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.customers.dao.CustomersDao">
+	<select id="listCustomers" resultType="Customers">
+		SELECT
+		distinct
+		a.CUSTOMER_ID as customerId,
+		a.CUSTOMER_NAME as
+		customerName,
+		a.CONTACT_NUMBER as contactNumber,
+		a.CONTACT_ADDRESS as
+		contactAddress,
+		a.TENANTID as tenantId
+		FROM
+		rent_contract_management a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="customerId != null and customerId != ''">
+				AND a.CUSTOMER_ID = #{customerId}
+			</if>
+			<if test="customerName != null and customerName !=''">
+				AND a.CUSTOMER_NAME like concat('%', #{customerName},'%')
+			</if>
+
+		</where>
+	</select>
+	<select id="listContract" resultType="Contract">
+		SELECT
+		a.CUSTOMER_ID AS customerId,
+		a.CUSTOMER_NAME AS customerName,
+		a.CONTRACT_NUMBER as contractNumber,
+		a.CONTRACT_NAME as contractName,
+		a.CERTIFICATE_NUMBER as certificateNumber,
+		a.CONTACT_ADDRESS as
+		contactAddress,
+		a.EARNEST_MONEY as earnestMoney,
+		a.FIXED_RENT_DATE as
+		fixedRentDate,
+		a.SALESMAN as salesMan,
+		a.CONTRACT_STATUS as
+		contractStatus,
+		a.LEASE_START_DATE as leaseStartDate,
+		a.LEASE_END_DATE
+		as leaseEndDate,
+		a.lease_type as leaseType,
+		a.contract_type as
+		contractType,
+		a.LAST_OPEN_DATE as lastOpenDate,
+		a.NEXT_OPEN_DATE as
+		nextOpenDate,
+		a.ADVANCE_OPEN_DAYS as advanceOpenDays,
+		a.SIGN_LEASE_DATE
+		as signLeaseDate,
+		a.PAYMENT_MODE as paymentMode,
+		a.RENTAL_CYCLE as
+		rentalCycle,
+		a.PAYMENT_DATE as paymentDate,
+		a.ESTIMATE_OPEN_DATE as
+		extimateOpenDate,
+		a.RENTAL_COLLECT_MODE as rentalCollectMode,
+		a.COLLECT_PROPERTY_FEE_PRICE as collectPropertyFeePrice,
+		a.ADDITIONAL_CLAUSE as additionalClause,
+		a.DEPOSIT as deposit,
+		a.RENTAL_UNIT_PRICE as rentalUnitPrice,
+		a.PROPERTY_FEE_UNIT_PRICE as
+		propertyFeeUnitPrice,
+		a.TOTAL_LEASE_ACREAGE as totalLeaseAcreage,
+		a.TOTAL_BUILDING_ACREAGE as totalBuildingAcreage,
+		a.TOTAL_SET_ACREAGE
+		as totalSetAcreage,
+		a.CONTACT_NUMBER AS contactNumber,
+		a.TENANTID AS
+		tenantId
+		FROM
+		rent_contract_management a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="customerId != null and customerId != ''">
+				AND a.CUSTOMER_ID = #{customerId}
+			</if>
+			<if test="customerName != null and customerName != '' ">
+				AND a.CUSTOMER_NAME =#{customerName}
+			</if>
+			<if test="contractNumber != null and contractNumber != '' ">
+				AND a.CONTRACT_NUMBER =#{contractNumber}
+			</if>
+			<if test="contractName != null and contractName != '' ">
+				AND a.CONTRACT_NAME =#{contractName}
+			</if>
+		</where>
+		order by a.LEASE_END_DATE
+	</select>
+	<select id="listBill" resultType="RentLeaseBillC">
+		SELECT
+		a.id as id,
+		a.bill_number as billNumber,
+		a.leasehold_name as
+		leaseholdName,
+		a.sign_lease_date as signLeaseDate,
+		a.customer_id as
+		customerId,
+		a.customer_name as
+		customerName,
+		a.planned_receipt_amount as
+		plannedReceiptAmount,
+		a.amount_received as amountReceived,
+		a.unpaid_amount as unpaidAmount,
+		a.reduction_amount as reductionAmount,
+		a.payment_deadline as
+		paymentDeadline,
+		a.bill_type as billType,
+		a.open_date as openDate,
+		a.lease_bill_status as
+		leaseBillStatus,
+		A.tenantid AS tenantId,
+		a.DR as
+		dr
+		FROM
+		rent_lease_bill a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="customerId != null and customerId != ''">
+				AND a.customer_id = #{customerId}
+			</if>
+			<if test="billNumber != null and billNumber != ''">
+				AND a.bill_number = #{billNumber}
+			</if>
+		</where>
+		order by a.payment_deadline
+	</select>
+	<select id="get" resultType="RentLeaseBillC">
+		SELECT
+		a.id as id,
+		a.bill_number as billNumber,
+		a.leasehold_name as
+		leaseholdName,
+		a.sign_lease_date as signLeaseDate,
+		a.customer_name as
+		customerName,
+		a.planned_receipt_amount as plannedReceiptAmount,
+		a.amount_received as amountReceived,
+		a.unpaid_amount as unpaidAmount,
+		a.reduction_amount as reductionAmount,
+		a.payment_deadline as
+		paymentDeadline,
+		a.bill_type as billType,
+		a.lease_bill_status as
+		leaseBillStatus,
+		A.tenantid AS tenantId,
+		a.DR as dr
+		FROM
+		rent_lease_bill a
+		<where>
+			a.dr != 1
+			<!-- and a.tenantid=#{tenantId} -->
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="billNumber != null and billNumber != ''">
+				AND a.bill_number = #{billNumber}
+			</if>
+		</where>
+	</select>
+	<select id="findBillId" resultType="RentLeaseBillDtl">
+		SELECT
+		b.id as id,
+		b.money_name as moneyName,
+		b.money_type as moneyType,
+		b.money_corresponding_date as moneyCorrespondingDate,
+		b.planned_receipt_amount as plannedReceiptAmount,
+		b.actual_receipt_amount as actualReceiptAmount,
+		b.reduction_amount as
+		reductionAmount,
+		b.remark as remark,
+		b.tenantid as
+		tenantId,
+		b.DR as dr
+		FROM
+		rent_lease_bill_detail b
+		<where>
+			b.dr != 1
+			<!-- and b.tenantid=#{tenantId} -->
+			<if test="billId != null and billId != ''">
+				AND b.bill_id = #{billId}
+			</if>
+			<if test="moneyName != null and moneyName != ''">
+				AND b.money_name = #{moneyName}
+			</if>
+		</where>
+	</select>
+	<select id="listBillDtl" resultType="RentLeaseBillDtl">
+		SELECT
+		b.id as id,
+		b.money_name as moneyName,
+		b.money_type as moneyType,
+		b.money_corresponding_date as moneyCorrespondingDate,
+		b.planned_receipt_amount as plannedReceiptAmount,
+		b.actual_receipt_amount as actualReceiptAmount,
+		b.unpaid_amount as
+		unpaidAmount,
+		b.reduction_amount as
+		reductionAmount,
+		b.remark as
+		remark,
+		b.tenantid as
+		tenantId,
+		b.DR as dr
+		FROM
+		rent_lease_bill_detail b
+		<where>
+			b.dr != 1
+			<!-- and b.tenantid=#{tenantId} -->
+			<if test="billId != null and billId != ''">
+				AND b.bill_id = #{billId}
+			</if>
+			<if test="moneyName != null and moneyName != ''">
+				AND b.money_name = #{moneyName}
+			</if>
+		</where>
+	</select>
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		a.head_image_url as
+		headImageUrl
+		FROM
+		rent_individual_customers a
+		where
+		a.id=#{customerId}
+		limit
+		0,1
+	</select>
+</mapper>
+

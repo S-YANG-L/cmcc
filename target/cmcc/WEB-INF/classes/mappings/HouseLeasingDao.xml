@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.houseLeasing.dao.HouseLeasingDao">
+	<!-- 房屋档案数据字段 -->
+	<sql id="BaseHouseColums">
+			a.id as "id",
+			a.apartment_id as "apartmentId",
+			a.apartment_name as "apartmentName",
+			a.community_id as "communityId",
+			a.community_name as "communityName",
+			a.village_id as "villageId",
+			a.village_name as "villageName",
+			a.building_id as "buildingId",
+			a.building_name as "buildingName",
+			a.house_name as "houseName",
+			a.apartment_name as "apartmentName",
+			a.in_jacket_area as "inJacketArea",
+			a.table_price as "tablePrice",
+			a.apartment_photo as "apartmentPhoto",
+			a.house_photo_video as "housePhotoVideo",
+			a.house_remark as "houseRemark",
+			a.coordinate_position_y as "coordinatePositionY",
+			a.tenantid as "tenantId",
+			a.room_status as "roomStatus",
+			a.floor_number as "theFloorNumber",
+			a.unit_number as "unitNumber",
+			a.dr as "dR",
+	</sql>
+	
+	<!-- 社区档案数据字段 -->
+	<sql id="BaseCommunityColums">
+			b.id as "idTwo",
+			b.community_name as "communityName",
+			b.built_date as "builtDate",
+			<!-- b.tenantId as "tenantId",
+			b.dR as "dR", -->
+	</sql>
+	<!-- 小区档案数据字段 -->
+	<sql id="BaseVillageColems">
+			c.id as "idThree",
+			c.village_name as "villageName",
+			c.community_id as "communityId",
+			c.community_name as "communityName",
+			c.afforested_area as "afforestedArea",
+			<!-- c.tenantId as "tenantId",
+			c.dR as "dR", -->
+	</sql>
+	<!-- 楼栋档案数据字段 -->
+	<sql id="BaseBuildingColums">
+			d.id as "idFour",
+			d.building_name as "buildingName",
+			d.village_id as "villageId",
+			d.village_name as "villageName",
+			d.floor_number as "floorNumber",
+			d.is_elevator as "elevator",
+			<!-- d.tenantId as "tenantId",
+			d.dR as "dR", -->
+	</sql>
+	<!-- 户型档案数据字段 -->
+	<sql id="BaseApartmentColums">
+			e.id as "idFive",
+			e.apartment_name as "apartmentName",
+			e.room_composition as "roomComposition"
+			<!-- e.tenantId as "tenantId",
+			e.dR as "dR", -->
+	</sql>
+	
+	<select id="houseList" resultType="HouseLeasing">
+		SELECT
+        <include refid="BaseHouseColums" />
+        <include refid="BaseCommunityColums" />
+        <include refid="BaseVillageColems" />
+        <include refid="BaseBuildingColums" />
+        <include refid="BaseApartmentColums" />
+		FROM base_house a
+		LEFT JOIN base_community b ON b.id = a.community_id
+		LEFT JOIN base_village c ON c.id = a.village_id
+		LEFT JOIN base_building d ON d.id = a.building_id
+		LEFT JOIN base_apartment e ON e.id = a.apartment_id
+		<where>
+		 a.dr != 1 
+		 AND a.room_status = 2
+		 <if test="tenantId != null and tenantId !=''">
+		 AND a.tenantid = #{tenantId}
+		 </if>
+		 <if test="id != null and id !=''">
+		 AND a.id = #{id}
+		 </if>
+		 
+		 <if test="communityId != null and communityId !=''">
+		 AND a.community_id = #{communityId}
+		 </if>
+		 <if test="communityName != null and communityName !=''">
+		 AND a.community_name like concat('%', #{communityName} ,'%')
+		 </if>
+		 <if test="villageId != null and villageId !=''">
+		 AND a.village_id = #{villageId}
+		 </if>
+		 <if test="villageName != null and villageName !=''">
+		 AND a.village_name like concat('%', #{villageName} ,'%')
+		 </if>
+		 <if test="buildingId != null and buildingId !=''">
+		 AND a.building_id = #{buildingId}
+		 </if>
+		 <if test="buildingName != null and buildingName !=''">
+		 AND a.building_name like concat('%', #{buildingName} ,'%')
+		 </if>
+		 <if test="apartmentId != null and apartmentId !=''">
+		 AND a.apartment_id = #{apartmentId}
+		 </if>
+		  <if test="roomComposition != null and roomComposition !=''">
+		 AND e.room_composition = #{roomComposition}
+		 </if>
+		 <if test="beginMoney != null and beginMoney != ''">
+		 AND a.table_price <![CDATA[>=]]>#{beginMoney}
+		 </if>
+		 <if test="endMoney != null and endMoney != ''">
+		 AND a.table_price <![CDATA[<=]]>#{endMoney}
+		 </if>
+		 <if test="housingResources != null and housingResources != ''">
+		 AND (a.community_name like concat('%', #{housingResources} ,'%') or a.village_name like concat('%', #{housingResources} ,'%') or a.building_name like concat('%', #{housingResources} ,'%') or a.house_name like concat('%', #{housingResources} ,'%') or a.unit_number like concat('%', #{housingResources} ,'%'))
+		 </if>
+		 <if test="sortType == 1">
+		 ORDER BY a.table_price DESC
+		 </if>
+		 <if test="sortType == 2">
+		 ORDER BY a.in_jacket_area DESC
+		 </if>				 
+		</where>
+	</select>
+	
+	<sql id="LookingRequestColums">
+		k.id as "id",
+		k.house_id as "houseId",
+		k.house_name as "houseName",
+		k.applicant_id as "applicantId",
+		k.applicant_name as "applicantName",
+		k.applicant_sex as "applicantSex",
+		k.applicant_phone as "applicantPhone",
+		k.applicant_date as "applicantDate",
+		k.leaving_message as "leavingMessage",
+		k.dR as "dR",
+		k.tenantId as "tenantId"
+	</sql>
+	<insert id="saveApplication">
+		INSERT INTO rent_looking_house(
+			id,
+			house_id ,
+			house_name,
+			applicant_id,
+			applicant_name,
+			applicant_sex,
+			applicant_phone,
+			applicant_date,
+			leaving_message
+		)VALUE(
+			#{id},
+			#{houseId},
+			#{houseName},
+			#{applicantId},
+			#{applicantName},
+			#{applicantSex},
+			#{applicantPhone},
+			#{applicantDate},
+			#{leavingMessage}
+		)
+	</insert>
+	
+	<!-- 房屋图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		m.service_path
+		AS
+		servicePath
+		FROM
+		doc_document m
+		where
+		m.batch_no=#{apartmentPhoto}
+		limit
+		0,1
+	</select>
+
+</mapper>

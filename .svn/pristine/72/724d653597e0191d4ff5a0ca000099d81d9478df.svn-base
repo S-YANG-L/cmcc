@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.pollingDetails.dao.PrgInspectionManaMiddleDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.pollingDetails.pojo.PrgInspectionManaMiddle">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="INSPECTION_ID" jdbcType="VARCHAR" property="inspectionId" />
+    <result column="INSPECTION_NAME" jdbcType="VARCHAR" property="inspectionName" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="ORGANIZATION_ID" jdbcType="VARCHAR" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="TENANTID" jdbcType="VARCHAR" property="tenantid" />
+    <result column="DR" jdbcType="VARCHAR" property="dr" />
+    <result column="finish_number" jdbcType="VARCHAR" property="finish_number" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PARENT_ID, INSPECTION_ID, INSPECTION_NAME, REMARKS, ORGANIZATION_ID, ORGANIZATION_NAME, 
+    CREATOR_ID, CREATOR_NAME, BILL_STATUS, TENANTID, DR,finish_number,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_inspection_mana_middle
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_inspection_mana_middle
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionManaMiddle">
+    insert into prg_inspection_mana_middle (ID, PARENT_ID, INSPECTION_ID, 
+      INSPECTION_NAME, REMARKS, ORGANIZATION_ID, 
+      ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, 
+      BILL_STATUS, TENANTID, DR,finish_number,status
+      )
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=VARCHAR}, #{inspectionId,jdbcType=VARCHAR}, 
+      #{inspectionName,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{organizationId,jdbcType=VARCHAR}, 
+      #{organizationName,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{billStatus,jdbcType=VARCHAR}, #{tenantid,jdbcType=VARCHAR}, #{dr,jdbcType=VARCHAR},#{finish_number,jdbcType=VARCHAR},#{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionManaMiddle">
+    insert into prg_inspection_mana_middle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="inspectionId != null">
+        INSPECTION_ID,
+      </if>
+      <if test="inspectionName != null">
+        INSPECTION_NAME,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="finish_number != null">
+        finish_number,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionId != null">
+        #{inspectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionName != null">
+        #{inspectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_number != null">
+        #{finish_number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionManaMiddle">
+    update prg_inspection_mana_middle
+    <set>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionId != null">
+        INSPECTION_ID = #{inspectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionName != null">
+        INSPECTION_NAME = #{inspectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_number != null">
+        finish_number = #{finish_number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionManaMiddle">
+    update prg_inspection_mana_middle
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      INSPECTION_ID = #{inspectionId,jdbcType=VARCHAR},
+      INSPECTION_NAME = #{inspectionName,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=VARCHAR},
+      DR = #{dr,jdbcType=VARCHAR},
+      finish_number = #{finish_number,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 园区 -->
+  <select id="inspectionMana" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_inspection_mana_middle
+    where PARENT_ID = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

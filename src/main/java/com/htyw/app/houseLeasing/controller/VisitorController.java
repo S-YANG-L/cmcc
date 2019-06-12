@@ -1,0 +1,340 @@
+package com.htyw.app.houseLeasing.controller;
+
+import java.lang.reflect.Method;
+import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.htyw.app.houseLeasing.pojo.Visitor;
+import com.htyw.app.houseLeasing.service.VisitorService;
+import com.htyw.app.utils.HttpRequestUtil;
+import com.htyw.app.utils.Page;
+import com.htyw.app.utils.PropertyFileUtil;
+
+
+@RestController
+@RequestMapping(value = "Visit")
+public class VisitorController {
+
+	@Autowired
+	private VisitorService visitorService;
+	
+	/**
+	 * 获取访客列表信息
+	 * @return	访客列表
+	 */
+	@RequestMapping(value = "getVisitorList", method = RequestMethod.GET)
+	public Map<String, Object> getVisitorList(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+//		String page = request.getParameter("page");
+//		String size = request.getParameter("size");
+		List<Visitor> list = visitorService.visitorList();
+		if(list.size() > 0){
+			result.put("listVisitor", list);
+			result.put("code", "200");
+			result.put("message", "success");
+		}else{
+			result.put("code", "201");
+			result.put("message", "failed");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 新增访客信息
+	 * @param visitor 访客信息
+	 * @return
+	 */
+	@RequestMapping(value = "visitSave", method = RequestMethod.POST)
+	public Map<String, Object> addVisotor(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		Visitor visitor = new Visitor();
+		
+		Long visitorId = Long.valueOf(request.getParameter("visitorId")).longValue();
+		String visitorName = request.getParameter("visitorName");
+		String visitorIphoneNum = request.getParameter("visitorIphoneNum");		
+		String visitorIdNumber = request.getParameter("visitorIdNumber");
+		String visitorIdNumberType = request.getParameter("dType");
+		String visitStatrTime = request.getParameter("visitStatrTime");
+		String visitEndTime = request.getParameter("visitEndTime");
+		String sDate = visitStatrTime.replaceAll("/", "-");
+		String eDate = visitEndTime.replaceAll("/", "-");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		try {
+			Date sd = sdf.parse(sDate);
+			Date ed = sdf.parse(eDate);
+			visitor.setVisitStatrTime(sd);
+			visitor.setVisitEndTime(ed);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String applyDesc = request.getParameter("applyDesc");
+		String visitPicture = request.getParameter("visitPicture");
+		String intervieweeName = request.getParameter("intervieweeName");
+		String intervieweeIphoneNum = request.getParameter("intervieweeIphoneNum");
+		String intervieweeHouse = request.getParameter("intervieweeHouse");
+		
+		//自定义ID
+		String ID = String.valueOf(new Date().getTime());
+		Long id = Long.parseLong(ID);
+		visitor.setId(id);
+		visitor.setVisitorId(visitorId);
+		visitor.setVisitorName(visitorName);		
+		visitor.setVisitorIphoneNum(visitorIphoneNum);
+		visitor.setVisitorIdNumberType(visitorIdNumberType);
+		visitor.setVisitorsMakeType("0");
+		visitor.setVisitorIdNumber(visitorIdNumber);
+		visitor.setApplyDesc(applyDesc);
+		visitor.setVisitPicture(visitPicture);
+		visitor.setIntervieweeName(intervieweeName);
+		visitor.setIntervieweeIphoneNum(intervieweeIphoneNum);
+		visitor.setIntervieweeHouse(intervieweeHouse);
+		
+		int i = visitorService.addVisotor(visitor);
+		if(i == 1){
+			try {
+				approval(id);
+			} catch (Exception e) {
+				result.put("code", "200");
+				result.put("message", "success");
+			}
+		}else{
+			result.put("code", "201");
+			result.put("message", "failed");
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据ID查看访客信息详情
+	 * @param id	主键ID
+	 * @return
+	 */
+	@RequestMapping(value = "queryVisitor", method = RequestMethod.GET)
+	public Map<String, Object> getVisitorById(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String id = request.getParameter("id");
+		Visitor visitor = visitorService.getVisitorById(id);
+		if(visitor != null || !visitor.equals("")){
+			result.put("Visitor", visitor);
+			result.put("code", "200");
+			result.put("message", "success");
+		}else{
+			result.put("code", "201");
+			result.put("message", "failed");
+		}
+		return result;
+	}
+	/**
+	 * 我的访客--查我的申请
+	 * @param visitor 访客信息
+	 * @return
+	 */
+	@RequestMapping(value = "myApplication")
+	public Map<String, Object> myApplication(Visitor visitor, Page page, HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try{
+			PageHelper.offsetPage(page.getStart(),10);
+			List<Visitor> applicationList = visitorService.applicationList(visitor);
+			int total = (int) new PageInfo<>(applicationList).getTotal();
+			page.caculateLast(total);
+			result.put("applicationList", applicationList);
+			result.put("code", 200);
+			result.put("message", "success!");
+		}catch (Exception e) {
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;
+	
+	}
+	/**
+	 * 我的访客--查我的访客
+	 * @param visitor 访客信息
+	 * @return
+	 */
+	@RequestMapping(value = "myVisitor")
+	public Map<String, Object> myVisitor(Visitor visitor, Page page, HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try{
+			PageHelper.offsetPage(page.getStart(),10);
+			List<Visitor> myVisitorList = visitorService.myVisitorList(visitor);
+			int total = (int) new PageInfo<>(myVisitorList).getTotal();
+			page.caculateLast(total);
+			result.put("myVisitorList", myVisitorList);
+			result.put("code", 200);
+			result.put("message", "success!");
+		}catch (Exception e) {
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;
+	
+	}
+	/**
+	 * 我的访客--同意访问
+	 * @param visitor 访客信息
+	 * @return
+	 */
+	@RequestMapping(value = "agree")
+	public Map<String, Object> agree(HttpServletRequest request, HttpServletResponse response)
+			throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();		
+		Long id = Long.valueOf(request.getParameter("id")).longValue();
+		String refuseContent = request.getParameter("refuseContent");
+		Visitor visitor = new Visitor();
+		visitor.setId(id);		
+		visitor.setRefuseContent(refuseContent);
+		try{
+			visitorService.updateInfo(visitor);
+			result.put("code", 200);
+			result.put("message", "success!");
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;		
+	}
+	
+	/**
+	 * 我的访客--不同意访问
+	 * @param visitor 访客信息
+	 * @return
+	 */
+	@RequestMapping(value = "disagree")
+	public Map<String, Object> disagree(HttpServletRequest request, HttpServletResponse response)
+			throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		Long id = Long.valueOf(request.getParameter("id")).longValue();
+		String refuseContent = request.getParameter("refuseContent");
+		Visitor visitor = new Visitor();
+		visitor.setId(id);		
+		visitor.setRefuseContent(refuseContent);
+		try{
+			visitorService.updateDisInfo(visitor);
+			result.put("code", 200);
+			result.put("message", "success!");
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;		
+	}
+	/**
+	 * 验证客户手机号是否存在系统中
+	 */
+	@RequestMapping(value = "phoneLlist")
+	public Map<String,Object> phoneLlist(Visitor visitor, HttpServletRequest request, HttpServletResponse response){
+		Map<String,Object> result = new HashMap<String,Object>();		
+		try {
+			List<Visitor> phone = visitorService.phone(visitor);
+			result.put("phone", phone);
+			result.put("code", 200);
+			result.put("message", "success!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;
+	}
+	
+	/**
+	 * 审批流
+	 */
+	private void approval(Long id) throws Exception{
+		String ip = PropertyFileUtil.getValue("pc.host");
+		String port = PropertyFileUtil.getValue("pc.port");
+		String ff = PropertyFileUtil.getValue("pc.rokenUrl");
+		String username = PropertyFileUtil.getValue("pc.userName");
+		String pd = PropertyFileUtil.getValue("pc.password");
+		
+		String url;
+		if(port == ""){
+			url = "http://"+ip+ff;
+		}else{
+			url = "http://"+ip+":"+port+ff;
+		}
+		String aaString= pd;
+		String encode = URLEncoder.encode(aaString, "utf-8");
+		String encodeBase64 = encodeBase64( encode.getBytes());
+		
+		Map<String,String> paramGetToken = new HashMap<String,String>();
+		paramGetToken.put("pd", encodeBase64);
+		paramGetToken.put("username", username);
+		
+		HttpRequestUtil.doPost(paramGetToken, url);
+		String returnPost = HttpRequestUtil.doPost(paramGetToken, url);
+		JSONObject.parseObject(returnPost);
+		JSONObject obj = JSONObject.parseObject(returnPost);
+		obj.getString("token");
+		
+		String token = obj.getString("token");
+		String ip2 = PropertyFileUtil.getValue("pc.host");
+		String port2 = PropertyFileUtil.getValue("pc.port");
+		String ff2 = PropertyFileUtil.getValue("pc.allDateUrl");
+		String button = "button";
+		String buttonToken = "audit_operation";
+		String dataSourceCode = "rent_looking_house";
+		String audit_type = "1";
+		String audit_column = "BILL_STATUS";
+		String tenant_code = "1";
+		JSONObject obj2 = new JSONObject();
+		obj2.put("ID", id);
+		obj2.toString();
+		URLEncoder.encode(obj2.toString(), "UTF-8");
+		String urlTwoEncode = URLEncoder.encode(obj2.toString(), "UTF-8");
+		
+		String url2;
+		if(port2 == ""){
+			url2 = "http://"+ip2+ff2;
+		}else{
+			url2 = "http://"+ip2+":"+port2+ff2;
+		}
+
+		Map<String,String> paramForAllData = new HashMap<String,String>();
+		paramForAllData.put("cmd", button);
+		paramForAllData.put("buttonToken", buttonToken);
+		paramForAllData.put("dataSourceCode", dataSourceCode);
+		paramForAllData.put("audit_type", audit_type);
+		paramForAllData.put("audit_column", audit_column);
+		paramForAllData.put("tenant_code", tenant_code);
+		paramForAllData.put("token", token);
+		paramForAllData.put("jsonData", urlTwoEncode);
+		
+		HttpRequestUtil.doPost(paramForAllData, url2);
+		
+		
+	}
+	
+	/**
+	 * 加密
+	 */
+	public static String encodeBase64(byte[] input) throws Exception{  
+		 Class clazz=Class.forName("com.sun.org.apache.xerces.internal.impl.dv.util.Base64"); 
+		 Method mainMethod= clazz.getMethod("encode", byte[].class);  
+		 mainMethod.setAccessible(true);  
+		 Object retObj=mainMethod.invoke(null, input);  
+		 return (String)retObj;  
+	 }
+}

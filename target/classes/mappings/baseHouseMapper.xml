@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.baseHouseDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseHouse">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="COMMUNITY_ID" jdbcType="BIGINT" property="communityId" />
+    <result column="COMMUNITY_NAME" jdbcType="VARCHAR" property="communityName" />
+    <result column="VILLAGE_ID" jdbcType="BIGINT" property="villageId" />
+    <result column="VILLAGE_NAME" jdbcType="VARCHAR" property="villageName" />
+    <result column="BUILDING_ID" jdbcType="BIGINT" property="buildingId" />
+    <result column="BUILDING_NAME" jdbcType="VARCHAR" property="buildingName" />
+    <result column="HOUSE_NAME" jdbcType="VARCHAR" property="houseName" />
+    <result column="APARTMENT_ID" jdbcType="BIGINT" property="apartmentId" />
+    <result column="APARTMENT_NAME" jdbcType="VARCHAR" property="apartmentName" />
+    <result column="BUILT_AREA" jdbcType="DECIMAL" property="builtArea" />
+    <result column="IN_JACKET_AREA" jdbcType="DECIMAL" property="inJacketArea" />
+    <result column="TABLE_PRICE" jdbcType="DECIMAL" property="tablePrice" />
+    <result column="TABLE_PRICE_MODE" jdbcType="VARCHAR" property="tablePriceMode" />
+    <result column="BOTTOM_PRICE" jdbcType="DECIMAL" property="bottomPrice" />
+    <result column="BOTTOM_PRICE_MODE" jdbcType="VARCHAR" property="bottomPriceMode" />
+    <result column="PROPERTY_CT_PRICE" jdbcType="DECIMAL" property="propertyCtPrice" />
+    <result column="PROPERTY_CT_PRICE_MODE" jdbcType="VARCHAR" property="propertyCtPriceMode" />
+    <result column="ROOM_STATUS" jdbcType="VARCHAR" property="roomStatus" />
+    <result column="CURRENT_TENANT" jdbcType="VARCHAR" property="currentTenant" />
+    <result column="APARTMENT_PHOTO" jdbcType="VARCHAR" property="apartmentPhoto" />
+    <result column="HOUSE_PHOTO_VIDEO" jdbcType="VARCHAR" property="housePhotoVideo" />
+    <result column="RENT_CONTROL_DATE" jdbcType="DATE" property="rentControlDate" />
+    <result column="RENT_CONTROL_REASON" jdbcType="VARCHAR" property="rentControlReason" />
+    <result column="PUSH_PLATE_DATE" jdbcType="DATE" property="pushPlateDate" />
+    <result column="HOUSE_REMARK" jdbcType="VARCHAR" property="houseRemark" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="BILL_STATUS" jdbcType="CHAR" property="billStatus" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+    <result column="ADJUST_STATE" jdbcType="CHAR" property="adjustState" />
+    <result column="COORDINATE_POSITION_X" jdbcType="VARCHAR" property="coordinatePositionX" />
+    <result column="COORDINATE_POSITION_Y" jdbcType="VARCHAR" property="coordinatePositionY" />
+    <result column="COLSPAN" jdbcType="VARCHAR" property="colspan" />
+    <result column="ROWSPAN" jdbcType="VARCHAR" property="rowspan" />
+    <result column="CURRENT_TENANT_PHONE" jdbcType="VARCHAR" property="currentTenantPhone" />
+    <result column="UNIT_NUMBER" jdbcType="VARCHAR" property="unitNumber" />
+    <result column="FLOOR_NUMBER" jdbcType="VARCHAR" property="floorNumber" />
+    <result column="CURRENT_TENANT_ID" jdbcType="BIGINT" property="currentTenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, COMMUNITY_ID, COMMUNITY_NAME, VILLAGE_ID, VILLAGE_NAME, BUILDING_ID, BUILDING_NAME, 
+    HOUSE_NAME, APARTMENT_ID, APARTMENT_NAME, BUILT_AREA, IN_JACKET_AREA, TABLE_PRICE, 
+    TABLE_PRICE_MODE, BOTTOM_PRICE, BOTTOM_PRICE_MODE, PROPERTY_CT_PRICE, PROPERTY_CT_PRICE_MODE, 
+    ROOM_STATUS, CURRENT_TENANT, APARTMENT_PHOTO, HOUSE_PHOTO_VIDEO, RENT_CONTROL_DATE, 
+    RENT_CONTROL_REASON, PUSH_PLATE_DATE, HOUSE_REMARK, TENANTID, CREATOR_ID, CREATOR_NAME, 
+    ORGANIZATION_ID, ORGANIZATION_NAME, BILL_STATUS, DR, VERSION, ADJUST_STATE, COORDINATE_POSITION_X, 
+    COORDINATE_POSITION_Y, COLSPAN, ROWSPAN, CURRENT_TENANT_PHONE, UNIT_NUMBER, FLOOR_NUMBER ,CURRENT_TENANT_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_house
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_house
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseHouse">
+    insert into base_house (ID, COMMUNITY_ID, COMMUNITY_NAME, 
+      VILLAGE_ID, VILLAGE_NAME, BUILDING_ID, 
+      BUILDING_NAME, HOUSE_NAME, APARTMENT_ID, 
+      APARTMENT_NAME, BUILT_AREA, IN_JACKET_AREA, 
+      TABLE_PRICE, TABLE_PRICE_MODE, BOTTOM_PRICE, 
+      BOTTOM_PRICE_MODE, PROPERTY_CT_PRICE, PROPERTY_CT_PRICE_MODE, 
+      ROOM_STATUS, CURRENT_TENANT, APARTMENT_PHOTO, 
+      HOUSE_PHOTO_VIDEO, RENT_CONTROL_DATE, RENT_CONTROL_REASON, 
+      PUSH_PLATE_DATE, HOUSE_REMARK, TENANTID, 
+      CREATOR_ID, CREATOR_NAME, ORGANIZATION_ID, 
+      ORGANIZATION_NAME, BILL_STATUS, DR, 
+      VERSION, ADJUST_STATE, COORDINATE_POSITION_X, 
+      COORDINATE_POSITION_Y, COLSPAN, ROWSPAN, 
+      CURRENT_TENANT_PHONE, UNIT_NUMBER, FLOOR_NUMBER,CURRENT_TENANT_ID)
+    values (#{id,jdbcType=BIGINT}, #{communityId,jdbcType=BIGINT}, #{communityName,jdbcType=VARCHAR}, 
+      #{villageId,jdbcType=BIGINT}, #{villageName,jdbcType=VARCHAR}, #{buildingId,jdbcType=BIGINT}, 
+      #{buildingName,jdbcType=VARCHAR}, #{houseName,jdbcType=VARCHAR}, #{apartmentId,jdbcType=BIGINT}, 
+      #{apartmentName,jdbcType=VARCHAR}, #{builtArea,jdbcType=DECIMAL}, #{inJacketArea,jdbcType=DECIMAL}, 
+      #{tablePrice,jdbcType=DECIMAL}, #{tablePriceMode,jdbcType=VARCHAR}, #{bottomPrice,jdbcType=DECIMAL}, 
+      #{bottomPriceMode,jdbcType=VARCHAR}, #{propertyCtPrice,jdbcType=DECIMAL}, #{propertyCtPriceMode,jdbcType=VARCHAR}, 
+      #{roomStatus,jdbcType=VARCHAR}, #{currentTenant,jdbcType=VARCHAR}, #{apartmentPhoto,jdbcType=VARCHAR}, 
+      #{housePhotoVideo,jdbcType=VARCHAR}, #{rentControlDate,jdbcType=DATE}, #{rentControlReason,jdbcType=VARCHAR}, 
+      #{pushPlateDate,jdbcType=DATE}, #{houseRemark,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, 
+      #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT}, 
+      #{organizationName,jdbcType=VARCHAR}, #{billStatus,jdbcType=CHAR}, #{dr,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL}, #{adjustState,jdbcType=CHAR}, #{coordinatePositionX,jdbcType=VARCHAR}, 
+      #{coordinatePositionY,jdbcType=VARCHAR}, #{colspan,jdbcType=VARCHAR}, #{rowspan,jdbcType=VARCHAR}, 
+      #{currentTenantPhone,jdbcType=VARCHAR},#{unitNumber,jdbcType=VARCHAR},#{floorNumber,jdbcType=VARCHAR},#{currentTenantId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseHouse">
+    insert into base_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="communityId != null">
+        COMMUNITY_ID,
+      </if>
+      <if test="communityName != null">
+        COMMUNITY_NAME,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="villageName != null">
+        VILLAGE_NAME,
+      </if>
+      <if test="buildingId != null">
+        BUILDING_ID,
+      </if>
+      <if test="buildingName != null">
+        BUILDING_NAME,
+      </if>
+      <if test="houseName != null">
+        HOUSE_NAME,
+      </if>
+      <if test="apartmentId != null">
+        APARTMENT_ID,
+      </if>
+      <if test="apartmentName != null">
+        APARTMENT_NAME,
+      </if>
+      <if test="builtArea != null">
+        BUILT_AREA,
+      </if>
+      <if test="inJacketArea != null">
+        IN_JACKET_AREA,
+      </if>
+      <if test="tablePrice != null">
+        TABLE_PRICE,
+      </if>
+      <if test="tablePriceMode != null">
+        TABLE_PRICE_MODE,
+      </if>
+      <if test="bottomPrice != null">
+        BOTTOM_PRICE,
+      </if>
+      <if test="bottomPriceMode != null">
+        BOTTOM_PRICE_MODE,
+      </if>
+      <if test="propertyCtPrice != null">
+        PROPERTY_CT_PRICE,
+      </if>
+      <if test="propertyCtPriceMode != null">
+        PROPERTY_CT_PRICE_MODE,
+      </if>
+      <if test="roomStatus != null">
+        ROOM_STATUS,
+      </if>
+      <if test="currentTenant != null">
+        CURRENT_TENANT,
+      </if>
+      <if test="apartmentPhoto != null">
+        APARTMENT_PHOTO,
+      </if>
+      <if test="housePhotoVideo != null">
+        HOUSE_PHOTO_VIDEO,
+      </if>
+      <if test="rentControlDate != null">
+        RENT_CONTROL_DATE,
+      </if>
+      <if test="rentControlReason != null">
+        RENT_CONTROL_REASON,
+      </if>
+      <if test="pushPlateDate != null">
+        PUSH_PLATE_DATE,
+      </if>
+      <if test="houseRemark != null">
+        HOUSE_REMARK,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="adjustState != null">
+        ADJUST_STATE,
+      </if>
+      <if test="coordinatePositionX != null">
+        COORDINATE_POSITION_X,
+      </if>
+      <if test="coordinatePositionY != null">
+        COORDINATE_POSITION_Y,
+      </if>
+      <if test="colspan != null">
+        COLSPAN,
+      </if>
+      <if test="rowspan != null">
+        ROWSPAN,
+      </if>
+      <if test="currentTenantPhone != null">
+        CURRENT_TENANT_PHONE,
+      </if>
+      <if test="unitNumber != null">
+        UNIT_NUMBER,
+      </if>
+      <if test="floorNumber != null">
+        FLOOR_NUMBER,
+      </if>
+      <if test="currentTenantId != null">
+        CURRENT_TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="communityId != null">
+        #{communityId,jdbcType=BIGINT},
+      </if>
+      <if test="communityName != null">
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=BIGINT},
+      </if>
+      <if test="villageName != null">
+        #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentId != null">
+        #{apartmentId,jdbcType=BIGINT},
+      </if>
+      <if test="apartmentName != null">
+        #{apartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="builtArea != null">
+        #{builtArea,jdbcType=DECIMAL},
+      </if>
+      <if test="inJacketArea != null">
+        #{inJacketArea,jdbcType=DECIMAL},
+      </if>
+      <if test="tablePrice != null">
+        #{tablePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tablePriceMode != null">
+        #{tablePriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="bottomPrice != null">
+        #{bottomPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bottomPriceMode != null">
+        #{bottomPriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCtPrice != null">
+        #{propertyCtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyCtPriceMode != null">
+        #{propertyCtPriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStatus != null">
+        #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenant != null">
+        #{currentTenant,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentPhoto != null">
+        #{apartmentPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="housePhotoVideo != null">
+        #{housePhotoVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="rentControlDate != null">
+        #{rentControlDate,jdbcType=DATE},
+      </if>
+      <if test="rentControlReason != null">
+        #{rentControlReason,jdbcType=VARCHAR},
+      </if>
+      <if test="pushPlateDate != null">
+        #{pushPlateDate,jdbcType=DATE},
+      </if>
+      <if test="houseRemark != null">
+        #{houseRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustState != null">
+        #{adjustState,jdbcType=CHAR},
+      </if>
+      <if test="coordinatePositionX != null">
+        #{coordinatePositionX,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinatePositionY != null">
+        #{coordinatePositionY,jdbcType=VARCHAR},
+      </if>
+      <if test="colspan != null">
+        #{colspan,jdbcType=VARCHAR},
+      </if>
+      <if test="rowspan != null">
+        #{rowspan,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenantPhone != null">
+        #{currentTenantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNumber != null">
+        #{unitNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNumber != null">
+        #{floorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenantId != null">
+          #{currentTenantId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseHouse">
+    update base_house
+    <set>
+      <if test="communityId != null">
+        COMMUNITY_ID = #{communityId,jdbcType=BIGINT},
+      </if>
+      <if test="communityName != null">
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=BIGINT},
+      </if>
+      <if test="villageName != null">
+        VILLAGE_NAME = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        BUILDING_ID = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingName != null">
+        BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        HOUSE_NAME = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentId != null">
+        APARTMENT_ID = #{apartmentId,jdbcType=BIGINT},
+      </if>
+      <if test="apartmentName != null">
+        APARTMENT_NAME = #{apartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="builtArea != null">
+        BUILT_AREA = #{builtArea,jdbcType=DECIMAL},
+      </if>
+      <if test="inJacketArea != null">
+        IN_JACKET_AREA = #{inJacketArea,jdbcType=DECIMAL},
+      </if>
+      <if test="tablePrice != null">
+        TABLE_PRICE = #{tablePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tablePriceMode != null">
+        TABLE_PRICE_MODE = #{tablePriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="bottomPrice != null">
+        BOTTOM_PRICE = #{bottomPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bottomPriceMode != null">
+        BOTTOM_PRICE_MODE = #{bottomPriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCtPrice != null">
+        PROPERTY_CT_PRICE = #{propertyCtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyCtPriceMode != null">
+        PROPERTY_CT_PRICE_MODE = #{propertyCtPriceMode,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStatus != null">
+        ROOM_STATUS = #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenant != null">
+        CURRENT_TENANT = #{currentTenant,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentPhoto != null">
+        APARTMENT_PHOTO = #{apartmentPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="housePhotoVideo != null">
+        HOUSE_PHOTO_VIDEO = #{housePhotoVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="rentControlDate != null">
+        RENT_CONTROL_DATE = #{rentControlDate,jdbcType=DATE},
+      </if>
+      <if test="rentControlReason != null">
+        RENT_CONTROL_REASON = #{rentControlReason,jdbcType=VARCHAR},
+      </if>
+      <if test="pushPlateDate != null">
+        PUSH_PLATE_DATE = #{pushPlateDate,jdbcType=DATE},
+      </if>
+      <if test="houseRemark != null">
+        HOUSE_REMARK = #{houseRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustState != null">
+        ADJUST_STATE = #{adjustState,jdbcType=CHAR},
+      </if>
+      <if test="coordinatePositionX != null">
+        COORDINATE_POSITION_X = #{coordinatePositionX,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinatePositionY != null">
+        COORDINATE_POSITION_Y = #{coordinatePositionY,jdbcType=VARCHAR},
+      </if>
+      <if test="colspan != null">
+        COLSPAN = #{colspan,jdbcType=VARCHAR},
+      </if>
+      <if test="rowspan != null">
+        ROWSPAN = #{rowspan,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenantPhone != null">
+        CURRENT_TENANT_PHONE = #{currentTenantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNumber != null">
+        UNIT_NUMBER = #{unitNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNumber != null">
+        FLOOR_NUMBER = #{floorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTenantId != null">
+        CURRENT_TENANT_ID = #{currentTenantId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseHouse">
+    update base_house
+    set COMMUNITY_ID = #{communityId,jdbcType=BIGINT},
+      COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      VILLAGE_ID = #{villageId,jdbcType=BIGINT},
+      VILLAGE_NAME = #{villageName,jdbcType=VARCHAR},
+      BUILDING_ID = #{buildingId,jdbcType=BIGINT},
+      BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      HOUSE_NAME = #{houseName,jdbcType=VARCHAR},
+      APARTMENT_ID = #{apartmentId,jdbcType=BIGINT},
+      APARTMENT_NAME = #{apartmentName,jdbcType=VARCHAR},
+      BUILT_AREA = #{builtArea,jdbcType=DECIMAL},
+      IN_JACKET_AREA = #{inJacketArea,jdbcType=DECIMAL},
+      TABLE_PRICE = #{tablePrice,jdbcType=DECIMAL},
+      TABLE_PRICE_MODE = #{tablePriceMode,jdbcType=VARCHAR},
+      BOTTOM_PRICE = #{bottomPrice,jdbcType=DECIMAL},
+      BOTTOM_PRICE_MODE = #{bottomPriceMode,jdbcType=VARCHAR},
+      PROPERTY_CT_PRICE = #{propertyCtPrice,jdbcType=DECIMAL},
+      PROPERTY_CT_PRICE_MODE = #{propertyCtPriceMode,jdbcType=VARCHAR},
+      ROOM_STATUS = #{roomStatus,jdbcType=VARCHAR},
+      CURRENT_TENANT = #{currentTenant,jdbcType=VARCHAR},
+      APARTMENT_PHOTO = #{apartmentPhoto,jdbcType=VARCHAR},
+      HOUSE_PHOTO_VIDEO = #{housePhotoVideo,jdbcType=VARCHAR},
+      RENT_CONTROL_DATE = #{rentControlDate,jdbcType=DATE},
+      RENT_CONTROL_REASON = #{rentControlReason,jdbcType=VARCHAR},
+      PUSH_PLATE_DATE = #{pushPlateDate,jdbcType=DATE},
+      HOUSE_REMARK = #{houseRemark,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      DR = #{dr,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=DECIMAL},
+      ADJUST_STATE = #{adjustState,jdbcType=CHAR},
+      COORDINATE_POSITION_X = #{coordinatePositionX,jdbcType=VARCHAR},
+      COORDINATE_POSITION_Y = #{coordinatePositionY,jdbcType=VARCHAR},
+      COLSPAN = #{colspan,jdbcType=VARCHAR},
+      ROWSPAN = #{rowspan,jdbcType=VARCHAR},
+      CURRENT_TENANT_PHONE = #{currentTenantPhone,jdbcType=VARCHAR},
+      UNIT_NUMBER = #{unitNumber,jdbcType=VARCHAR},
+      FLOOR_NUMBER = #{floorNumber,jdbcType=VARCHAR},
+      CURRENT_TENANT_ID = #{currentTenantId,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 差小区 -->
+  <select id="villageList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT DISTINCT VILLAGE_ID ,VILLAGE_NAME from base_house
+    where COMMUNITY_ID = #{0}
+		AND DR = 0
+  </select>
+  <!-- 差楼栋 -->
+  <select id="buildingList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    DISTINCT BUILDING_ID ,BUILDING_NAME
+    from base_house
+    where VILLAGE_ID = #{0}
+		AND DR = 0
+  </select>
+  <!-- 差房间 -->
+  <select id="roomList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_house
+    where FLOOR_NUMBER = #{0}
+    AND DR = 0
+    and ROOM_STATUS = 3
+  </select>
+  <!-- 差社区 -->
+  <select id="getCommunityList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select  DISTINCT COMMUNITY_ID ,COMMUNITY_NAME
+    from base_house
+    where TENANTID = #{0}
+    and ROOM_STATUS = '3'
+  </select>
+  <!-- 差单元 -->
+  <select id="getElementList" resultMap="BaseResultMap">
+    select  DISTINCT UNIT_NUMBER
+    from base_house
+    where BUILDING_ID = #{0}
+    and ROOM_STATUS = '3'
+  </select>
+  <!-- 差楼层 -->
+  <select id="getFloorList" resultMap="BaseResultMap">
+    select  DISTINCT FLOOR_NUMBER
+    from base_house
+    where UNIT_NUMBER = #{0}
+    and ROOM_STATUS = '3'
+  </select>
+  
+</mapper>

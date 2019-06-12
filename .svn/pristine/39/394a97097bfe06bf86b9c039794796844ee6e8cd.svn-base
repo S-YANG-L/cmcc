@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.checkingIN.dao.CheckingInMendDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.checkingIN.pojo.CheckingInMend">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="VACATE_TYPE" jdbcType="CHAR" property="vacateType" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="FINISH_TIME" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="VACATE_NAME" jdbcType="VARCHAR" property="vacateName" />
+    <result column="CHECK_NAME" jdbcType="VARCHAR" property="checkName" />
+    <result column="VACATE_CAUSE" jdbcType="VARCHAR" property="vacateCause" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="CHECKING_IN_CLOCK_IDS" jdbcType="VARCHAR" property="checkingInClockIds" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, VACATE_TYPE, START_TIME, FINISH_TIME, VACATE_NAME, CHECK_NAME, VACATE_CAUSE, 
+    STATUS, TENANTID, CHECKING_IN_CLOCK_IDS
+  </sql>
+  <select id="selectByExample" parameterType="com.htyw.app.checkingIN.pojo.CheckingInMendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checking_in_mend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from checking_in_mend
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from checking_in_mend
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.checkingIN.pojo.CheckingInMend">
+    insert into checking_in_mend (ID, VACATE_TYPE, START_TIME, 
+      FINISH_TIME, VACATE_NAME, CHECK_NAME, 
+      VACATE_CAUSE, STATUS, TENANTID, 
+      CHECKING_IN_CLOCK_IDS)
+    values (#{id,jdbcType=BIGINT}, #{vacateType,jdbcType=CHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{vacateName,jdbcType=VARCHAR}, #{checkName,jdbcType=VARCHAR}, 
+      #{vacateCause,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{tenantid,jdbcType=BIGINT}, 
+      #{checkingInClockIds,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.checkingIN.pojo.CheckingInMend">
+    insert into checking_in_mend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="vacateType != null">
+        VACATE_TYPE,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="finishTime != null">
+        FINISH_TIME,
+      </if>
+      <if test="vacateName != null">
+        VACATE_NAME,
+      </if>
+      <if test="checkName != null">
+        CHECK_NAME,
+      </if>
+      <if test="vacateCause != null">
+        VACATE_CAUSE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="checkingInClockIds != null">
+        CHECKING_IN_CLOCK_IDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vacateType != null">
+        #{vacateType,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vacateName != null">
+        #{vacateName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkName != null">
+        #{checkName,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateCause != null">
+        #{vacateCause,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="checkingInClockIds != null">
+        #{checkingInClockIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.checkingIN.pojo.CheckingInMend">
+    update checking_in_mend
+    <set>
+      <if test="vacateType != null">
+        VACATE_TYPE = #{vacateType,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        FINISH_TIME = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vacateName != null">
+        VACATE_NAME = #{vacateName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkName != null">
+        CHECK_NAME = #{checkName,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateCause != null">
+        VACATE_CAUSE = #{vacateCause,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="checkingInClockIds != null">
+        CHECKING_IN_CLOCK_IDS = #{checkingInClockIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.checkingIN.pojo.CheckingInMend">
+    update checking_in_mend
+    set VACATE_TYPE = #{vacateType,jdbcType=CHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      FINISH_TIME = #{finishTime,jdbcType=TIMESTAMP},
+      VACATE_NAME = #{vacateName,jdbcType=VARCHAR},
+      CHECK_NAME = #{checkName,jdbcType=VARCHAR},
+      VACATE_CAUSE = #{vacateCause,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      CHECKING_IN_CLOCK_IDS = #{checkingInClockIds,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.myContract.dao.MyContractDao">
+<!-- 合同记录表字段列 -->
+<!--   <sql id="MyContractColums">
+		a.id AS "id",    
+		a.tenantId AS "tenantId",
+		a.house_id AS "houseId",
+		a.applicant_id AS "applicantId",
+		a.applicant_name AS "applicantName",
+		a.applicant_sex AS "applicantSex",
+		a.applicant_phone AS "applicantPhone",
+		a.applicant_begin_date AS "applicantBeginDate",
+		a.applicant_end_date AS "applicantEndDate", 
+		a.id_card AS "idCard",
+  </sql> -->
+  <!-- 合同管理表字段列 -->
+  <sql id="rentContractManagementColums">
+  		b.id AS "id", 		
+  		b.lease_type AS "leaseType",
+  		b.contract_number AS "contractNumber",
+  		b.contract_name AS "contractName",
+  		b.customer_id AS "customerId",
+  		b.customer_name AS "customerName",
+  		b.contact_number AS "contactNumber",
+  		b.certificate_number AS "certificateNumber",
+  		b.earnest_money AS "earnestMoney",
+  		b.fixed_rent_date AS "fixedRentDate",
+  		b.contact_address AS "contactAddress",
+  		b.salesman AS "salesman",
+  		b.contract_enclosure AS "contractEnclosure",
+  		b.salesman_id AS "salesmanId",
+  		b.lease_start_date AS "leaseStartDate",
+  		b.lease_end_date AS "leaseEndDate",
+  		b.last_open_date AS "lastOpenDate",
+  		b.next_open_date AS "nextOpenDate",
+  		b.sign_lease_date AS "signLeaseDate",
+  		b.contract_status AS "contractStatus",
+  		b.tenantId AS "tenantId",
+  		b.dR AS "dR",
+  		b.base_house_id AS "baseHouseId",
+  		b.payment_mode AS "paymentMode",
+  		b.advance_open_days AS "advanceOpenDays",
+  		b.payment_date AS "paymentDate",
+  		b.rental_collect_mode AS "rentalCollectMode",
+  </sql>
+  <!-- 房屋基础表字段列 -->
+  <sql id="baseHouseColums">
+  		c.id AS "id",
+  		c.community_id AS "communityId",
+		c.community_name AS "communityName",
+		c.village_id AS "villageId",
+		c.village_name AS "villageName",
+		c.building_id AS "buildingId",
+		c.building_name AS "buildingName",
+		c.house_name AS "houseName",
+		c.apartment_photo AS "apartmentPhoto",
+		c.table_price AS "tablePrice", 
+		c.current_tenant_id AS "currentTenantId",
+		c.current_tenant_phone AS "currentTenantPhone",
+		c.tenantId AS "tenantIdTwo"
+  </sql>
+  
+ <!--  Document表相关字段列 -->
+  <sql id="DocumentFilesCloums">
+  	d.id AS "id",
+  	d.batch_no AS "batchNo",
+	d.file_name AS "fileName",
+	d.dfs_path AS "dfsPath"
+  </sql>
+  
+   <!-- 合同列表查询，全部数据 -->
+  <select id="list" resultType="MyContract">
+	 SELECT 
+		<include refid="rentContractManagementColums" />
+		<include refid="baseHouseColums" /> 
+ 	 FROM rent_contract_management b   
+ 	 LEFT JOIN base_house c ON c.id = b.base_house_id
+ 	 <where>
+ 	 	b.dR !=1	
+ 	    <if test="tenantId != null and tenantId !=''">
+			AND b.tenantid = #{tenantId}
+		</if>
+ 	 	<if test="customerId != null and customerId != ''">
+ 	 		AND b.customer_id = #{customerId}
+ 	 	</if>	
+ 	 </where>
+  </select>
+  
+   <!-- 合同提签约提交-->
+  <insert id="save">
+  		INSERT INTO rent_sign_immediately(
+  		id, 
+  		tenantId,
+  		house_id,
+  		applicant_id,
+  		applicant_name,
+  		applicant_sex,
+  		applicant_phone,
+  		applicant_begin_date,
+  		applicant_end_date,
+  		id_card
+  		)VALUES(
+  		#{id},   
+		#{tenantId},
+		#{houseId},
+		#{applicantId},
+		#{applicantName},
+		#{applicantSex},
+		#{applicantPhone},
+		#{applicantBeginDate},
+		#{applicantEndDate},
+		#{idCard}
+  		)	
+  </insert>
+  
+  	<!-- 房屋图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		d.service_path
+		AS
+		servicePath
+		FROM
+		doc_document d
+		where
+		d.batch_no=#{apartmentPhoto}
+		limit
+		0,1
+	</select>
+	
+	<select id="filesList" resultType="DocumentFiles">
+	SELECT
+	<include refid="DocumentFilesCloums" />
+	FROM doc_document d
+	<where>
+		<if test="batchNo != null and batchNo != ''">
+		AND d.batch_no = #{batchNo}
+		</if>
+	</where>
+	
+	</select>
+	
+</mapper>

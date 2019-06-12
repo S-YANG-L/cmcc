@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.PrgInstrumentTypeDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentType">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="ENERGY_TYPE" jdbcType="CHAR" property="energyType" />
+    <result column="CALIBRATION_QUANTITY" jdbcType="INTEGER" property="calibrationQuantity" />
+    <result column="SCALE_NAME" jdbcType="VARCHAR" property="scaleName" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TYPE_NAME, ENERGY_TYPE, CALIBRATION_QUANTITY, SCALE_NAME, TENANTID, DR, ORGANIZATION_ID, 
+    ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, BILL_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_instrument_type
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_instrument_type
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentType">
+    insert into prg_instrument_type (ID, TYPE_NAME, ENERGY_TYPE, 
+      CALIBRATION_QUANTITY, SCALE_NAME, TENANTID, 
+      DR, ORGANIZATION_ID, ORGANIZATION_NAME, 
+      CREATOR_ID, CREATOR_NAME, BILL_STATUS
+      )
+    values (#{id,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR}, #{energyType,jdbcType=CHAR}, 
+      #{calibrationQuantity,jdbcType=INTEGER}, #{scaleName,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, 
+      #{dr,jdbcType=CHAR}, #{organizationId,jdbcType=BIGINT}, #{organizationName,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentType">
+    insert into prg_instrument_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+      <if test="energyType != null">
+        ENERGY_TYPE,
+      </if>
+      <if test="calibrationQuantity != null">
+        CALIBRATION_QUANTITY,
+      </if>
+      <if test="scaleName != null">
+        SCALE_NAME,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType != null">
+        #{energyType,jdbcType=CHAR},
+      </if>
+      <if test="calibrationQuantity != null">
+        #{calibrationQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="scaleName != null">
+        #{scaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentType">
+    update prg_instrument_type
+    <set>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType != null">
+        ENERGY_TYPE = #{energyType,jdbcType=CHAR},
+      </if>
+      <if test="calibrationQuantity != null">
+        CALIBRATION_QUANTITY = #{calibrationQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="scaleName != null">
+        SCALE_NAME = #{scaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgInstrumentType">
+    update prg_instrument_type
+    set TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      ENERGY_TYPE = #{energyType,jdbcType=CHAR},
+      CALIBRATION_QUANTITY = #{calibrationQuantity,jdbcType=INTEGER},
+      SCALE_NAME = #{scaleName,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      DR = #{dr,jdbcType=CHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_instrument_type
+  </select>
+</mapper>

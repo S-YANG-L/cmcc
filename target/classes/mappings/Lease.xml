@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.lease.dao.LeaseDao">
+	<!-- 房源信息列表 -->
+	<select id="listLease" resultType="Lease">
+		SELECT
+		a.id as id,
+		a.community_id as communityId,
+		a.community_name as
+		communityName,
+		a.village_id as villageId,
+		a.village_name as villageName,
+		a.building_id as buildingId,
+		a.building_name as buildingName,
+		a.unit_number as unitNumber,
+		a.house_name as houseName,
+		a.floor_number
+		as floorNumber,
+		a.built_area
+		as builtArea,
+		a.in_jacket_area as
+		inJacketArea,
+		a.table_price as
+		tablePrice,
+		a.table_price_mode as
+		tablePriceMode,
+		a.bottom_price as
+		bottomPrice,
+		a.bottom_price_mode as
+		bottomPriceMode,
+		a.property_ct_price as
+		propertyCtPrice,
+		a.property_ct_price_mode as
+		propertyCtPriceMode,
+		a.house_remark as
+		houseRemark,
+		a.house_photo_video
+		as
+		housePhotoVideo,
+		a.current_tenant as
+		currentTenant,
+		a.room_status as roomStatus,
+		a.tenantid as
+		tenantId,
+		a.dr
+		as dr
+		FROM
+		base_house a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="houseName != null and houseName != '' ">
+				AND a.houseName =#{houseName}
+			</if>
+			<if test="id != null and id != '' ">
+				AND a.id =#{id}
+			</if>
+
+		</where>
+	</select>
+
+	<!--save -->
+	<update id="saveLease">
+		update base_house a set
+		a.house_remark=#{houseRemark},
+		a.room_status=#{roomStatus}
+		WHERE
+		a.id=#{id}
+	</update>
+</mapper>
+

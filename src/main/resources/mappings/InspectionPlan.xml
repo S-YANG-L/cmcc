@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.engineering.dao.InspectionPlanDao">
+	<select id="listInspectionPlan" resultType="InspectionPlan">
+		SELECT
+		a.id AS id,
+		a.title AS title,
+		a.inspection as inspection,
+		a.frequency as frequency,
+		a.finish_number as finishNumber,
+		a.inspection_person as
+		inspectionPerson,
+		a.inspection_person_id as
+		inspectionPersonId,
+		a.inspection_start_time as
+		inspectionStartTime,
+		a.inspection_end_time as inspectionEndTime,
+		a.bill_status as
+		billStatus,
+		a.effect_status as effectStatus,
+		a.tenantid
+		as tenantId
+		FROM
+		prg_inspection_all a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="inspection != null and inspection != ''">
+				AND a.inspection = #{inspection}
+			</if>
+			<if test="title != null and title !=''">
+				AND a.title like concat('%',
+				#{title},'%')
+			</if>
+			<if
+				test="inspectionStartTime != null and inspectionStartTime != ''and inspectionEndTime != null and inspectionEndTime != '' ">
+				AND a.inspection_start_time between #{inspectionStartTime} and
+				#{inspectionEndTime}
+			</if>
+			<if test="effectStatus != null and effectStatus != ''">
+				AND a.effect_status = #{effectStatus}
+			</if>
+			<if test="inspectionPerson != null and inspectionPerson != '' ">
+				AND a.inspection_person =#{inspectionPerson}
+			</if>
+			<if test="billStatus != null and billStatus != '' ">
+				AND a.bill_status =#{billStatus}
+			</if>
+		</where>
+		order by a.inspection_end_time desc
+	</select>
+	<select id="listInspectionPlanRecord" resultType="InspectionPlan">
+		SELECT
+		a.id AS id,
+		a.title AS title,
+		a.inspection as inspection,
+		a.frequency as frequency,
+		a.finish_number as finishNumber,
+		a.inspection_person as
+		inspectionPerson,
+		a.inspection_person_id as
+		inspectionPersonId,
+		a.inspection_start_time as
+		inspectionStartTime,
+		a.inspection_end_time as inspectionEndTime,
+		a.bill_status as
+		billStatus,
+		a.effect_status as effectStatus,
+		a.tenantid
+		as tenantId
+		FROM
+		prg_inspection_all a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			and a.effect_status in (1,2,3)
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="inspection != null and inspection != ''">
+				AND a.inspection = #{inspection}
+			</if>
+			<if test="effectStatus != null and effectStatus != ''">
+				AND a.effect_status = #{effectStatus}
+			</if>
+			<if test="title != null and title !=''">
+				AND a.inspection_person like concat('%', #{title} ,'%')
+			</if>
+			<if
+				test="inspectionStartTime != null and inspectionStartTime != ''and inspectionEndTime != null and inspectionEndTime != '' ">
+				AND a.inspection_start_time between #{inspectionStartTime} and
+				#{inspectionEndTime}
+			</if>
+			<if test="inspectionPerson != null and inspectionPerson != '' ">
+				AND a.inspection_person =#{inspectionPerson}
+			</if>
+			<if test="billStatus != null and billStatus != '' ">
+				AND a.bill_status =#{billStatus}
+			</if>
+		</where>
+		order by a.inspection_end_time desc
+	</select>
+	<!--设备 -->
+	<select id="listDeviceInspection" resultType="DeviceInspectionE">
+		SELECT
+		b.id AS id,
+		b.parent_id AS parentId,
+		b.device_id AS deviceId,
+		b.device_name AS deviceName,
+		b.device_type AS deviceType,
+		b.remarks AS
+		remarks,
+		b.bill_status AS billStatus,
+		b.finish_number AS finishNumber,
+		b.tenantid AS tenantId,
+		b.dr as dr
+		FROM
+		prg_device_management_middle b
+		<where>
+			b.dr != 1
+			and b.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND b.id = #{id}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				AND b.parent_id = #{parentId}
+			</if>
+		</where>
+	</select>
+	<!-- 装修 -->
+	<select id="listDecorationReg" resultType="DecorationReg">
+		SELECT
+		a.id AS id,
+		a.parent_id AS parentId,
+		a.deco_approval_id AS
+		decoApprovalId,
+		a.form_tenant_id AS formTenantId,
+		a.form_tenant AS
+		formTenant,
+		a.tenant AS tenant,
+		a.tenant_con AS tenantCon,
+		a.deco_sure_cost AS decoSureCost,
+		a.deco_time_strat AS decoTimeStrat,
+		a.deco_time_end AS decoTimeEnd,
+		a.deoc_ing_peson AS deocIngPeson,
+		a.finish_number AS finishNumber,
+		a.deoc_company_name AS
+		deocCompanyName,
+		a.tenantid AS tenantId,
+		a.dr AS
+		dr
+		FROM
+		prg_decoration_reg_middle a
+		<where>
+			a.dr != 1
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+		</where>
+	</select>
+	<!-- 空关 -->
+	<select id="listPrgHouse" resultType="PrgHouse">
+		SELECT
+		a.id AS id,
+		a.parent_id AS parentId,
+		a.housing_resources_id as
+		housingResourcesId,
+		a.housing_resources_name as housingResourcesName,
+		a.finish_number AS finishNumber,
+		a.tenantid as tenantId,
+		a.dr as dr
+		FROM
+		prg_house_middle a
+		<where>
+			a.dr != 1
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+		</where>
+	</select>
+	<!--情况上报 -->
+	<select id="listReport" resultType="InspectionReportE">
+		SELECT
+		a.id as id,
+		a.prg_inspection_all_id as prgInspectionAllId,
+		a.inspection_id as inspectionId,
+		a.report_date as reportDate,
+		a.is_normal as isNormal,
+		a.remark as remark,
+		a.inspection_num as inspectionNum,
+		a.surplus_num as surplusNum,
+		a.is_finish as isFinish,
+		a.picture as picture,
+		a.tenantid as tenantId
+		FROM
+		prg_inspection_report a
+		<where>
+			a.tenantid=#{tenantId}
+			<if test="prgInspectionAllId != null and prgInspectionAllId != ''">
+				AND a.prg_inspection_all_id = #{prgInspectionAllId}
+			</if>
+			<if test="inspectionId != null and inspectionId != ''">
+				AND a.inspection_id = #{inspectionId}
+			</if>
+		</where>
+	</select>
+	<select id="listInspectionMana" resultType="InspectionMana">
+		SELECT
+		a.id AS id,
+		a.parent_id AS parentId,
+		a.inspection_id as
+		inspectionId,
+		a.inspection_name as inspectionName,
+		a.remarks as remarks,
+		a.tenantid as tenantId,
+		a.dr as dr
+		FROM
+		prg_inspection_mana_middle a
+		<where>
+			a.dr != 1
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+		</where>
+	</select>
+	<select id="listDeviceTain" resultType="DeviceTain">
+		SELECT
+		a.id AS id,
+		a.device_id AS deviceId,
+		a.device_name AS deviceName,
+		a.tain_type AS tainType,
+		a.plan_start_time AS planStartTime,
+		a.plan_end_time AS planEndTime,
+		a.tain_person AS tainPerson,
+		a.tain_company AS tainCompany,
+		a.tain_req AS tainReq,
+		a.tain_standard AS
+		tainStandard,
+		a.will_tain_cost AS willTainCost,
+		a.tain_content AS
+		tainContent,
+		a.phone_person AS phonePerson,
+		a.phone AS phone,
+		a.remarks
+		AS remarks,
+		a.tenantid AS tenantId,
+		a.dr AS dr
+		FROM
+		prg_device_tain_plan a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+		</where>
+	</select>
+	<!--save -->
+	<update id="saveInspectionPlan">
+		UPDATE prg_inspection_all SET
+		effect_status =
+		#{effectStatus},
+		inspection_person_id =
+		#{inspectionPersonId},
+		inspection_person =
+		#{inspectionPerson}
+		WHERE id = #{id}
+	</update>
+</mapper>
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.propertyPayment.dao.PropertyPaymentDao">
+	<!-- -->
+	<select id="listPropertyPayment" resultType="PropertyPayment">
+		SELECT
+		a.id as id,
+		a.bill_number as billNumber,
+		a.leasehold_name as
+		leaseholdName,
+		a.sign_lease_date as signLeaseDate,
+		a.customer_name as
+		customerName,
+		a.planned_receipt_amount as plannedReceiptAmount,
+		a.amount_received as amountReceived,
+		a.unpaid_amount as unpaidAmount,
+		a.reduction_amount as reductionAmount,
+		a.payment_deadline as
+		paymentDeadline,
+		a.bill_type as billType,
+		a.lease_bill_status as
+		leaseBillStatus,
+		A.tenantid AS tenantId,
+		a.dr as dr
+		FROM
+		rent_lease_bill a
+		<where>
+			a.dr != 1
+			<!-- and a.tenantid=#{tenantId} -->
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="billNumber != null and billNumber != ''">
+				AND a.bill_number = #{billNumber}
+			</if>
+		</where>
+	</select>
+	<select id="listPropertyPaymentDtl" resultType="PropertyPaymentDtl">
+		SELECT
+		b.id as id,
+		b.money_name as moneyName,
+		b.money_type as moneyType,
+		b.money_corresponding_date as moneyCorrespondingDate,
+		b.planned_receipt_amount as plannedReceiptAmount,
+		b.actual_receipt_amount as actualReceiptAmount,
+		b.reduction_amount as
+		reductionAmount,
+		b.remark as remark,
+		b.tenantid as
+		tenantId,
+		b.DR as dr
+		FROM
+		rent_lease_bill_detail b
+		<where>
+			b.dr != 1
+			<!-- and b.tenantid=#{tenantId} -->
+			<if test="billId != null and billId != ''">
+				AND b.bill_id = #{billId}
+			</if>
+			<if test="moneyName != null and moneyName != ''">
+				AND b.money_name = #{moneyName}
+			</if>
+		</where>
+	</select>
+	<!--save -->
+	<update id="saveLease">
+		update base_house a set
+		a.house_photo_video=#{housePhotoVideo}
+		WHERE a.id=#{id}
+	</update>
+</mapper>
+

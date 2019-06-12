@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.houseLeasing.dao.VisitorMapper">
+  <resultMap id="BaseResultMap" type="com.htyw.app.houseLeasing.pojo.Visitor">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="VISITOR_ID" jdbcType="BIGINT" property="visitorId" />
+    <result column="VISITOR_NAME" jdbcType="VARCHAR" property="visitorName" />
+    <result column="VISITOR_IPHONE_NUM" jdbcType="VARCHAR" property="visitorIphoneNum" />
+    <result column="VISITOR_ID_NUMBER" jdbcType="VARCHAR" property="visitorIdNumber" />
+    <result column="INTERVIEWEE_NAME" jdbcType="VARCHAR" property="intervieweeName" />
+    <result column="INTERVIEWEE_IPHONE_NUM" jdbcType="VARCHAR" property="intervieweeIphoneNum" />
+    <result column="INTERVIEWEE_HOUSE" jdbcType="VARCHAR" property="intervieweeHouse" />
+    <result column="VISITOR_ID_NUMBER_TYPE" jdbcType="VARCHAR" property="visitorIdNumberType" />
+    <result column="VISIT_STATR_TIME" jdbcType="TIMESTAMP" property="visitStatrTime" />
+    <result column="VISIT_END_TIME" jdbcType="TIMESTAMP" property="visitEndTime" />
+    <result column="APPLY_DESC" jdbcType="VARCHAR" property="applyDesc" />
+    <result column="VISIT_PICTURE" jdbcType="VARCHAR" property="visitPicture" />
+    <result column="VISITORS_MAKE_TYPE" jdbcType="CHAR" property="visitorsMakeType" />
+    <result column="DATE_CREATE_TIME" jdbcType="TIMESTAMP" property="dateCreateTime" />
+    <result column="DATE_UPDATA_TIME" jdbcType="TIMESTAMP" property="dateUpdataTime" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="REFUSE_CONTENT" jdbcType="VARCHAR" property="refuseContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, VISITOR_ID, VISITOR_NAME, VISITOR_IPHONE_NUM, VISITOR_ID_NUMBER, INTERVIEWEE_NAME, INTERVIEWEE_IPHONE_NUM, 
+    INTERVIEWEE_HOUSE, VISITOR_ID_NUMBER_TYPE, VISIT_STATR_TIME, VISIT_END_TIME, APPLY_DESC, 
+    VISIT_PICTURE, REFUSE_CONTENT, STATUS, DATE_CREATE_TIME, DATE_UPDATA_TIME, DR, VISITORS_MAKE_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.htyw.app.houseLeasing.pojo.VisitorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from visitor_preregistration_app
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from visitor_preregistration_app
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="aList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from visitor_preregistration_app
+    where DR != 1
+    AND VISITOR_ID = #{visitorId,jdbcType=BIGINT}
+    <if test="id != null and id !=''">
+		 AND ID = #{id}
+    </if>
+    ORDER BY DATE_CREATE_TIME DESC
+    
+  </select>
+    <select id="bList" parameterType="com.htyw.app.houseLeasing.pojo.Visitor" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from visitor_preregistration_app
+    where DR != 1
+    AND INTERVIEWEE_IPHONE_NUM = #{intervieweeIphoneNum,jdbcType=VARCHAR}
+    <if test="id != null and id !=''">
+		 AND ID = #{id}
+    </if>
+    ORDER BY DATE_CREATE_TIME DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from visitor_preregistration_app
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+   <insert id="insert" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+    insert into visitor_preregistration_app (ID, VISITOR_ID, VISITOR_NAME, VISITOR_ID, VISITOR_IPHONE_NUM, 
+      VISITOR_ID_NUMBER, INTERVIEWEE_NAME, INTERVIEWEE_IPHONE_NUM, 
+      INTERVIEWEE_HOUSE, VISIT_STATR_TIME, 
+      VISIT_END_TIME, APPLY_DESC, VISIT_PICTURE, 
+      VISITORS_MAKE_TYPE, VISITOR_ID_NUMBER_TYPE, DATE_CREATE_TIME, DATE_UPDATA_TIME, 
+      DR)
+    values (#{id,jdbcType=BIGINT}, #{visitorId,jdbcType=BIGINT}, #{visitorName,jdbcType=VARCHAR}, #{visitorIphoneNum,jdbcType=VARCHAR}, 
+      #{visitorIdNumber,jdbcType=VARCHAR}, #{intervieweeName,jdbcType=VARCHAR}, #{intervieweeIphoneNum,jdbcType=VARCHAR}, 
+      #{intervieweeHouse,jdbcType=VARCHAR},#{visitorIdNumberType,jdbcType=VARCHAR}, #{visitStatrTime,jdbcType=TIMESTAMP}, 
+      #{visitEndTime,jdbcType=TIMESTAMP}, #{applyDesc,jdbcType=VARCHAR}, #{visitPicture,jdbcType=VARCHAR}, 
+      #{visitorsMakeType,jdbcType=CHAR}, #{dateCreateTime,jdbcType=TIMESTAMP}, #{dateUpdataTime,jdbcType=TIMESTAMP}, 
+      #{dr,jdbcType=CHAR})
+  </insert>
+ <insert id="insertSelective" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+    insert into visitor_preregistration_app
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="visitorId != null">
+        VISITOR_ID,
+      </if>
+      <if test="visitorName != null">
+        VISITOR_NAME,
+      </if>
+      <if test="visitorIphoneNum != null">
+        VISITOR_IPHONE_NUM,
+      </if>
+      <if test="visitorIdNumber != null">
+        VISITOR_ID_NUMBER,
+      </if>
+      <if test="intervieweeName != null">
+        INTERVIEWEE_NAME,
+      </if>
+      <if test="intervieweeIphoneNum != null">
+        INTERVIEWEE_IPHONE_NUM,
+      </if>
+      <if test="intervieweeHouse != null">
+        INTERVIEWEE_HOUSE,
+      </if>
+      <if test="visitorIdNumberType != null">
+        VISITOR_ID_NUMBER_TYPE,
+      </if>
+      <if test="visitStatrTime != null">
+        VISIT_STATR_TIME,
+      </if>
+      <if test="visitEndTime != null">
+        VISIT_END_TIME,
+      </if>
+      <if test="applyDesc != null">
+        APPLY_DESC,
+      </if>
+      <if test="visitPicture != null">
+        VISIT_PICTURE,
+      </if>
+      <if test="visitorsMakeType != null">
+        VISITORS_MAKE_TYPE,
+      </if>
+      <if test="dateCreateTime != null">
+        DATE_CREATE_TIME,
+      </if>
+      <if test="dateUpdataTime != null">
+        DATE_UPDATA_TIME,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="visitorId != null">
+        #{visitorId,jdbcType=BIGINT},
+      </if>
+      <if test="visitorName != null">
+        #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIphoneNum != null">
+        #{visitorIphoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIdNumber != null">
+        #{visitorIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeName != null">
+        #{intervieweeName,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeIphoneNum != null">
+        #{intervieweeIphoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeHouse != null">
+        #{intervieweeHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIdNumberType != null">
+        #{visitorIdNumberType,jdbcType=VARCHAR},
+      </if>
+      <if test="visitStatrTime != null">
+        #{visitStatrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitEndTime != null">
+        #{visitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyDesc != null">
+        #{applyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPicture != null">
+        #{visitPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorsMakeType != null">
+        #{visitorsMakeType,jdbcType=CHAR},
+      </if>
+      <if test="dateCreateTime != null">
+        #{dateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdataTime != null">
+        #{dateUpdataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+ <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+    update visitor_preregistration_app
+    <set>
+      <if test="visitorId != null">
+        VISITOR_ID = #{visitorId,jdbcType=BIGINT},
+      </if>
+      <if test="visitorName != null">
+        VISITOR_NAME = #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIphoneNum != null">
+        VISITOR_IPHONE_NUM = #{visitorIphoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIdNumber != null">
+        VISITOR_ID_NUMBER = #{visitorIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeName != null">
+        INTERVIEWEE_NAME = #{intervieweeName,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeIphoneNum != null">
+        INTERVIEWEE_IPHONE_NUM = #{intervieweeIphoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="intervieweeHouse != null">
+        INTERVIEWEE_HOUSE = #{intervieweeHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorIdNumberType != null">
+        VISITOR_ID_NUMBER_TYPE = #{visitorIdNumberType,jdbcType=VARCHAR},
+      </if>
+      <if test="visitStatrTime != null">
+        VISIT_STATR_TIME = #{visitStatrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitEndTime != null">
+        VISIT_END_TIME = #{visitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyDesc != null">
+        APPLY_DESC = #{applyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPicture != null">
+        VISIT_PICTURE = #{visitPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorsMakeType != null">
+        VISITORS_MAKE_TYPE = #{visitorsMakeType,jdbcType=CHAR},
+      </if>
+      <if test="dateCreateTime != null">
+        DATE_CREATE_TIME = #{dateCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdataTime != null">
+        DATE_UPDATA_TIME = #{dateUpdataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+    update visitor_preregistration_app
+    set VISITOR_ID = #{visitorId,jdbcType=BIGINT},
+      VISITOR_NAME = #{visitorName,jdbcType=VARCHAR},  
+      VISITOR_IPHONE_NUM = #{visitorIphoneNum,jdbcType=VARCHAR},
+      VISITOR_ID_NUMBER = #{visitorIdNumber,jdbcType=VARCHAR},
+      INTERVIEWEE_NAME = #{intervieweeName,jdbcType=VARCHAR},
+      INTERVIEWEE_IPHONE_NUM = #{intervieweeIphoneNum,jdbcType=VARCHAR},
+      INTERVIEWEE_HOUSE = #{intervieweeHouse,jdbcType=VARCHAR},
+      VISITOR_ID_NUMBER_TYPE = #{visitorIdNumberType,jdbcType=VARCHAR},
+      VISIT_STATR_TIME = #{visitStatrTime,jdbcType=TIMESTAMP},
+      VISIT_END_TIME = #{visitEndTime,jdbcType=TIMESTAMP},
+      APPLY_DESC = #{applyDesc,jdbcType=VARCHAR},
+      VISIT_PICTURE = #{visitPicture,jdbcType=VARCHAR},
+      VISITORS_MAKE_TYPE = #{visitorsMakeType,jdbcType=CHAR},
+      DATE_CREATE_TIME = #{dateCreateTime,jdbcType=TIMESTAMP},
+      DATE_UPDATA_TIME = #{dateUpdataTime,jdbcType=TIMESTAMP},
+      DR = #{dr,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+   <update id="updateAgreeStatus" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+   		UPDATE visitor_preregistration_app
+   		SET STATUS = 1, REFUSE_CONTENT = #{refuseContent,jdbcType=VARCHAR}
+   		WHERE ID = #{id,jdbcType=BIGINT}		
+   </update>
+   <update id="updateDisagreeStatus" parameterType="com.htyw.app.houseLeasing.pojo.Visitor">
+   		UPDATE visitor_preregistration_app
+   		SET STATUS = 2, REFUSE_CONTENT = #{refuseContent,jdbcType=VARCHAR}
+   		WHERE ID = #{id,jdbcType=BIGINT}		
+   </update>
+  <select id="visitorList" >
+		select
+			id,
+			interviewed_name,
+			interviewed_house,
+			applicant,
+			contact_number,
+			applicant_credentials,
+			credentials_number,
+			begin_visit_time,
+			end_visit_time,
+			request_reason,
+			upload_photo
+			from
+			rent_visitor
+			<!-- limit #{page},#{size} -->
+	</select>
+	
+	<select id="getVisitorById" resultType="Visitor">
+		select
+			id,
+			interviewed_name,
+			interviewed_house,
+			applicant,
+			contact_number,
+			applicant_credentials,
+			credentials_number,
+			begin_visit_time,
+			end_visit_time,
+			request_reason,
+			upload_photo
+			from
+			rent_visitor
+			where
+			id = #{id}
+	</select>
+	<!-- 查手机号 -->
+	<select id="phoneList" resultType="Visitor">
+		select
+			f.ID as "idOne",
+			f.CONTACT_NUMBER as "contactNumber",
+			f.CUSTOMER_NAME as "customerName"
+		from rent_individual_customers f
+		<where>
+			<if test="intervieweeIphoneNum != null and intervieweeIphoneNum != ''">
+			AND f.CONTACT_NUMBER = #{intervieweeIphoneNum}
+			</if>
+		</where>
+	</select>
+  
+</mapper>

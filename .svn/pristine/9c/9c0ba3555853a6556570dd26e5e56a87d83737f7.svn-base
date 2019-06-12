@@ -1,0 +1,236 @@
+package com.htyw.app.user.pojo;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class User extends UserKey {
+    private String customerName;
+
+    private String contactNumber;
+
+    private String email;
+
+    private String contactAddress;
+
+    private Long postalCode;
+
+    private String content;
+
+    private String enclosure;
+
+    private String receptionClerk;
+
+    private Date receptionDate;
+
+    private Date receptionTime;
+
+    private String accessType;
+
+    private String intentionalStrength;
+
+    private String receptionMessage;
+
+    private String billStatus;
+
+    private BigDecimal version;
+
+    private String dr;
+
+    private Long tenantid;
+
+    private String creatorName;
+
+    private Long creatorId;
+
+    private String organizationName;
+
+    private String memberidId;
+
+    private String personno;
+
+    private String customerPassword;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName == null ? null : customerName.trim();
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber == null ? null : contactNumber.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getContactAddress() {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress == null ? null : contactAddress.trim();
+    }
+
+    public Long getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(Long postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public String getEnclosure() {
+        return enclosure;
+    }
+
+    public void setEnclosure(String enclosure) {
+        this.enclosure = enclosure == null ? null : enclosure.trim();
+    }
+
+    public String getReceptionClerk() {
+        return receptionClerk;
+    }
+
+    public void setReceptionClerk(String receptionClerk) {
+        this.receptionClerk = receptionClerk == null ? null : receptionClerk.trim();
+    }
+
+    public Date getReceptionDate() {
+        return receptionDate;
+    }
+
+    public void setReceptionDate(Date receptionDate) {
+        this.receptionDate = receptionDate;
+    }
+
+    public Date getReceptionTime() {
+        return receptionTime;
+    }
+
+    public void setReceptionTime(Date receptionTime) {
+        this.receptionTime = receptionTime;
+    }
+
+    public String getAccessType() {
+        return accessType;
+    }
+
+    public void setAccessType(String accessType) {
+        this.accessType = accessType == null ? null : accessType.trim();
+    }
+
+    public String getIntentionalStrength() {
+        return intentionalStrength;
+    }
+
+    public void setIntentionalStrength(String intentionalStrength) {
+        this.intentionalStrength = intentionalStrength == null ? null : intentionalStrength.trim();
+    }
+
+    public String getReceptionMessage() {
+        return receptionMessage;
+    }
+
+    public void setReceptionMessage(String receptionMessage) {
+        this.receptionMessage = receptionMessage == null ? null : receptionMessage.trim();
+    }
+
+    public String getBillStatus() {
+        return billStatus;
+    }
+
+    public void setBillStatus(String billStatus) {
+        this.billStatus = billStatus == null ? null : billStatus.trim();
+    }
+
+    public BigDecimal getVersion() {
+        return version;
+    }
+
+    public void setVersion(BigDecimal version) {
+        this.version = version;
+    }
+
+    public String getDr() {
+        return dr;
+    }
+
+    public void setDr(String dr) {
+        this.dr = dr == null ? null : dr.trim();
+    }
+
+    public Long getTenantid() {
+        return tenantid;
+    }
+
+    public void setTenantid(Long tenantid) {
+        this.tenantid = tenantid;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName == null ? null : creatorName.trim();
+    }
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName == null ? null : organizationName.trim();
+    }
+
+    public String getMemberidId() {
+        return memberidId;
+    }
+
+    public void setMemberidId(String memberidId) {
+        this.memberidId = memberidId == null ? null : memberidId.trim();
+    }
+
+    public String getPersonno() {
+        return personno;
+    }
+
+    public void setPersonno(String personno) {
+        this.personno = personno == null ? null : personno.trim();
+    }
+
+    public String getCustomerPassword() {
+        return customerPassword;
+    }
+
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword == null ? null : customerPassword.trim();
+    }
+}

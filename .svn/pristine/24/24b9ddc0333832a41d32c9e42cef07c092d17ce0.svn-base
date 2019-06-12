@@ -1,0 +1,217 @@
+package com.htyw.app.user.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.htyw.app.token.pojo.TokenEntity;
+import com.htyw.app.token.service.TokenService;
+import com.htyw.app.user.pojo.User;
+import com.htyw.app.user.service.UserService;
+import com.htyw.app.utils.MD5Util;
+import com.htyw.app.utils.RedisUtil;
+
+@RestController
+@RequestMapping("MyInfo")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private RedisUtil redisUtil;
+	@Autowired
+	private TokenService tokenService;
+	
+	/**
+	 * 修改用户信息
+	 * @param user：用户信息
+	 * @return int：影响行数
+	 */
+/*	@RequestMapping(value = "myInfoSave", method = RequestMethod.POST)
+	public Map<String, Object> updateUserInfo(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		User user = new User();
+		int i = userService.updateUser(user);
+		if(i == 1){
+			result.put("code", "200");
+			result.put("message", "success");
+		}else{
+			result.put("code", "201");
+			result.put("message", "failed");
+		}
+		return result;
+	}*/
+	@RequestMapping(value = "check", method = RequestMethod.POST)
+	public Map<String, Object> getToken(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String token = request.getParameter("token");
+		System.out.println("获取到的token==="+token);
+		String json = (String) redisUtil.get(token);
+		JSONObject jsonObject = new JSONObject(json);
+		Long timeStamp = (Long) jsonObject.get("tokenExpiryTime");
+		Long now = System.currentTimeMillis();
+		if(now > timeStamp){
+			result.put("code", "201");
+			result.put("message", "failed");
+		}else{
+			result.put("code", "200");
+			result.put("message", "success");
+		}
+		return result;
+	}
+	
+	/**
+     * 根据手机号、密码登录
+     * @param phone:用户手机号	 password:用户输入的密码
+     * @return 
+     */
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public Map<String, Object> getPassById(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		//加密密码
+		String passwords = UserController.md5(password, phone);
+		System.out.println("加密后="+passwords);
+		try{
+			User user = userService.selectByPassword(phone, passwords);
+			if(null != user){
+				String userName = user.getCustomerName();
+				String token = tokenService.generateToken(phone, userName);
+				tokenService.saveToken(token, user);
+				TokenEntity entity = new TokenEntity();
+				entity.setIsLogin("true");
+				entity.setToken(token);
+				entity.setUSER(user);
+				entity.setTokenCreatedTime(System.currentTimeMillis());
+				entity.setTokenExpiryTime(System.currentTimeMillis() + 48*60*60*1000);
+				result.put("tokenEntity", entity);
+				result.put("user", user);
+				result.put("code", "200");
+				result.put("message", "success");
+			}else{
+				result.put("code", "201");
+				result.put("message", "failed");
+			}
+		}catch(Exception e){
+			result.put("code", "202");
+			result.put("message", "failed");
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据用户手机号修改密码
+	 * @param phone：用户手机号
+	 * @param oldPassword：旧密码
+	 * @param newPassword：新密码
+	 * @return 
+	 */
+	@RequestMapping(value = "updatePass", method = RequestMethod.POST)
+	public Map<String, Object> updatePassById(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String phone = request.getParameter("phone");
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
+		//加密密码
+		String passwords = UserController.md5(oldPassword, phone);
+		try{
+			User user = userService.selectByPassword(phone, passwords);
+			if(null != user){
+				//String endPassword = MD5Util.getStringMD5(newPassword);
+				//加密新密码
+				String endPassword = UserController.md5(newPassword,phone);
+				int i = userService.updatePass(phone, endPassword);
+				if(i == 1){
+					user = userService.selectByPassword(phone, endPassword);
+					String userName = user.getCustomerName();
+					String token = tokenService.generateToken(phone, userName);
+					tokenService.saveToken(token, user);
+					TokenEntity entity = new TokenEntity();
+					entity.setIsLogin("true");
+					entity.setToken(token);
+					entity.setTokenCreatedTime(System.currentTimeMillis());
+					entity.setTokenExpiryTime(System.currentTimeMillis() + 48*60*60*1000);
+					result.put("tokenEntity", entity);
+					result.put("user", user);
+					result.put("code", "200");
+					result.put("message", "success");
+				}else{
+					result.put("code", "201");
+					result.put("message", "failed");
+				}
+			}else{
+				result.put("code", "202");
+				result.put("message", "密码错误");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("code", "202");
+			result.put("message", "密码错误");
+		}
+		return result;
+	}
+	
+	public static String md5(String value,String seed){
+		if(value==null||seed==null){
+			return value;
+		}
+		String valueSeed = value+seed;
+		System.out.println(valueSeed);
+		return MD5Util.getStringMD5(valueSeed);
+		//return	Md5Token.getInstance().getLongToken(Md5Token.getInstance().getLongToken(value) + seed);
+	}
+	
+	
+	
+	@RequestMapping(value = "selectByPhone", method = RequestMethod.POST)
+	public Map<String, Object> selectByPhone(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String phone = request.getParameter("phone");
+		try{
+			User user = userService.selectByPhone(phone);
+			result.put("user", user);
+			result.put("code", "200");
+			result.put("message", "success");
+		}catch(Exception e){
+			result.put("code", "202");
+			result.put("message", "failed");
+		}
+		return result;
+	}
+	
+	/**
+	 * 修改个人信息
+	 * 
+	 */
+	@RequestMapping(value = "changeUserInfo")
+	public Map<String, Object> changeUserInfo(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> result = new HashMap<String,Object>();
+		String email = request.getParameter("email");
+		String contactAddress = request.getParameter("contactAddress");
+		Long postalCode = Long.valueOf(request.getParameter("postalCode")).longValue();
+		String contactNumber = request.getParameter("contactNumber");
+		
+		try{
+			userService.changeUserInfo(email,contactAddress,postalCode,contactNumber);
+			result.put("code", 200);
+			result.put("message", "success!");
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("code", 201);
+			result.put("message", "failed!");
+		}
+		return result;
+		
+	}
+}

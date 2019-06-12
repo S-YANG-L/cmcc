@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.checkingIN.dao.CheckingInAbnormalDao">
+	<resultMap id="BaseResultMap"
+		type="com.htyw.app.checkingIN.pojo.CheckingInAbnormal">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="REFERENCE_DATE" jdbcType="VARCHAR" property="referenceDate" />
+		<result column="STAFF_ID" jdbcType="BIGINT" property="staffId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="TENANTID" jdbcType="BIGINT" property="tenantId" />
+		<result column="LEAVE_EARLY" jdbcType="CHAR" property="leaveEarly" />
+		<result column="CHECKING_IN_DATE_ID" jdbcType="BIGINT"
+			property="checkingInDateId" />
+		<result column="STATE" jdbcType="CHAR" property="state" />
+		<result column="AUDIT_STATE" jdbcType="CHAR" property="auditState" />
+		<result column="CLOCK_IN_TIME" jdbcType="CHAR" property="clockInTime" />
+	</resultMap>
+	<!-- 查询未打卡 -->
+	<select id="getAbnormal" resultType="CheckingInAbnormal">
+		SELECT b.ID AS id
+		,b.REFERENCE_DATE AS referenceDate
+		,a.ID AS clockId
+		,a.STAFF_ID AS
+		staffId
+		,a.`NAME` AS name
+		,a.TENANTID AS tenantId
+		FROM
+		(SELECT * FROM
+		checking_in_date) b
+		LEFT JOIN (SELECT ID,STAFF_ID,`NAME`,LEAVE_EARLY,
+		STATE,CHECKING_IN_DATE_ID,TENANTID FROM checking_in_clock WHERE
+		STAFF_ID = #{staffId}) a
+		ON b.ID = a.CHECKING_IN_DATE_ID
+	</select>
+
+	<!-- 查询迟到 -->
+	<select id="getOverdue" resultType="CheckingInAbnormal">
+		SELECT
+		b.ID AS id
+		,b.REFERENCE_DATE AS referenceDate
+		,a.ID AS clockId
+		,a.STAFF_ID AS
+		staffId
+		,a.`NAME` AS name
+		,a.TENANTID AS tenantId
+		,a.STATE AS state
+		,a.AUDIT_STATE AS auditState
+		FROM
+		(SELECT * FROM checking_in_date) b
+		RIGHT JOIN
+		(SELECT
+		ID,AUDIT_STATE,STATE,TENANTID,NAME,STAFF_ID,CHECKING_IN_DATE_ID FROM
+		checking_in_clock WHERE STATE='0' AND STAFF_ID = #{staffId}) a
+		ON b.ID
+		= a.CHECKING_IN_DATE_ID
+	</select>
+
+	<!-- 查询早退 -->
+	<select id="getLeaveEarly" resultType="CheckingInAbnormal">
+		SELECT
+		b.ID AS id,
+		b.REFERENCE_DATE AS referenceDate,
+		a.ID AS clockId,
+		a.STAFF_ID AS
+		staffId,
+		a.`NAME` AS NAME,
+		a.TENANTID AS tenantId,
+		a.LEAVE_EARLY AS
+		leaveEarly,
+		a.AUDIT_STATE AS auditState
+		FROM
+		( SELECT * FROM
+		checking_in_date ) b
+		RIGHT JOIN (
+		SELECT
+		ID,
+		AUDIT_STATE,
+		LEAVE_EARLY,
+		TENANTID,
+		NAME,
+		STAFF_ID,
+		CHECKING_IN_DATE_ID
+		FROM
+		checking_in_clock
+		WHERE
+		LEAVE_EARLY = '1'
+		AND STAFF_ID =#{staffId})
+		a ON b.ID =
+		a.CHECKING_IN_DATE_ID
+	</select>
+
+	<!-- 下班未打卡 -->
+	<select id="getClockOn" resultType="CheckingInAbnormal">
+		SELECT
+		b.ID AS id,
+		b.REFERENCE_DATE AS referenceDate,
+		a.ID AS clockId,
+		a.STAFF_ID AS
+		staffId,
+		a.`NAME` AS NAME,
+		a.TENANTID AS tenantId,
+		a.CLOCK_IN_TIME AS
+		clockInTime,
+		a.AUDIT_STATE AS auditState
+		FROM
+		( SELECT * FROM
+		checking_in_date ) b
+		RIGHT JOIN ( SELECT ID, AUDIT_STATE,
+		CLOCK_IN_TIME, TENANTID, NAME,
+		STAFF_ID, CHECKING_IN_DATE_ID FROM
+		checking_in_clock WHERE
+		CLOCK_IN_TIME = '1' AND STAFF_ID = #{staffId} )
+		a ON b.ID =
+		a.CHECKING_IN_DATE_ID
+	</select>
+	<!-- 根据打卡状态获取未打卡 -->
+	<select id="getStateOverdue" resultType="CheckingInAbnormal">
+		SELECT
+		b.ID AS id,
+		b.REFERENCE_DATE AS referenceDate,
+		a.ID AS clockId,
+		a.STAFF_ID AS staffId,
+		a.`NAME` AS NAME,
+		a.TENANTID AS tenantId,
+		a.STATE AS state,
+		a.AUDIT_STATE AS auditState
+		FROM
+		( SELECT * FROM checking_in_date ) b
+		RIGHT JOIN ( SELECT ID, AUDIT_STATE, STATE, TENANTID, NAME, STAFF_ID,
+		CHECKING_IN_DATE_ID FROM checking_in_clock WHERE STATE = '2' AND
+		STAFF_ID = #{staffId}) a ON b.ID = a.CHECKING_IN_DATE_ID
+	</select>
+	<!-- 根据打卡状态获取未打卡 -->
+	<select id="getCheckAll" resultType="CheckingInClock">
+		SELECT * FROM checking_in_clock WHERE STAFF_ID = #{0}
+	</select>
+</mapper>

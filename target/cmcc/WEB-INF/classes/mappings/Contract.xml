@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.contract.dao.ContractDao">
+	<select id="listContract" resultType="ContractList">
+		SELECT
+		a.id AS id,
+		a.CUSTOMER_ID AS customerId,
+		a.CUSTOMER_NAME AS
+		customerName,
+		a.CONTRACT_NUMBER as contractNumber,
+		a.CONTRACT_NAME as
+		contractName,
+		a.CERTIFICATE_NUMBER as certificateNumber,
+		a.CONTACT_ADDRESS as
+		contactAddress,
+		a.EARNEST_MONEY as earnestMoney,
+		a.FIXED_RENT_DATE as
+		fixedRentDate,
+		a.SALESMAN as salesMan,
+		a.CONTRACT_STATUS as
+		contractStatus,
+		a.LEASE_START_DATE as
+		leaseStartDate,
+		a.LEASE_END_DATE
+		as leaseEndDate,
+		a.lease_type as
+		leaseType,
+		a.contract_type as
+		contractType,
+		a.LAST_OPEN_DATE as
+		lastOpenDate,
+		a.NEXT_OPEN_DATE as
+		nextOpenDate,
+		a.ADVANCE_OPEN_DAYS as
+		advanceOpenDays,
+		a.SIGN_LEASE_DATE
+		as signLeaseDate,
+		a.PAYMENT_MODE as
+		paymentMode,
+		a.RENTAL_CYCLE as
+		rentalCycle,
+		a.PAYMENT_DATE as
+		paymentDate,
+		a.ESTIMATE_OPEN_DATE as
+		extimateOpenDate,
+		a.RENTAL_COLLECT_MODE as rentalCollectMode,
+		a.COLLECT_PROPERTY_FEE_PRICE as collectPropertyFeePrice,
+		a.ADDITIONAL_CLAUSE as additionalClause,
+		a.DEPOSIT as deposit,
+		a.RENTAL_UNIT_PRICE as rentalUnitPrice,
+		a.CONTRACT_ENCLOSURE as contractEnclosure,
+		a.PROPERTY_FEE_UNIT_PRICE as
+		propertyFeeUnitPrice,
+		a.TOTAL_LEASE_ACREAGE as totalLeaseAcreage,
+		a.TOTAL_BUILDING_ACREAGE as totalBuildingAcreage,
+		a.TOTAL_SET_ACREAGE
+		as totalSetAcreage,
+		a.CONTACT_NUMBER AS contactNumber,
+		a.TENANTID AS
+		tenantId
+		FROM
+		rent_contract_management a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="customerId != null and customerId != ''">
+				AND a.CUSTOMER_ID = #{customerId}
+			</if>
+			<if test="customerName != null and customerName != '' ">
+				AND a.CUSTOMER_NAME =#{customerName}
+			</if>
+			<if test="contractNumber != null and contractNumber != '' ">
+				AND a.CONTRACT_NUMBER =#{contractNumber}
+			</if>
+			<if test="contractName != null and contractName !=''">
+				AND a.CONTRACT_NAME like concat('%', #{contractName},'%')
+			</if>
+			<if test="leaseStartDate != null and leaseStartDate != ''and leaseEndDate != null and leaseEndDate != '' ">
+				AND a.LEASE_START_DATE between #{leaseStartDate} and
+				#{leaseEndDate}
+			</if>
+		</where>
+		order by a.LEASE_END_DATE
+	</select>
+</mapper>
+

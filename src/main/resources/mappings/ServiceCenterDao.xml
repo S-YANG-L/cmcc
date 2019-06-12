@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.serviceCenter.dao.ServiceCenterDao">
+	<!-- 数据字段（服务档案） -->
+	<sql id="BaseServiceColums">
+		a.id as "id",
+		a.house_id as "houseId",
+		a.house_name as "houseName",
+		a.service_title as "serviceTitle",
+		a.service_address as "serviceAddress",
+		a.service_contact_information as "serviceContactInformation", 
+		a.service_type as "serviceType",
+		a.service_head_photo as "serviceHeadPhoto",
+		a.tenantId as "tenantId",
+		a.create_date as "createDate"
+	</sql>
+	
+	<!-- 数据字段（工单记录） -->
+	<sql id="ObdColums">
+		b.id as "id",
+		b.real_estate_customerId as "realEstateCustomerId",
+		b.real_estate_customer as "realEstateCustomer",
+		b.house_name as "houseName",
+		b.contacts as "contacts",
+		b.contact_number as "contactNumber",
+		b.contact_address as "contactAddress",
+		b.appointment_date as "appointmentDate",
+		b.order_content as "orderContent",
+		b.order_type as "orderType",
+		b.tenantId as "tenantId",
+		b.remark as "remark"
+	</sql>
+	<!-- 查询服务中心内容 -->
+	<select id="list" resultType="ServiceCenter">
+		SELECT
+			<include refid="BaseServiceColums" />
+		FROM base_service a
+		<where>
+			a.dR != 1
+			<if test="tenantId != null and tenantId != ''">
+				AND a.tenantId = #{tenantId}
+			</if> 
+		</where>
+		ORDER BY a.create_date DESC
+	</select>
+	<!-- 首页查询服务中心内容 -->
+	<select id="homeList" resultType="ServiceCenter">
+		SELECT
+			<include refid="BaseServiceColums" />
+		FROM base_service a
+		<where>
+			a.dR != 1
+			<if test="tenantId != null and tenantId != ''">
+				AND a.tenantId = #{tenantId}
+			</if>
+		</where>
+		ORDER BY a.create_date DESC LIMIT 2
+	</select>
+
+	<!-- 获取服务图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		c.service_path
+		AS
+		servicePath
+		FROM
+		doc_document c
+		where
+		c.batch_no=#{serviceHeadPhoto}
+		limit
+		0,1
+	</select>
+
+</mapper>

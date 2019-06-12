@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.pollingDetails.dao.PrgInspectionAllDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.pollingDetails.pojo.PrgInspectionAll">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="INSPECTION" jdbcType="BIGINT" property="inspection" />
+    <result column="INSPECTION_START_TIME" jdbcType="DATE" property="inspectionStartTime" />
+    <result column="INSPECTION_END_TIME" jdbcType="DATE" property="inspectionEndTime" />
+    <result column="INSPECTION_PERSON" jdbcType="VARCHAR" property="inspectionPerson" />
+    <result column="FREQUENCY" jdbcType="BIGINT" property="frequency" />
+    <result column="FINISH_NUMBER" jdbcType="BIGINT" property="finishNumber" />
+    <result column="EFFECT_STATUS" jdbcType="CHAR" property="effectStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="ORGANIZATION_ID" jdbcType="VARCHAR" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="TENANTID" jdbcType="VARCHAR" property="tenantid" />
+    <result column="DR" jdbcType="VARCHAR" property="dr" />
+    <result column="INSPECTION_PERSON_ID" jdbcType="VARCHAR" property="inspectionPersonId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, INSPECTION, INSPECTION_START_TIME, INSPECTION_END_TIME, INSPECTION_PERSON, FREQUENCY, 
+    FINISH_NUMBER, EFFECT_STATUS, REMARK, ORGANIZATION_ID, ORGANIZATION_NAME, CREATOR_ID, 
+    CREATOR_NAME, BILL_STATUS, TENANTID, DR, INSPECTION_PERSON_ID, title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_inspection_all
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_inspection_all
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionAll">
+    insert into prg_inspection_all (ID, INSPECTION, INSPECTION_START_TIME, 
+      INSPECTION_END_TIME, INSPECTION_PERSON, FREQUENCY, 
+      FINISH_NUMBER, EFFECT_STATUS, REMARK, 
+      ORGANIZATION_ID, ORGANIZATION_NAME, CREATOR_ID, 
+      CREATOR_NAME, BILL_STATUS, TENANTID, 
+      DR, INSPECTION_PERSON_ID, title
+      )
+    values (#{id,jdbcType=BIGINT}, #{inspection,jdbcType=BIGINT}, #{inspectionStartTime,jdbcType=DATE}, 
+      #{inspectionEndTime,jdbcType=DATE}, #{inspectionPerson,jdbcType=VARCHAR}, #{frequency,jdbcType=BIGINT}, 
+      #{finishNumber,jdbcType=BIGINT}, #{effectStatus,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{organizationId,jdbcType=VARCHAR}, #{organizationName,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR}, #{tenantid,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=VARCHAR}, #{inspectionPersonId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionAll">
+    insert into prg_inspection_all
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="inspection != null">
+        INSPECTION,
+      </if>
+      <if test="inspectionStartTime != null">
+        INSPECTION_START_TIME,
+      </if>
+      <if test="inspectionEndTime != null">
+        INSPECTION_END_TIME,
+      </if>
+      <if test="inspectionPerson != null">
+        INSPECTION_PERSON,
+      </if>
+      <if test="frequency != null">
+        FREQUENCY,
+      </if>
+      <if test="finishNumber != null">
+        FINISH_NUMBER,
+      </if>
+      <if test="effectStatus != null">
+        EFFECT_STATUS,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="inspectionPersonId != null">
+        INSPECTION_PERSON_ID,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="inspection != null">
+        #{inspection,jdbcType=BIGINT},
+      </if>
+      <if test="inspectionStartTime != null">
+        #{inspectionStartTime,jdbcType=DATE},
+      </if>
+      <if test="inspectionEndTime != null">
+        #{inspectionEndTime,jdbcType=DATE},
+      </if>
+      <if test="inspectionPerson != null">
+        #{inspectionPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null">
+        #{frequency,jdbcType=BIGINT},
+      </if>
+      <if test="finishNumber != null">
+        #{finishNumber,jdbcType=BIGINT},
+      </if>
+      <if test="effectStatus != null">
+        #{effectStatus,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionPersonId != null">
+        #{inspectionPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionAll">
+    update prg_inspection_all
+    <set>
+      <if test="inspection != null">
+        INSPECTION = #{inspection,jdbcType=BIGINT},
+      </if>
+      <if test="inspectionStartTime != null">
+        INSPECTION_START_TIME = #{inspectionStartTime,jdbcType=DATE},
+      </if>
+      <if test="inspectionEndTime != null">
+        INSPECTION_END_TIME = #{inspectionEndTime,jdbcType=DATE},
+      </if>
+      <if test="inspectionPerson != null">
+        INSPECTION_PERSON = #{inspectionPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null">
+        FREQUENCY = #{frequency,jdbcType=BIGINT},
+      </if>
+      <if test="finishNumber != null">
+        FINISH_NUMBER = #{finishNumber,jdbcType=BIGINT},
+      </if>
+      <if test="effectStatus != null">
+        EFFECT_STATUS = #{effectStatus,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionPersonId != null">
+        INSPECTION_PERSON_ID = #{inspectionPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.pollingDetails.pojo.PrgInspectionAll">
+    update prg_inspection_all
+    set INSPECTION = #{inspection,jdbcType=BIGINT},
+      INSPECTION_START_TIME = #{inspectionStartTime,jdbcType=DATE},
+      INSPECTION_END_TIME = #{inspectionEndTime,jdbcType=DATE},
+      INSPECTION_PERSON = #{inspectionPerson,jdbcType=VARCHAR},
+      FREQUENCY = #{frequency,jdbcType=BIGINT},
+      FINISH_NUMBER = #{finishNumber,jdbcType=BIGINT},
+      EFFECT_STATUS = #{effectStatus,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=VARCHAR},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=VARCHAR},
+      DR = #{dr,jdbcType=VARCHAR},
+      INSPECTION_PERSON_ID = #{inspectionPersonId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

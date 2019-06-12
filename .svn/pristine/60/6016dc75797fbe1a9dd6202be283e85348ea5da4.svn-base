@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.houseLeasing.dao.HouseBaseInfoDao">	
+<!-- 查所有社区 -->
+<select id="sheQuList"  resultType="com.htyw.app.houseLeasing.pojo.HouseLeasing">
+	SELECT DISTINCT COMMUNITY_ID AS communityId, COMMUNITY_NAME AS communityName FROM base_house 
+	where TENANTID = #{TENANTID} AND dR = 0 AND ROOM_STATUS = 2	
+</select>
+
+<!-- 根据社区查小区 -->
+<select id="xiaoQuList" resultType="com.htyw.app.houseLeasing.pojo.HouseLeasing">
+	SELECT DISTINCT VILLAGE_ID AS villageId, VILLAGE_NAME AS villageName FROM base_house 
+	where COMMUNITY_ID = #{COMMUNITYID} AND ROOM_STATUS = 2	
+</select>
+
+<!-- 根据小区查楼栋 -->
+<select id="louDongList" resultType="com.htyw.app.houseLeasing.pojo.HouseLeasing">
+	SELECT DISTINCT BUILDING_ID AS buildingId, BUILDING_NAME AS buildingName FROM base_house 
+	where VILLAGE_ID = #{VILLAGEID} AND dR = 0 AND ROOM_STATUS = 2		
+</select>
+
+<!-- 根据楼栋查类型 -->
+<select id="leiXingList" resultType="com.htyw.app.houseLeasing.pojo.HouseLeasing">
+	SELECT DISTINCT APARTMENT_ID AS apartmentId , APARTMENT_NAME AS apartmentName FROM base_house 
+	where BUILDING_ID = #{BUILDINGID} AND dR = 0 AND ROOM_STATUS = 2		
+</select>
+</mapper>

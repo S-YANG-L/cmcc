@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.aboutAppointment.dao.AboutAppointmentDao">
+	
+	<!-- 输出字段列 -->
+	<sql id="AboutAppointmentColums">
+		a.id as "id",
+		a.house_id as "houseId",
+		a.house_name as "houseName",
+		a.applicant_id as "applicantId",
+		a.applicant_name as "applicantName",
+		a.applicant_sex as "applicantSex",
+		a.applicant_phone as "applicantPhone",
+		a.applicant_date as "applicantDate",
+		a.leaving_message as "leavingMessage",
+		a.dR as "dR",
+		a.tenantId as "tenantId",
+		a.bill_status as "billStatus",
+		a.status as "status",
+		a.reason as "reason",
+		a.receiver_name as "receiverName",
+	</sql>
+
+	<!-- 房屋档案数据字段 -->
+	<sql id="BaseHouseColums">
+		b.id as "id",
+		b.apartment_id as "apartmentId",
+		b.apartment_name as "apartmentName",
+		b.house_name as "houseName",			
+		b.in_jacket_area as "inJacketArea",
+		b.table_price as "tablePrice",
+		b.apartment_photo as "apartmentPhoto",
+		b.house_photo_video as "housePhotoVideo",
+		b.house_remark as "houseRemark",
+		b.coordinate_position_y as "coordinatePositionY",
+		b.tenantid as "tenantId",
+		b.floor_number as "theFloorNumber",
+		b.unit_number as "unitNumber",
+		b.dr as "dR"
+	</sql>
+	
+	<!-- 查询 -->
+	<select id="list" resultType="AboutAppointment">
+		SELECT 
+		<include refid="AboutAppointmentColums" />
+		<include refid="BaseHouseColums" />
+		FROM rent_looking_house a
+		LEFT JOIN base_house b ON b.id = a.house_id
+		<where>
+			a.dR !=1
+			<if test="applicantId != null and applicantId != ''">
+				AND a.applicant_id = #{applicantId}
+			</if>
+			<if test="billStatus != null and billStatus != ''">
+				AND a.bill_status = #{billStatus}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 获取房屋图片 -->
+	<select id="getPhoto" resultType="java.lang.String">
+		SELECT
+		c.service_path
+		AS
+		servicePath
+		FROM
+		doc_document c
+		where
+		c.batch_no=#{apartmentPhoto}
+		limit
+		0,1
+	</select>
+	
+</mapper>

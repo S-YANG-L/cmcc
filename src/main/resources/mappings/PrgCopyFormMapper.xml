@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.PrgCopyFormDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgCopyForm">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="READING_NUM" jdbcType="VARCHAR" property="readingNum" />
+    <result column="READING_DATE" jdbcType="DATE" property="readingDate" />
+    <result column="READING_TYPE" jdbcType="VARCHAR" property="readingType" />
+    <result column="IS_OPEN_ACCOUNT" jdbcType="CHAR" property="isOpenAccount" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="OPEN_ACCOUNT_DATE" jdbcType="DATE" property="openAccountDate" />
+    <result column="INSTRUMENT_TYPE_ID" jdbcType="BIGINT" property="instrumentTypeId" />
+    <result column="INSTRUMENT_TYPE" jdbcType="CHAR" property="instrumentType" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="BILL_STATUS" jdbcType="VARCHAR" property="billStatus" />
+    <result column="RECEIPTS_NAME" jdbcType="VARCHAR" property="receiptsName" />
+    <result column="copy_name_id" jdbcType="VARCHAR" property="copyNameId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, READING_NUM, READING_DATE, READING_TYPE, IS_OPEN_ACCOUNT, STATE, OPEN_ACCOUNT_DATE, 
+    INSTRUMENT_TYPE_ID, INSTRUMENT_TYPE, TENANTID, DR, ORGANIZATION_ID, ORGANIZATION_NAME, 
+    CREATOR_ID, CREATOR_NAME, BILL_STATUS ,RECEIPTS_NAME,copy_name_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_copy_form
+    where ID = #{id,jdbcType=BIGINT}
+    ORDER BY ID DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_copy_form
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgCopyForm">
+    insert into prg_copy_form (ID, READING_NUM, READING_DATE, 
+      READING_TYPE, IS_OPEN_ACCOUNT, STATE, 
+      OPEN_ACCOUNT_DATE, INSTRUMENT_TYPE_ID, INSTRUMENT_TYPE, 
+      TENANTID, DR, ORGANIZATION_ID, 
+      ORGANIZATION_NAME, CREATOR_ID, CREATOR_NAME, 
+      BILL_STATUS,copy_name_id)
+    values (#{id,jdbcType=BIGINT}, #{readingNum,jdbcType=VARCHAR}, #{readingDate,jdbcType=DATE}, 
+      #{readingType,jdbcType=VARCHAR}, #{isOpenAccount,jdbcType=CHAR}, #{state,jdbcType=VARCHAR}, 
+      #{openAccountDate,jdbcType=DATE}, #{instrumentTypeId,jdbcType=BIGINT}, #{instrumentType,jdbcType=CHAR}, 
+      #{tenantid,jdbcType=BIGINT}, #{dr,jdbcType=CHAR}, #{organizationId,jdbcType=BIGINT}, 
+      #{organizationName,jdbcType=VARCHAR}, #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, 
+      #{billStatus,jdbcType=VARCHAR},#{copyNameId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgCopyForm">
+    insert into prg_copy_form
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="readingNum != null">
+        READING_NUM,
+      </if>
+      <if test="readingDate != null">
+        READING_DATE,
+      </if>
+      <if test="readingType != null">
+        READING_TYPE,
+      </if>
+      <if test="isOpenAccount != null">
+        IS_OPEN_ACCOUNT,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="openAccountDate != null">
+        OPEN_ACCOUNT_DATE,
+      </if>
+      <if test="instrumentTypeId != null">
+        INSTRUMENT_TYPE_ID,
+      </if>
+      <if test="instrumentType != null">
+        INSTRUMENT_TYPE,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="copyNameId != null">
+        copy_name_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="readingNum != null">
+        #{readingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="readingDate != null">
+        #{readingDate,jdbcType=DATE},
+      </if>
+      <if test="readingType != null">
+        #{readingType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenAccount != null">
+        #{isOpenAccount,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccountDate != null">
+        #{openAccountDate,jdbcType=DATE},
+      </if>
+      <if test="instrumentTypeId != null">
+        #{instrumentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="instrumentType != null">
+        #{instrumentType,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="copyNameId != null">
+        #{copyNameId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgCopyForm">
+    update prg_copy_form
+    <set>
+      <if test="readingNum != null">
+        READING_NUM = #{readingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="readingDate != null">
+        READING_DATE = #{readingDate,jdbcType=DATE},
+      </if>
+      <if test="readingType != null">
+        READING_TYPE = #{readingType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenAccount != null">
+        IS_OPEN_ACCOUNT = #{isOpenAccount,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccountDate != null">
+        OPEN_ACCOUNT_DATE = #{openAccountDate,jdbcType=DATE},
+      </if>
+      <if test="instrumentTypeId != null">
+        INSTRUMENT_TYPE_ID = #{instrumentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="instrumentType != null">
+        INSTRUMENT_TYPE = #{instrumentType,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="copyNameId != null">
+        copy_name_id = #{copyNameId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.CopyForm.PrgCopyForm">
+    update prg_copy_form
+    set READING_NUM = #{readingNum,jdbcType=VARCHAR},
+      READING_DATE = #{readingDate,jdbcType=DATE},
+      READING_TYPE = #{readingType,jdbcType=VARCHAR},
+      IS_OPEN_ACCOUNT = #{isOpenAccount,jdbcType=CHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      OPEN_ACCOUNT_DATE = #{openAccountDate,jdbcType=DATE},
+      INSTRUMENT_TYPE_ID = #{instrumentTypeId,jdbcType=BIGINT},
+      INSTRUMENT_TYPE = #{instrumentType,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      DR = #{dr,jdbcType=CHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=VARCHAR},
+      copy_name_id = #{copyNameId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 通过员工id获取抄表单 -->
+  <select id="getMeterredhistory" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_copy_form
+    where copy_name_id = #{0}
+    ORDER BY ID DESC
+  </select>
+  <!-- 模糊查询通过员工id获取抄表单 -->
+  <select id="getMeterredhistoryLike" resultMap="BaseResultMap">
+    SELECT * FROM (select 
+    *
+    from prg_copy_form
+    where copy_name_id = #{0}) a WHERE a.READING_DATE BETWEEN #{1} AND #{2} ORDER BY a.ID DESC;
+  </select>
+</mapper>

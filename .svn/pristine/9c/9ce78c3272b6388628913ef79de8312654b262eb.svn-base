@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.serviceCenter.dao.ServerNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.htyw.app.serviceCenter.pojo.ServerNotice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="bus_message" jdbcType="VARCHAR" property="busMessage" />
+    <result column="audit_message" jdbcType="VARCHAR" property="auditMessage" />
+    <result column="need_user_id" jdbcType="BIGINT" property="needUserId" />
+    <result column="need_user_name" jdbcType="VARCHAR" property="needUserName" />
+    <result column="need_state" jdbcType="CHAR" property="needState" />
+    <result column="task_operation" jdbcType="VARCHAR" property="taskOperation" />
+    <result column="task_operation_name" jdbcType="VARCHAR" property="taskOperationName" />
+    <result column="need_step" jdbcType="VARCHAR" property="needStep" />
+    <result column="need_process_id" jdbcType="VARCHAR" property="needProcessId" />
+    <result column="need_process_ins_id" jdbcType="VARCHAR" property="needProcessInsId" />
+    <result column="need_node_id" jdbcType="VARCHAR" property="needNodeId" />
+    <result column="need_process_code" jdbcType="VARCHAR" property="needProcessCode" />
+    <result column="need_mark" jdbcType="VARCHAR" property="needMark" />
+    <result column="need_start_time" jdbcType="TIMESTAMP" property="needStartTime" />
+    <result column="need_end_time" jdbcType="TIMESTAMP" property="needEndTime" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_serial" jdbcType="VARCHAR" property="taskSerial" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="ower_group" jdbcType="VARCHAR" property="owerGroup" />
+    <result column="next_ower_group" jdbcType="VARCHAR" property="nextOwerGroup" />
+    <result column="bus_id" jdbcType="BIGINT" property="busId" />
+    <result column="visit_bus_url" jdbcType="VARCHAR" property="visitBusUrl" />
+    <result column="next_users" jdbcType="VARCHAR" property="nextUsers" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="update_bus_url" jdbcType="VARCHAR" property="updateBusUrl" />
+    <result column="PREVIOUS_USER_NAME" jdbcType="VARCHAR" property="previousUserName" />
+    <result column="PREVIOUS_USER_ID" jdbcType="VARCHAR" property="previousUserId" />
+    <result column="NEED_HANDLE_MARK" jdbcType="VARCHAR" property="needHandleMark" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="ORDER_TYPE" jdbcType="CHAR" property="orderType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, bus_message, audit_message, need_user_id, need_user_name, need_state, 
+    task_operation, task_operation_name, need_step, need_process_id, need_process_ins_id, 
+    need_node_id, need_process_code, need_mark, need_start_time, need_end_time, task_name, 
+    task_serial, serial_number, token, ower_group, next_ower_group, bus_id, visit_bus_url, 
+    next_users, company, update_bus_url, PREVIOUS_USER_NAME, PREVIOUS_USER_ID, NEED_HANDLE_MARK, 
+    TENANTID, ORDER_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.htyw.app.serviceCenter.pojo.ServerNoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wd_need_handle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wd_need_handle
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wd_need_handle
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.serviceCenter.pojo.ServerNotice">
+    insert into wd_need_handle (id, title, bus_message, 
+      audit_message, need_user_id, need_user_name, 
+      need_state, task_operation, task_operation_name, 
+      need_step, need_process_id, need_process_ins_id, 
+      need_node_id, need_process_code, need_mark, 
+      need_start_time, need_end_time, task_name, 
+      task_serial, serial_number, token, 
+      ower_group, next_ower_group, bus_id, 
+      visit_bus_url, next_users, company, 
+      update_bus_url, PREVIOUS_USER_NAME, PREVIOUS_USER_ID, 
+      NEED_HANDLE_MARK, TENANTID, ORDER_TYPE
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{busMessage,jdbcType=VARCHAR}, 
+      #{auditMessage,jdbcType=VARCHAR}, #{needUserId,jdbcType=BIGINT}, #{needUserName,jdbcType=VARCHAR}, 
+      #{needState,jdbcType=CHAR}, #{taskOperation,jdbcType=VARCHAR}, #{taskOperationName,jdbcType=VARCHAR}, 
+      #{needStep,jdbcType=VARCHAR}, #{needProcessId,jdbcType=VARCHAR}, #{needProcessInsId,jdbcType=VARCHAR}, 
+      #{needNodeId,jdbcType=VARCHAR}, #{needProcessCode,jdbcType=VARCHAR}, #{needMark,jdbcType=VARCHAR}, 
+      #{needStartTime,jdbcType=TIMESTAMP}, #{needEndTime,jdbcType=TIMESTAMP}, #{taskName,jdbcType=VARCHAR}, 
+      #{taskSerial,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{owerGroup,jdbcType=VARCHAR}, #{nextOwerGroup,jdbcType=VARCHAR}, #{busId,jdbcType=BIGINT}, 
+      #{visitBusUrl,jdbcType=VARCHAR}, #{nextUsers,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{updateBusUrl,jdbcType=VARCHAR}, #{previousUserName,jdbcType=VARCHAR}, #{previousUserId,jdbcType=VARCHAR}, 
+      #{needHandleMark,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, #{orderType,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.serviceCenter.pojo.ServerNotice">
+    insert into wd_need_handle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="busMessage != null">
+        bus_message,
+      </if>
+      <if test="auditMessage != null">
+        audit_message,
+      </if>
+      <if test="needUserId != null">
+        need_user_id,
+      </if>
+      <if test="needUserName != null">
+        need_user_name,
+      </if>
+      <if test="needState != null">
+        need_state,
+      </if>
+      <if test="taskOperation != null">
+        task_operation,
+      </if>
+      <if test="taskOperationName != null">
+        task_operation_name,
+      </if>
+      <if test="needStep != null">
+        need_step,
+      </if>
+      <if test="needProcessId != null">
+        need_process_id,
+      </if>
+      <if test="needProcessInsId != null">
+        need_process_ins_id,
+      </if>
+      <if test="needNodeId != null">
+        need_node_id,
+      </if>
+      <if test="needProcessCode != null">
+        need_process_code,
+      </if>
+      <if test="needMark != null">
+        need_mark,
+      </if>
+      <if test="needStartTime != null">
+        need_start_time,
+      </if>
+      <if test="needEndTime != null">
+        need_end_time,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskSerial != null">
+        task_serial,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="owerGroup != null">
+        ower_group,
+      </if>
+      <if test="nextOwerGroup != null">
+        next_ower_group,
+      </if>
+      <if test="busId != null">
+        bus_id,
+      </if>
+      <if test="visitBusUrl != null">
+        visit_bus_url,
+      </if>
+      <if test="nextUsers != null">
+        next_users,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="updateBusUrl != null">
+        update_bus_url,
+      </if>
+      <if test="previousUserName != null">
+        PREVIOUS_USER_NAME,
+      </if>
+      <if test="previousUserId != null">
+        PREVIOUS_USER_ID,
+      </if>
+      <if test="needHandleMark != null">
+        NEED_HANDLE_MARK,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="busMessage != null">
+        #{busMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="auditMessage != null">
+        #{auditMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="needUserId != null">
+        #{needUserId,jdbcType=BIGINT},
+      </if>
+      <if test="needUserName != null">
+        #{needUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needState != null">
+        #{needState,jdbcType=CHAR},
+      </if>
+      <if test="taskOperation != null">
+        #{taskOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="taskOperationName != null">
+        #{taskOperationName,jdbcType=VARCHAR},
+      </if>
+      <if test="needStep != null">
+        #{needStep,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessId != null">
+        #{needProcessId,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessInsId != null">
+        #{needProcessInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="needNodeId != null">
+        #{needNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessCode != null">
+        #{needProcessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="needMark != null">
+        #{needMark,jdbcType=VARCHAR},
+      </if>
+      <if test="needStartTime != null">
+        #{needStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needEndTime != null">
+        #{needEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskSerial != null">
+        #{taskSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="owerGroup != null">
+        #{owerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="nextOwerGroup != null">
+        #{nextOwerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="busId != null">
+        #{busId,jdbcType=BIGINT},
+      </if>
+      <if test="visitBusUrl != null">
+        #{visitBusUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nextUsers != null">
+        #{nextUsers,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBusUrl != null">
+        #{updateBusUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="previousUserName != null">
+        #{previousUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousUserId != null">
+        #{previousUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="needHandleMark != null">
+        #{needHandleMark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.serviceCenter.pojo.ServerNotice">
+    update wd_need_handle
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="busMessage != null">
+        bus_message = #{busMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="auditMessage != null">
+        audit_message = #{auditMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="needUserId != null">
+        need_user_id = #{needUserId,jdbcType=BIGINT},
+      </if>
+      <if test="needUserName != null">
+        need_user_name = #{needUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needState != null">
+        need_state = #{needState,jdbcType=CHAR},
+      </if>
+      <if test="taskOperation != null">
+        task_operation = #{taskOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="taskOperationName != null">
+        task_operation_name = #{taskOperationName,jdbcType=VARCHAR},
+      </if>
+      <if test="needStep != null">
+        need_step = #{needStep,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessId != null">
+        need_process_id = #{needProcessId,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessInsId != null">
+        need_process_ins_id = #{needProcessInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="needNodeId != null">
+        need_node_id = #{needNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="needProcessCode != null">
+        need_process_code = #{needProcessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="needMark != null">
+        need_mark = #{needMark,jdbcType=VARCHAR},
+      </if>
+      <if test="needStartTime != null">
+        need_start_time = #{needStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needEndTime != null">
+        need_end_time = #{needEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskSerial != null">
+        task_serial = #{taskSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="owerGroup != null">
+        ower_group = #{owerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="nextOwerGroup != null">
+        next_ower_group = #{nextOwerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="busId != null">
+        bus_id = #{busId,jdbcType=BIGINT},
+      </if>
+      <if test="visitBusUrl != null">
+        visit_bus_url = #{visitBusUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nextUsers != null">
+        next_users = #{nextUsers,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBusUrl != null">
+        update_bus_url = #{updateBusUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="previousUserName != null">
+        PREVIOUS_USER_NAME = #{previousUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousUserId != null">
+        PREVIOUS_USER_ID = #{previousUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="needHandleMark != null">
+        NEED_HANDLE_MARK = #{needHandleMark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE = #{orderType,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.serviceCenter.pojo.ServerNotice">
+    update wd_need_handle
+    set title = #{title,jdbcType=VARCHAR},
+      bus_message = #{busMessage,jdbcType=VARCHAR},
+      audit_message = #{auditMessage,jdbcType=VARCHAR},
+      need_user_id = #{needUserId,jdbcType=BIGINT},
+      need_user_name = #{needUserName,jdbcType=VARCHAR},
+      need_state = #{needState,jdbcType=CHAR},
+      task_operation = #{taskOperation,jdbcType=VARCHAR},
+      task_operation_name = #{taskOperationName,jdbcType=VARCHAR},
+      need_step = #{needStep,jdbcType=VARCHAR},
+      need_process_id = #{needProcessId,jdbcType=VARCHAR},
+      need_process_ins_id = #{needProcessInsId,jdbcType=VARCHAR},
+      need_node_id = #{needNodeId,jdbcType=VARCHAR},
+      need_process_code = #{needProcessCode,jdbcType=VARCHAR},
+      need_mark = #{needMark,jdbcType=VARCHAR},
+      need_start_time = #{needStartTime,jdbcType=TIMESTAMP},
+      need_end_time = #{needEndTime,jdbcType=TIMESTAMP},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_serial = #{taskSerial,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      ower_group = #{owerGroup,jdbcType=VARCHAR},
+      next_ower_group = #{nextOwerGroup,jdbcType=VARCHAR},
+      bus_id = #{busId,jdbcType=BIGINT},
+      visit_bus_url = #{visitBusUrl,jdbcType=VARCHAR},
+      next_users = #{nextUsers,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      update_bus_url = #{updateBusUrl,jdbcType=VARCHAR},
+      PREVIOUS_USER_NAME = #{previousUserName,jdbcType=VARCHAR},
+      PREVIOUS_USER_ID = #{previousUserId,jdbcType=VARCHAR},
+      NEED_HANDLE_MARK = #{needHandleMark,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      ORDER_TYPE = #{orderType,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryByTenantId" parameterType="com.htyw.app.serviceCenter.pojo.ServerNotice" resultMap="BaseResultMap">
+  		select
+  			*
+  		from
+  		wd_need_handle
+  		where
+  		TENANTID = #{tenantid,jdbcType=BIGINT}
+  		order by 
+  		need_start_time desc
+  </select>
+</mapper>

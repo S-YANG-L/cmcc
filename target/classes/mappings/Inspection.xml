@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.InspectionMapper">
+	<select id="listInspection" resultType="Inspection">
+		select
+		a.id as id,
+		a.INSPECTION as INSPECTION,
+		a.INSPECTION_START_TIME as
+		INSPECTIONSTARTTIME,
+		a.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		a.INSPECTION_PERSON as INSPECTIONPERSON,
+		a.FREQUENCY as frequency,
+		a.EFFECT_STATUS as EFFECTSTATUS,
+		a.TENANTID as TENANTID,
+		a.DR as dr,
+		a.FINISH_NUMBER as finishNumber,
+		a.title as title
+		from
+		prg_inspection_all a
+		where dr = 0
+		and
+		TENANTID =#{0}
+		AND INSPECTION_PERSON_ID like concat('%', #{1},'%')
+		and EFFECT_STATUS =1
+	</select>
+	<!-- 模糊未完成 -->
+	<select id="dimListInspection" resultType="Inspection">
+		select
+		a.id as id,
+		a.INSPECTION as INSPECTION,
+		a.INSPECTION_START_TIME as
+		INSPECTIONSTARTTIME,
+		a.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		a.INSPECTION_PERSON as INSPECTIONPERSON,
+		a.FREQUENCY as frequency,
+		a.EFFECT_STATUS as EFFECTSTATUS,
+		a.TENANTID as TENANTID,
+		a.DR as dr,
+		a.FINISH_NUMBER as finishNumber,
+		a.title as title
+		from
+		prg_inspection_all a
+		where dr = 0
+		and
+		TENANTID =#{0}
+		AND INSPECTION_PERSON_ID like concat('%', #{1},'%')
+		and EFFECT_STATUS =1
+		and title LIKE #{2}
+	</select>
+	<select id="inspectionEnd" resultType="Inspection">
+		select
+		a.id as id,
+		a.INSPECTION as INSPECTION,
+		a.INSPECTION_START_TIME as
+		INSPECTIONSTARTTIME,
+		a.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		a.INSPECTION_PERSON as INSPECTIONPERSON,
+		a.FREQUENCY as frequency,
+		a.EFFECT_STATUS as EFFECTSTATUS,
+		a.TENANTID as TENANTID,
+		a.DR as dr,
+		a.FINISH_NUMBER as finishNumber,
+		a.title as title
+		from
+		prg_inspection_all a
+		where dr = 0
+		and
+		TENANTID =#{0}
+		AND INSPECTION_PERSON_ID like concat('%', #{1},'%')
+		and EFFECT_STATUS =3
+	</select>
+	<!-- 模糊已完成 -->
+	<select id="dimInspectionEnd" resultType="Inspection">
+		select
+		a.id as id,
+		a.INSPECTION as INSPECTION,
+		a.INSPECTION_START_TIME as
+		INSPECTIONSTARTTIME,
+		a.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		a.INSPECTION_PERSON as INSPECTIONPERSON,
+		a.FREQUENCY as frequency,
+		a.EFFECT_STATUS as EFFECTSTATUS,
+		a.TENANTID as TENANTID,
+		a.DR as dr,
+		a.FINISH_NUMBER as finishNumber,
+		a.title as title
+		from
+		prg_inspection_all a
+		where dr = 0
+		and
+		TENANTID =#{0}
+		AND INSPECTION_PERSON_ID like concat('%', #{1},'%')
+		and EFFECT_STATUS =3
+		and title LIKE #{2}
+	</select>
+	<!-- 单个巡检计划 -->
+	<select id="singleInspection" resultType="Inspection">
+		select
+		a.id as id,
+		a.INSPECTION as INSPECTION,
+		a.INSPECTION_START_TIME as
+		INSPECTIONSTARTTIME,
+		a.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		a.INSPECTION_PERSON as INSPECTIONPERSON,
+		a.FREQUENCY as FREQUENCY,
+		a.EFFECT_STATUS as EFFECTSTATUS,
+		a.FINISH_NUMBER as finishNumber,
+		a.TENANTID as TENANTID,
+		a.DR as dr
+		from
+		prg_inspection_all a
+		where dr = 0
+		and ID =#{0}
+	</select>
+	<select id="deviceInfo" resultType="DeviceInspection">
+		select
+		a.ID as ID,
+		a.DEVICE_ID as DEVICEID,
+		a.DEVICE_NAME as DEVICENAME,
+		a.DEVICE_TYPE as DEVICETYPE,
+		a.REMARKS as REMARKS,
+		b.INSPECTION_START_TIME as INSPECTIONSTARTTIME,
+		b.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		b.INSPECTION_PERSON as
+		INSPECTIONPERSON,
+		b.TENANTID as TENANTID,
+		b.DR as dr
+		from
+		prg_device_management_middle a
+		INNER JOIN prg_inspection_all b ON
+		(a.parent_id= b.id)
+		where b.dr != 1
+	</select>
+
+	<select id="decorateInfo" resultType="DecorateInspection">
+		select
+		a.ID as ID,
+		a.DECO_APPROVAL_ID as DECOAPPROVALID,
+		a.DECO_APPROVAL_STATE as DECOAPPROVALSTATE,
+		a.TENANT as TENANT,
+		a.TENANT_CON as TENANTCON,
+		a.DECO_SURE_COST as DECOSURECOST,
+		a.DECO_TIME_STRAT as DECOTIMESTART,
+		a.DECO_TIME_END as DECOTIMEEND,
+		a.CHECK_STATE as CHECKSTATE,
+		a.REMARKS as REMARKS,
+		b.INSPECTION as INSPECTION,
+		b.INSPECTION_START_TIME as INSPECTIONSTARTTIME,
+		b.INSPECTION_END_TIME as INSPECTIONENDTIME,
+		b.INSPECTION_PERSON as
+		INSPECTIONPERSON,
+		b.TENANTID as TENANTID,
+		b.DR as dr
+		from
+		prg_decoration_reg_middle a
+		INNER JOIN prg_inspection_all b ON
+		(a.parent_id = b.id)
+		where b.dr != 1
+	</select>
+
+	<select id="kongguanInfo" resultType="KongguanInspection">
+		select
+		a.ID as ID,
+		a.HOUSING_RESOURCES_ID as HOUSINGRESOURCESID,
+		a.HOUSING_RESOURCES_NAME
+		as HOUSINGRESOURCESNAME,
+		b.INSPECTION as INSPECTION,
+		b.INSPECTION_START_TIME as INSPECTIONSTARTTIME,
+		b.INSPECTION_END_TIME
+		as INSPECTIONENDTIME,
+		b.INSPECTION_PERSON as INSPECTIONPERSON,
+		b.TENANTID as TENANTID,
+		b.DR as dr
+		from
+		prg_house_middle a
+		INNER JOIN prg_inspection_all b ON (a.parent_id =
+		b.id)
+		where b.dr != 1
+	</select>
+
+	<select id="buildingInfo" resultType="BuildingInspection">
+		select
+		a.ID as ID,
+		a.INSPECTION_ID as INSPECTIONID,
+		a.INSPECTION_NAME as INSPECTIONNAME,
+		a.REMARKS as REMARKS,
+		b.INSPECTION as INSPECTION,
+		b.INSPECTION_START_TIME as INSPECTIONSTARTTIME,
+		b.INSPECTION_END_TIME
+		as INSPECTIONENDTIME,
+		b.INSPECTION_PERSON as INSPECTIONPERSON,
+		b.TENANTID as TENANTID,
+		b.DR as dr
+		from
+		prg_inspection_mana_middle a
+		INNER JOIN prg_inspection_all b ON
+		(a.parent_id = b.id)
+		where b.dr != 1
+	</select>
+
+	<select id="repairInfo" resultType="RepairInspection">
+		select
+		a.DEVICE_ID as
+		DEVICEID,
+		a.DEVICE_NAME as DEVICENAME,
+		a.TAIN_TYPE as TAINTYPE,
+		a.PLAN_START_TIME as PLANSTARTTIME,
+		a.PLAN_END_TIME as PLANENDTIME,
+		a.TAIN_PERSON as TAINPERSON,
+		a.TAIN_COMPANY as TAINCOMPANY,
+		a.TAIN_REQ
+		as TAINREQ,
+		a.TAIN_STANDARD as TAINSTANDARD,
+		a.WILL_TAIN_COST as
+		WILLTAINCOST,
+		a.TAIN_CONTENT as TAINCONTENT,
+		a.PHONE_PERSON as
+		PHONEPERSON,
+		a.PHONE as PHONE,
+		a.REMARKS as REMARKS
+		from
+		prg_device_tain_plan a
+		INNER JOIN prg_inspection_all b ON (a.id = b.id)
+		where b.dr != 1
+	</select>
+
+	<insert id="save"
+		parameterType="com.htyw.app.engineeringPolling.pojo.Inspection.InspectionReport">
+		insert into prg_situation_report (ID, PARENT_ID, INSPECTION,
+		REPORT_TYPE, INSPECTION_LOCATION,
+		INSPECTION_PERSON,
+		REPORT_TIME, REPORT_CONTENT, REPORT_PICTURE_FILE,
+		TENANTID, NORMAL)
+		values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT},
+		#{inspection,jdbcType=CHAR},
+		#{reportType,jdbcType=CHAR},
+		#{inspectionLocation,jdbcType=VARCHAR},
+		#{inspectionPerson,jdbcType=VARCHAR},
+
+		#{reportTime,jdbcType=DATE}, #{reportContent,jdbcType=VARCHAR},
+		#{reportPictureFile,jdbcType=VARCHAR},
+		#{tenantId,jdbcType=BIGINT}, #{normal,jdbcType=CHAR})
+	</insert>
+
+	<insert id="savePublic" parameterType="PublicReport">
+		insert into
+		prg_situation_report(
+		ID,
+		REPORT_TYPE,
+		PUBLIC_REPORT_TYPE,
+		INSPECTION_PERSON,
+		PUBLIC_REEPORT_LOCATION,
+		REPORT_TIME,
+		REPORT_CONTENT,
+		REPORT_PICTURE_FILE,
+		TENANT_ID
+		)VALUES(
+		#{id},
+		#{reportType},
+		#{publicReportType},
+		#{inspectionPerson},
+		#{publicReportLocation},
+		#{reportTime},
+		#{reportContent},
+		#{reportPictureFile},
+		#{tenantId}
+		)
+	</insert>
+
+	<!-- 增加上报次数 -->
+	<update id="updataFinishNumber">
+		UPDATE prg_inspection_all SET FINISH_NUMBER = #{0}
+		WHERE ID = #{1}
+	</update>
+	<!-- 修改完成状态 -->
+	<update id="changeState">
+		UPDATE prg_inspection_all SET EFFECT_STATUS = 3
+		WHERE ID = #{0}
+	</update>
+
+	<!-- 获取设备对象 -->
+	<select id="getDevice" resultType="String">
+		SELECT DEVICE_NAME FROM
+		prg_device_management_middle WHERE PARENT_ID= #{0}
+	</select>
+	<!-- 获取装修对象 -->
+	<select id="getDecoration" resultType="String">
+		SELECT FORM_TENANT FROM
+		prg_decoration_reg_middle WHERE PARENT_ID= #{0}
+	</select>
+	<!-- 获取装修对象 -->
+	<select id="getKongGuan" resultType="String">
+		SELECT HOUSING_RESOURCES_NAME FROM
+		prg_house_middle WHERE PARENT_ID= #{0}
+	</select>
+	<!-- 获取园区楼宇对象 -->
+	<select id="getPremises" resultType="String">
+		SELECT INSPECTION_NAME FROM
+		prg_inspection_mana_middle WHERE PARENT_ID= #{0}
+	</select>
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.baseCommunityDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseCommunity">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="COMMUNITY_NAME" jdbcType="VARCHAR" property="communityName" />
+    <result column="COMMUNITY_ADDRESS" jdbcType="VARCHAR" property="communityAddress" />
+    <result column="DEVELOPERS_PHONE" jdbcType="VARCHAR" property="developersPhone" />
+    <result column="BUILT_DATE" jdbcType="DATE" property="builtDate" />
+    <result column="LAND_AREA" jdbcType="DECIMAL" property="landArea" />
+    <result column="PROPERTY_ADDRESS" jdbcType="VARCHAR" property="propertyAddress" />
+    <result column="PROPERTY_PHONE" jdbcType="VARCHAR" property="propertyPhone" />
+    <result column="VILLAGE_NUMBER" jdbcType="BIGINT" property="villageNumber" />
+    <result column="COMMUNITY_PHOTO" jdbcType="VARCHAR" property="communityPhoto" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="ORGANIZATION_NAME" jdbcType="VARCHAR" property="organizationName" />
+    <result column="BILL_STATUS" jdbcType="CHAR" property="billStatus" />
+    <result column="DR" jdbcType="CHAR" property="dr" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, COMMUNITY_NAME, COMMUNITY_ADDRESS, DEVELOPERS_PHONE, BUILT_DATE, LAND_AREA, PROPERTY_ADDRESS, 
+    PROPERTY_PHONE, VILLAGE_NUMBER, COMMUNITY_PHOTO, REMARK, TENANTID, CREATOR_ID, CREATOR_NAME, 
+    ORGANIZATION_ID, ORGANIZATION_NAME, BILL_STATUS, DR, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_community
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_community
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseCommunity">
+    insert into base_community (ID, COMMUNITY_NAME, COMMUNITY_ADDRESS, 
+      DEVELOPERS_PHONE, BUILT_DATE, LAND_AREA, 
+      PROPERTY_ADDRESS, PROPERTY_PHONE, VILLAGE_NUMBER, 
+      COMMUNITY_PHOTO, REMARK, TENANTID, 
+      CREATOR_ID, CREATOR_NAME, ORGANIZATION_ID, 
+      ORGANIZATION_NAME, BILL_STATUS, DR, 
+      VERSION)
+    values (#{id,jdbcType=BIGINT}, #{communityName,jdbcType=VARCHAR}, #{communityAddress,jdbcType=VARCHAR}, 
+      #{developersPhone,jdbcType=VARCHAR}, #{builtDate,jdbcType=DATE}, #{landArea,jdbcType=DECIMAL}, 
+      #{propertyAddress,jdbcType=VARCHAR}, #{propertyPhone,jdbcType=VARCHAR}, #{villageNumber,jdbcType=BIGINT}, 
+      #{communityPhoto,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, 
+      #{creatorId,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT}, 
+      #{organizationName,jdbcType=VARCHAR}, #{billStatus,jdbcType=CHAR}, #{dr,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseCommunity">
+    insert into base_community
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="communityName != null">
+        COMMUNITY_NAME,
+      </if>
+      <if test="communityAddress != null">
+        COMMUNITY_ADDRESS,
+      </if>
+      <if test="developersPhone != null">
+        DEVELOPERS_PHONE,
+      </if>
+      <if test="builtDate != null">
+        BUILT_DATE,
+      </if>
+      <if test="landArea != null">
+        LAND_AREA,
+      </if>
+      <if test="propertyAddress != null">
+        PROPERTY_ADDRESS,
+      </if>
+      <if test="propertyPhone != null">
+        PROPERTY_PHONE,
+      </if>
+      <if test="villageNumber != null">
+        VILLAGE_NUMBER,
+      </if>
+      <if test="communityPhoto != null">
+        COMMUNITY_PHOTO,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME,
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID,
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME,
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS,
+      </if>
+      <if test="dr != null">
+        DR,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="communityName != null">
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="communityAddress != null">
+        #{communityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="developersPhone != null">
+        #{developersPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="builtDate != null">
+        #{builtDate,jdbcType=DATE},
+      </if>
+      <if test="landArea != null">
+        #{landArea,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyAddress != null">
+        #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPhone != null">
+        #{propertyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="villageNumber != null">
+        #{villageNumber,jdbcType=BIGINT},
+      </if>
+      <if test="communityPhoto != null">
+        #{communityPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseCommunity">
+    update base_community
+    <set>
+      <if test="communityName != null">
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="communityAddress != null">
+        COMMUNITY_ADDRESS = #{communityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="developersPhone != null">
+        DEVELOPERS_PHONE = #{developersPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="builtDate != null">
+        BUILT_DATE = #{builtDate,jdbcType=DATE},
+      </if>
+      <if test="landArea != null">
+        LAND_AREA = #{landArea,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyAddress != null">
+        PROPERTY_ADDRESS = #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPhone != null">
+        PROPERTY_PHONE = #{propertyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="villageNumber != null">
+        VILLAGE_NUMBER = #{villageNumber,jdbcType=BIGINT},
+      </if>
+      <if test="communityPhoto != null">
+        COMMUNITY_PHOTO = #{communityPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorName != null">
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null">
+        ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      </if>
+      <if test="dr != null">
+        DR = #{dr,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.baseCommunity.baseCommunity">
+    update base_community
+    set COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      COMMUNITY_ADDRESS = #{communityAddress,jdbcType=VARCHAR},
+      DEVELOPERS_PHONE = #{developersPhone,jdbcType=VARCHAR},
+      BUILT_DATE = #{builtDate,jdbcType=DATE},
+      LAND_AREA = #{landArea,jdbcType=DECIMAL},
+      PROPERTY_ADDRESS = #{propertyAddress,jdbcType=VARCHAR},
+      PROPERTY_PHONE = #{propertyPhone,jdbcType=VARCHAR},
+      VILLAGE_NUMBER = #{villageNumber,jdbcType=BIGINT},
+      COMMUNITY_PHOTO = #{communityPhoto,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT},
+      ORGANIZATION_NAME = #{organizationName,jdbcType=VARCHAR},
+      BILL_STATUS = #{billStatus,jdbcType=CHAR},
+      DR = #{dr,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 根据租户id查新 -->
+  <select id="communityList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_community
+    where TENANTID = #{tenantid,jdbcType=BIGINT}
+  </select>
+</mapper>

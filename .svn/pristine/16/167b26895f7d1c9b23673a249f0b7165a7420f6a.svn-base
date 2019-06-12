@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.reportGenre.dao.ReportGenreDetailsDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.reportGenre.pojo.ReportGenreDetails">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="REPORT_GENRE_ID" jdbcType="BIGINT" property="reportGenreId" />
+    <result column="REPORT_NAME" jdbcType="VARCHAR" property="reportName" />
+    <result column="REPORT_TIME" jdbcType="VARCHAR" property="reportTime" />
+    <result column="SITE" jdbcType="VARCHAR" property="site" />
+    <result column="DETAILS" jdbcType="VARCHAR" property="details" />
+    <result column="PICTURE" jdbcType="VARCHAR" property="picture" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="REPORT_GENRE" jdbcType="VARCHAR" property="reportGenre" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REPORT_GENRE_ID, REPORT_NAME, REPORT_TIME, SITE, DETAILS, PICTURE, TENANTID, 
+    REPORT_GENRE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from report_genre_details
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from report_genre_details
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.reportGenre.pojo.ReportGenreDetails">
+    insert into report_genre_details (ID, REPORT_GENRE_ID, REPORT_NAME, 
+      REPORT_TIME, SITE, DETAILS, 
+      PICTURE, TENANTID, REPORT_GENRE
+      )
+    values (#{id,jdbcType=BIGINT}, #{reportGenreId,jdbcType=BIGINT}, #{reportName,jdbcType=VARCHAR}, 
+      #{reportTime,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{tenantid,jdbcType=BIGINT}, #{reportGenre,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.reportGenre.pojo.ReportGenreDetails">
+    insert into report_genre_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="reportGenreId != null">
+        REPORT_GENRE_ID,
+      </if>
+      <if test="reportName != null">
+        REPORT_NAME,
+      </if>
+      <if test="reportTime != null">
+        REPORT_TIME,
+      </if>
+      <if test="site != null">
+        SITE,
+      </if>
+      <if test="details != null">
+        DETAILS,
+      </if>
+      <if test="picture != null">
+        PICTURE,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="reportGenre != null">
+        REPORT_GENRE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="reportGenreId != null">
+        #{reportGenreId,jdbcType=BIGINT},
+      </if>
+      <if test="reportName != null">
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="reportGenre != null">
+        #{reportGenre,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.reportGenre.pojo.ReportGenreDetails">
+    update report_genre_details
+    <set>
+      <if test="reportGenreId != null">
+        REPORT_GENRE_ID = #{reportGenreId,jdbcType=BIGINT},
+      </if>
+      <if test="reportName != null">
+        REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        REPORT_TIME = #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        SITE = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        DETAILS = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        PICTURE = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="reportGenre != null">
+        REPORT_GENRE = #{reportGenre,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.reportGenre.pojo.ReportGenreDetails">
+    update report_genre_details
+    set REPORT_GENRE_ID = #{reportGenreId,jdbcType=BIGINT},
+      REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+      REPORT_TIME = #{reportTime,jdbcType=VARCHAR}, 
+      SITE = #{site,jdbcType=VARCHAR},
+      DETAILS = #{details,jdbcType=VARCHAR},
+      PICTURE = #{picture,jdbcType=VARCHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      REPORT_GENRE = #{reportGenre,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

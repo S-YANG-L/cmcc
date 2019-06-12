@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.contact.dao.ContactDao">
+	<!-- 员工 -->
+	<select id="listStaff" resultType="Contact">
+		select
+		a.id as id,
+		a.name as
+		name,
+		a.custom3 as custom3,
+		a.email as email,
+		a.organization_id as
+		organizationId,
+		a.organization_name as
+		organizationName,
+		a.employee_id
+		as employeeId,
+		a.head_image_url as
+		headImageUrl,
+		a.tenantid as tenantId,
+		a.DR as dr
+		from
+		rm_user a
+		<where>
+			a.dr != 1 and
+			a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+				AND a.name like concat('%', #{name} ,'%')
+			</if>
+			<if test="organizationName != null and organizationName !=''">
+				AND a.organization_name like concat('%',
+				#{organizationName} ,'%')
+			</if>
+			<if test="organizationId != null and organizationId != '' ">
+				AND a.organization_id =#{organizationId}
+			</if>
+		</where>
+	</select>
+	<!-- 个人客户 -->
+	<select id="listClientP" resultType="IndividualClient">
+		select
+		a.id as id,
+		a.CUSTOMER_NAME as
+		CUSTOMERNAME,
+		a.CONTACT_NUMBER as
+		CONTACTNUMBER,
+		a.email as email,
+		a.CONTACT_ADDRESS as
+		CONTACTADDRESS,
+		a.head_image_url as
+		headImageUrl,
+		a.tenantid as tenantId,
+		a.DR as dr
+		from
+		rent_individual_customers a
+		<where>
+			a.dr != 1 and
+			a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="CUSTOMERNAME != null and CUSTOMERNAME !=''">
+				AND a.CUSTOMER_NAME like concat('%', #{CUSTOMERNAME}
+				,'%')
+			</if>
+
+		</where>
+	</select>
+	<!-- 公司 -->
+	<select id="listClientG" resultType="CompanyClient">
+		SELECT
+		a.id AS id,
+		a.company_name AS companyName,
+		a.company_abbreviation
+		as companyAbbrevition,
+		a.tax_household_management as
+		taxHouseholdManagement,
+		a.corporate_representative as
+		corporateRepresentative,
+		a.organizational_code as organizationalCode,
+		a.business_license_number as businessLicenseNumber,
+		a.tax_license_number as taxLicenseNumber,
+		A.taxpayer_identification_number AS taxpayeridentificationNumber,
+		a.business_scope as businessScope,
+		a.registered_capital as
+		registeredCapital,
+		a.operating_period as operatingPeriod,
+		a.registered_address as registeredAddress,
+		a.business_address AS
+		businessAddress,
+		a.other_contact_addresse as otherContactAddresse,
+		a.company_telephone AS companyTelephone,
+		a.postal_code as postalCode,
+		a.fax as fax,
+		a.reception_clerk as receptionClerk,
+		a.email AS email,
+		a.open_bank_and_account_number as openBankAndAccountNumber,
+		a.mobile_phone as mobilePhone,
+		a.contacts as contacts,
+		a.reception_date
+		as receptionDate,
+		a.reception_time as receptionTime,
+		a.access_type as
+		accessType,
+		a.reception_message as receptionMessage,
+		a.merchant_license
+		as merchantLicense,
+		a.head_image_url as
+		headImageUrl,
+		a.tenantid AS
+		tenantId,
+		a.DR AS dr
+		FROM
+		rent_company_customer a
+		<where>
+			a.dr != 1 and
+			a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="companyName != null and companyName !=''">
+				AND a.company_name like concat('%', #{companyName} ,'%')
+			</if>
+		</where>
+	</select>
+</mapper>
+

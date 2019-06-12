@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.engineeringPolling.mapper.PrgInspectionReportDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.engineeringPolling.pojo.PrgInspectionReport">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="PRG_INSPECTION_ALL_ID" jdbcType="VARCHAR" property="prgInspectionAllId" />
+    <result column="INSPECTION_ID" jdbcType="VARCHAR" property="inspectionId" />
+    <result column="PERSON_ID" jdbcType="VARCHAR" property="personId" />
+    <result column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+    <result column="REPORT_DATE" jdbcType="VARCHAR" property="reportDate" />
+    <result column="INSPECTION_ALL_THEME" jdbcType="VARCHAR" property="inspectionAllTheme" />
+    <result column="INSPECTION_THEME" jdbcType="VARCHAR" property="inspectionTheme" />
+    <result column="PICTURE" jdbcType="VARCHAR" property="picture" />
+    <result column="IS_NORMAL" jdbcType="VARCHAR" property="isNormal" />
+    <result column="IS_FINISH" jdbcType="VARCHAR" property="isFinish" />
+    <result column="INSPECTION_NUM" jdbcType="VARCHAR" property="inspectionNum" />
+    <result column="SURPLUS_NUM" jdbcType="VARCHAR" property="surplusNum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="tenantId" jdbcType="VARCHAR" property="tenantid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, PRG_INSPECTION_ALL_ID, INSPECTION_ID, PERSON_ID, PERSON_NAME, REPORT_DATE, INSPECTION_ALL_THEME, 
+    INSPECTION_THEME, PICTURE, IS_NORMAL, IS_FINISH, INSPECTION_NUM, SURPLUS_NUM, remark, 
+    tenantId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_inspection_report
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prg_inspection_report
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.engineeringPolling.pojo.PrgInspectionReport">
+    insert into prg_inspection_report (id, PRG_INSPECTION_ALL_ID, INSPECTION_ID, 
+      PERSON_ID, PERSON_NAME, REPORT_DATE, 
+      INSPECTION_ALL_THEME, INSPECTION_THEME, PICTURE, 
+      IS_NORMAL, IS_FINISH, INSPECTION_NUM, 
+      SURPLUS_NUM, remark, tenantId
+      )
+    values (#{id,jdbcType=BIGINT}, #{prgInspectionAllId,jdbcType=VARCHAR}, #{inspectionId,jdbcType=VARCHAR}, 
+      #{personId,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{reportDate,jdbcType=VARCHAR}, 
+      #{inspectionAllTheme,jdbcType=VARCHAR}, #{inspectionTheme,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{isNormal,jdbcType=VARCHAR}, #{isFinish,jdbcType=VARCHAR}, #{inspectionNum,jdbcType=VARCHAR}, 
+      #{surplusNum,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tenantid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.engineeringPolling.pojo.PrgInspectionReport">
+    insert into prg_inspection_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="prgInspectionAllId != null">
+        PRG_INSPECTION_ALL_ID,
+      </if>
+      <if test="inspectionId != null">
+        INSPECTION_ID,
+      </if>
+      <if test="personId != null">
+        PERSON_ID,
+      </if>
+      <if test="personName != null">
+        PERSON_NAME,
+      </if>
+      <if test="reportDate != null">
+        REPORT_DATE,
+      </if>
+      <if test="inspectionAllTheme != null">
+        INSPECTION_ALL_THEME,
+      </if>
+      <if test="inspectionTheme != null">
+        INSPECTION_THEME,
+      </if>
+      <if test="picture != null">
+        PICTURE,
+      </if>
+      <if test="isNormal != null">
+        IS_NORMAL,
+      </if>
+      <if test="isFinish != null">
+        IS_FINISH,
+      </if>
+      <if test="inspectionNum != null">
+        INSPECTION_NUM,
+      </if>
+      <if test="surplusNum != null">
+        SURPLUS_NUM,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="tenantid != null">
+        tenantId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="prgInspectionAllId != null">
+        #{prgInspectionAllId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionId != null">
+        #{inspectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDate != null">
+        #{reportDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionAllTheme != null">
+        #{inspectionAllTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionTheme != null">
+        #{inspectionTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="isNormal != null">
+        #{isNormal,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionNum != null">
+        #{inspectionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusNum != null">
+        #{surplusNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.engineeringPolling.pojo.PrgInspectionReport">
+    update prg_inspection_report
+    <set>
+      <if test="prgInspectionAllId != null">
+        PRG_INSPECTION_ALL_ID = #{prgInspectionAllId,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionId != null">
+        INSPECTION_ID = #{inspectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        PERSON_ID = #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDate != null">
+        REPORT_DATE = #{reportDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionAllTheme != null">
+        INSPECTION_ALL_THEME = #{inspectionAllTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionTheme != null">
+        INSPECTION_THEME = #{inspectionTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        PICTURE = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="isNormal != null">
+        IS_NORMAL = #{isNormal,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        IS_FINISH = #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionNum != null">
+        INSPECTION_NUM = #{inspectionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusNum != null">
+        SURPLUS_NUM = #{surplusNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantid != null">
+        tenantId = #{tenantid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.engineeringPolling.pojo.PrgInspectionReport">
+    update prg_inspection_report
+    set PRG_INSPECTION_ALL_ID = #{prgInspectionAllId,jdbcType=VARCHAR},
+      INSPECTION_ID = #{inspectionId,jdbcType=VARCHAR},
+      PERSON_ID = #{personId,jdbcType=VARCHAR},
+      PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      REPORT_DATE = #{reportDate,jdbcType=VARCHAR},
+      INSPECTION_ALL_THEME = #{inspectionAllTheme,jdbcType=VARCHAR},
+      INSPECTION_THEME = #{inspectionTheme,jdbcType=VARCHAR},
+      PICTURE = #{picture,jdbcType=VARCHAR},
+      IS_NORMAL = #{isNormal,jdbcType=VARCHAR},
+      IS_FINISH = #{isFinish,jdbcType=VARCHAR},
+      INSPECTION_NUM = #{inspectionNum,jdbcType=VARCHAR},
+      SURPLUS_NUM = #{surplusNum,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      tenantId = #{tenantid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 查询详情 -->
+  <select id="getReportDetail" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prg_inspection_report
+    where INSPECTION_ID =#{0}
+		and PRG_INSPECTION_ALL_ID =#{1}
+		and PERSON_ID =#{2}
+		ORDER BY  REPORT_DATE  DESC
+  </select>
+  
+</mapper>

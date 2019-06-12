@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.workOrder.dao.WorkOrderDao">
+	<select id="listOrder" resultType="WorkOrder">
+		SELECT
+		a.id as id,
+		a.BILL_NUMBER AS billNumber,
+		a.REAL_ESTATE_CUSTOMER_ID AS
+		realEstateCustomerId,
+		a.CONTACTS as
+		contacts,
+		a.repair_people as repairPeople,
+		a.HOUSE_NAME as houseName,
+		a.CONTACT_NUMBER as contactNumber,
+		a.ORDER_CONTENT as orderContent,
+		a.CONTACT_ADDRESS as contactAddress,
+		a.ORDER_TYPE as orderType,
+		a.ORDER_STATUS as orderStatus,
+		a.draft_date as draftDate,
+		a.COMPLAINT_PEOPLE as complaintPeople,
+		a.SINGLE_PERSON as singlePerson,
+		a.SINGLE_ID as singleId,
+		a.COMPLAINT_PHONE as
+		complaintPhone,
+		a.repair_date as repairDate,
+		a.repair_position as repairPosition,
+		a.repair_content as repairContent,
+		a.REAL_ESTATE_CUSTOMER as
+		realEstateCustomer,
+		a.COMPLAINT_SEX as
+		complaintSex,
+		a.customer_event as
+		customerEvent,
+		a.customer_event_source as customerEventSource,
+		a.complaint_content as
+		complaintContent,
+		a.appointment_date as
+		appointmentDate,
+		a.service_address as serviceAddress,
+		a.service_content
+		as serviceContent,
+		a.service_type as serviceType,
+		a.REPAIR_IMAGE as repairImage,
+		a.remark as remark,
+		a.TENANTID as tenantId
+		FROM
+		order_business_draft a
+		<where>
+			a.dr != 1
+			and a.ORDER_STATUS in (4,6)
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="realEstateCustomerId != null and realEstateCustomerId != ''">
+				AND (a.REAL_ESTATE_CUSTOMER_ID like concat('%'
+				,#{realEstateCustomerId},'%'))
+			</if>
+			<if test="orderContent != null and orderContent != ''">
+				AND (a.order_content like
+				concat('%',#{orderContent},'%'))
+			</if>
+			<if test="contacts != null and contacts != ''">
+				AND (a.CONTACTS like concat('%' ,#{contacts},'%'))
+			</if>
+		</where>
+		order by a.draft_date desc
+	</select>
+	<select id="listOrderRcd" resultType="WorkOrder">
+		SELECT
+		a.id as id,
+		a.BILL_NUMBER AS billNumber,
+		a.REAL_ESTATE_CUSTOMER_ID AS
+		realEstateCustomerId,
+		a.CONTACTS as
+		contacts,
+		a.repair_people as repairPeople,
+		a.HOUSE_NAME as houseName,
+		a.CONTACT_NUMBER as contactNumber,
+		a.ORDER_CONTENT as orderContent,
+		a.CONTACT_ADDRESS as contactAddress,
+		a.ORDER_TYPE as orderType,
+		a.ORDER_STATUS as orderStatus,
+		a.draft_date as draftDate,
+		a.COMPLAINT_PEOPLE as complaintPeople,
+		a.SINGLE_PERSON as singlePerson,
+		a.SINGLE_ID as singleId,
+		a.COMPLAINT_PHONE as
+		complaintPhone,
+		a.repair_date as repairDate,
+		a.repair_position as repairPosition,
+		a.repair_content as repairContent,
+		a.REAL_ESTATE_CUSTOMER as
+		realEstateCustomer,
+		a.COMPLAINT_SEX as
+		complaintSex,
+		a.customer_event as
+		customerEvent,
+		a.customer_event_source as customerEventSource,
+		a.complaint_content as
+		complaintContent,
+		a.appointment_date as
+		appointmentDate,
+		a.service_address as serviceAddress,
+		a.service_content
+		as serviceContent,
+		a.service_type as serviceType,
+		a.REPAIR_IMAGE as
+		repairImage,
+		a.remark as remark,
+		a.PROCESS_PICTURE as processPicture,
+		a.TENANTID as tenantId
+		FROM
+		order_business_draft a
+		<where>
+			a.dr != 1
+			and a.ORDER_STATUS not in (0,4,6)
+			and a.tenantid=#{tenantId}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="orderStatus != null and orderStatus != ''">
+				AND a.ORDER_STATUS = #{orderStatus}
+			</if>
+			<if test="orderContent != null and orderContent != ''">
+				AND (a.order_content like
+				concat('%',#{orderContent},'%'))
+			</if>
+			<if test="realEstateCustomerId != null and realEstateCustomerId != ''">
+				AND (a.REAL_ESTATE_CUSTOMER_ID like concat('%'
+				,#{realEstateCustomerId},'%'))
+			</if>
+			<if test="contacts != null and contacts != ''">
+				AND (a.CONTACTS like concat('%' ,#{contacts},'%'))
+			</if>
+		</where>
+		order by a.draft_date desc
+	</select>
+	<!--save -->
+	<update id="save">
+		UPDATE order_business_draft SET
+		ORDER_STATUS =
+		#{orderStatus},
+		single_person =
+		#{singlePerson},
+		single_id =
+		#{singleId}
+		WHERE id = #{id}
+	</update>
+	<!-- 查询名称 -->
+	<select id="getName" resultType="java.lang.String">
+		SELECT NAME
+		FROM
+		rm_user
+		where ID =
+		#{0}
+	</select>
+</mapper>
+

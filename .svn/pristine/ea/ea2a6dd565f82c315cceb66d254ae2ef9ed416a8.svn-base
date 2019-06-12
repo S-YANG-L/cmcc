@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.htyw.app.customers.dao.CustomersDao">
+	<select id="listCustomers" resultType="Customers">
+		SELECT
+		a.CUSTOMER_ID as customerId,
+		a.CUSTOMER_NAME as customerName,
+		a.CONTACT_NUMBER as contactNumber,
+		a.TENANTID as tenantId
+		FROM
+		rent_contract_management a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="customerId != null and customerId != ''">
+				AND a.CUSTOMER_ID = #{customerId}
+			</if>
+			<if test="customerName != null and customerName != '' ">
+				AND a.CUSTOMER_NAME =#{customerName}
+			</if>
+		</where>
+	</select>
+	<select id="listContract" resultType="Contract">
+		SELECT
+		a.CUSTOMER_ID AS customerId,
+		a.CUSTOMER_NAME AS customerName,
+		a.CONTRACT_NUMBER as contractNumber,
+		a.CONTRACT_NAME as contractName,
+		a.CERTIFICATE_NUMBER as certificateNumber,
+		a.CONTACT_ADDRESS as
+		contactAddress,
+		a.EARNEST_MONEY as earnestMoney,
+		a.FIXED_RENT_DATE as
+		fixedRentDate,
+		a.SALESMAN as salesMan,
+		a.CONTRACT_STATUS as
+		contractStatus,
+		a.LEASE_START_DATE as leaseStartDate,
+		a.LEASE_END_DATE
+		as leaseEndDate,
+		a.CONTACT_NUMBER AS contactNumber,
+		a.TENANTID AS
+		tenantId
+		FROM
+		rent_contract_management a
+		<where>
+			a.dr != 1
+			and a.tenantid=#{tenantId}
+			<if test="customerId != null and customerId != ''">
+				AND a.CUSTOMER_ID = #{customerId}
+			</if>
+			<if test="customerName != null and customerName != '' ">
+				AND a.CUSTOMER_NAME =#{customerName}
+			</if>
+			<if test="contractNumber != null and contractNumber != '' ">
+				AND a.CONTRACT_NUMBER =#{contractNumber}
+			</if>
+			<if test="contractName != null and contractName != '' ">
+				AND a.CONTRACT_NAME =#{contractName}
+			</if>
+		</where>
+	</select>
+</mapper>
+

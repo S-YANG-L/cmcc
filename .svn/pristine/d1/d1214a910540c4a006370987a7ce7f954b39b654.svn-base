@@ -1,0 +1,46 @@
+package com.htyw.app.contract.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.htyw.app.contract.pojo.ContractList;
+import com.htyw.app.contract.service.ContractService;
+
+/*
+ * 租赁管理模块
+ * 
+ * 
+ * */
+// 告诉spring mvc这是个控制器
+@RestController
+@RequestMapping("contract")
+public class ContractController {
+	@Autowired
+	private ContractService contractService;
+
+	// 房源信息列表接口
+	@RequestMapping("listContract")
+	public Map<String, Object> listContract(ContractList contractList, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			List<ContractList> listContract = contractService.listContract(contractList);
+			result.put("listContract", listContract);
+			result.put("code", "200");
+			result.put("message", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("code", "302");
+			result.put("message", "fail");
+		}
+		return result;
+	}
+
+}

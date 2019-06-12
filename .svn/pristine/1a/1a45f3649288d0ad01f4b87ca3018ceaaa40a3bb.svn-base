@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htyw.app.checkingIN.dao.CheckingInClockDao">
+  <resultMap id="BaseResultMap" type="com.htyw.app.checkingIN.pojo.CheckingInClock">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="OFFICE_HOURS" jdbcType="TIME" property="officeHours" />
+    <result column="CLOSING_TIME" jdbcType="TIME" property="closingTime" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="TENANTID" jdbcType="BIGINT" property="tenantid" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="STAFF_ID" jdbcType="BIGINT" property="staffId" />
+    <result column="CHECKING_IN_DATE_ID" jdbcType="BIGINT" property="checkingInDateId" />
+    <result column="OUTWORKER" jdbcType="CHAR" property="outworker" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, OFFICE_HOURS, CLOSING_TIME, STATE, TENANTID, NAME, STAFF_ID, CHECKING_IN_DATE_ID, 
+    OUTWORKER, LOCATION
+  </sql>
+  <select id="selectByExample" parameterType="com.htyw.app.checkingIN.pojo.CheckingInClockExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checking_in_clock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from checking_in_clock
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from checking_in_clock
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htyw.app.checkingIN.pojo.CheckingInClock">
+    insert into checking_in_clock (ID, OFFICE_HOURS, CLOSING_TIME, 
+      STATE, TENANTID, NAME, 
+      STAFF_ID, CHECKING_IN_DATE_ID, OUTWORKER, 
+      LOCATION)
+    values (#{id,jdbcType=BIGINT}, #{officeHours,jdbcType=TIME}, #{closingTime,jdbcType=TIME}, 
+      #{state,jdbcType=CHAR}, #{tenantid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{staffId,jdbcType=BIGINT}, #{checkingInDateId,jdbcType=BIGINT}, #{outworker,jdbcType=CHAR}, 
+      #{location,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htyw.app.checkingIN.pojo.CheckingInClock">
+    insert into checking_in_clock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="officeHours != null">
+        OFFICE_HOURS,
+      </if>
+      <if test="closingTime != null">
+        CLOSING_TIME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="tenantid != null">
+        TENANTID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="staffId != null">
+        STAFF_ID,
+      </if>
+      <if test="checkingInDateId != null">
+        CHECKING_IN_DATE_ID,
+      </if>
+      <if test="outworker != null">
+        OUTWORKER,
+      </if>
+      <if test="location != null">
+        LOCATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="officeHours != null">
+        #{officeHours,jdbcType=TIME},
+      </if>
+      <if test="closingTime != null">
+        #{closingTime,jdbcType=TIME},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=BIGINT},
+      </if>
+      <if test="checkingInDateId != null">
+        #{checkingInDateId,jdbcType=BIGINT},
+      </if>
+      <if test="outworker != null">
+        #{outworker,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htyw.app.checkingIN.pojo.CheckingInClock">
+    update checking_in_clock
+    <set>
+      <if test="officeHours != null">
+        OFFICE_HOURS = #{officeHours,jdbcType=TIME},
+      </if>
+      <if test="closingTime != null">
+        CLOSING_TIME = #{closingTime,jdbcType=TIME},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="tenantid != null">
+        TENANTID = #{tenantid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        STAFF_ID = #{staffId,jdbcType=BIGINT},
+      </if>
+      <if test="checkingInDateId != null">
+        CHECKING_IN_DATE_ID = #{checkingInDateId,jdbcType=BIGINT},
+      </if>
+      <if test="outworker != null">
+        OUTWORKER = #{outworker,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htyw.app.checkingIN.pojo.CheckingInClock">
+    update checking_in_clock
+    set OFFICE_HOURS = #{officeHours,jdbcType=TIME},
+      CLOSING_TIME = #{closingTime,jdbcType=TIME},
+      STATE = #{state,jdbcType=CHAR},
+      TENANTID = #{tenantid,jdbcType=BIGINT},
+      NAME = #{name,jdbcType=VARCHAR},
+      STAFF_ID = #{staffId,jdbcType=BIGINT},
+      CHECKING_IN_DATE_ID = #{checkingInDateId,jdbcType=BIGINT},
+      OUTWORKER = #{outworker,jdbcType=CHAR},
+      LOCATION = #{location,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
